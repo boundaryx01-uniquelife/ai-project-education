@@ -1,7 +1,7 @@
-﻿# AI 프로젝트 교육 통합 프레임워크 결정 기록
+# AI 프로젝트 교육 통합 프레임워크 결정 기록
 
 - 작성일: 2026-08-05
-- 상태: PROPOSED_FOR_APPROVAL
+- 상태: DECIDED
 
 ## D00-01
 
@@ -34,3 +34,19 @@
 ## D00-08
 
 프로젝트 추진은 STAGE 00부터 STAGE 07까지 단계별 문서, 결정 기록과 핸드오프로 관리한다.
+
+## D00-09
+
+GitHub 공식 소유 계정은 `boundaryx01-uniquelife`이며 기준 저장소는 `boundaryx01-uniquelife/ai-project-education`이다.
+
+## D00-10
+
+정규 학습 환경은 채팅형 AI를 기본으로 하고, 코딩 에이전트와 MCP는 교사용 제작 또는 확장 과정으로 둔다.
+
+## D00-11
+
+모든 교육 레벨은 `DEFINE → COLLECT → STRUCTURE → BUILD → TEST → PUBLISH → IMPROVE` 공통 생명주기를 사용한다.
+
+## D00-12
+
+STAGE 00 완료 후 다음 단계는 전체 교육과정과 역량 체계를 확정하는 STAGE 01로 한다.
