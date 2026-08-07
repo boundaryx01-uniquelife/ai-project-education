@@ -66,17 +66,14 @@
   }
 
   function removeIntroGateNoise(){
-    const diffs=all("[data-diff]");
-    if(diffs.length===3&&diffs.every(el=>!el.checked)){
-      diffs.forEach(el=>{
+    all("[data-diff]").forEach(el=>{
+      if(!el.checked){
         el.checked=true;
         el.dispatchEvent(new Event("change",{bubbles:true}));
-      });
-    }
+      }
+    });
     const details=$(".promise-details");
-    if(details){
-      details.querySelector("summary").textContent="이 활동에서 지킬 3가지 원칙 보기";
-    }
+    if(details) details.querySelector("summary").textContent="이 활동에서 지킬 3가지 원칙 보기";
   }
 
   function watch(){
