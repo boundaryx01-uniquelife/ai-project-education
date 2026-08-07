@@ -7,8 +7,10 @@ $Module = Join-Path $Root "portal\modules\level-1-chat-agent"
 $RequiredFiles = @(
     "index.html",
     "styles.css",
+    "a11y.css",
     "data.js",
     "app.js",
+    "ux-v2.js",
     "README.md"
 )
 
@@ -21,12 +23,19 @@ foreach ($Name in $RequiredFiles) {
 
 $Html = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Module "app.js") -Raw
+$Ux = Get-Content -LiteralPath (Join-Path $Module "ux-v2.js") -Raw
 $Data = Get-Content -LiteralPath (Join-Path $Module "data.js") -Raw
 
 $Checks = @(
     @{ Name = "Relative CSS path"; Value = $Html.Contains('href="./styles.css"') },
     @{ Name = "Relative data path"; Value = $Html.Contains('src="./data.js"') },
     @{ Name = "Relative app path"; Value = $Html.Contains('src="./app.js"') },
+    @{ Name = "Relative UX path"; Value = $Html.Contains('src="./ux-v2.js"') },
+    @{ Name = "Result preview first"; Value = $Html.Contains("완성 예시") },
+    @{ Name = "Goal starter"; Value = $Html.Contains("내가 만들 에이전트의 목표") },
+    @{ Name = "AI exchange flow"; Value = $Html.Contains("AI와 주고받는 실제 활동") },
+    @{ Name = "Highlighted completion"; Value = $Html.Contains("마지막으로 여기만 확인") },
+    @{ Name = "Friendly stage labels"; Value = $Ux.Contains("목표 정하기") -and $Ux.Contains("AI로 시험하기") },
     @{ Name = "Local storage"; Value = $Js.Contains("localStorage") },
     @{ Name = "Context packet"; Value = $Js.Contains("function packet") },
     @{ Name = "State snapshot"; Value = $Js.Contains("function snapshot") },
