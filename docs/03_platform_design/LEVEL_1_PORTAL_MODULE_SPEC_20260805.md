@@ -1,7 +1,8 @@
 # LEVEL 1 포털 모듈 명세
 
 - 작성일: 2026-08-05
-- 상태: PROPOSED_FOR_APPROVAL
+- 승인일: 2026-08-07
+- 상태: DECIDED
 - 대상 모듈: 근거 기반 수업 프로젝트 설계 미니 에이전트
 - 구현 위치: `portal/modules/level-1-chat-agent/`
 
