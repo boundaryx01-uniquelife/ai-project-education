@@ -1,81 +1,98 @@
 # STAGE 03 구현 검증 기록
 
 - 작성일: 2026-08-07
+- UX 개정일: 2026-08-08
 - 대상: LEVEL 1 통합 포털 MVP
 - 브랜치: `feature/stage-03-level-1-portal`
-- 상태: `IMPLEMENTED_PENDING_RUNTIME_VALIDATION`
+- 상태: `USER_FEEDBACK_APPLIED_PENDING_RUNTIME_REVIEW`
 
-## 구현 범위
+## 현재 구현 구조
 
-- `portal/modules/level-1-chat-agent/` 신규 구현
-- `portal/index.html`에 LEVEL 1 진입 링크 추가
-- `portal/assets/styles.css`에 진입 카드 최소 스타일 추가
-- `tests/Test-Level1Portal.ps1` 정적 검증 스크립트 추가
+- 인트로: `portal/modules/level-1-chat-agent/index.html`
+- 따라하기: `portal/modules/level-1-chat-agent/workshop.html`
+- 단순화 스타일: `workshop-v3.css`
+- 단순화 로직: `workshop-v3.js`
+- 대상별 예시 데이터: `data.js`
+- 정적 검증: `tests/Test-Level1Portal.ps1`
 
-## 구현 기능
+## 사용자 피드백 반영
 
-- INTRO → DEFINE → COLLECT → STRUCTURE → BUILD → TEST → PUBLISH → IMPROVE
-- 최소 완료 게이트 자동 확인
-- 자료 S1~S3 입력
-- 처리 단계 4~6개와 위·아래 순서 이동
-- 에이전트 카드 자동 조립
-- `AI에게 보낼 작업 묶음(Context Packet)` 생성·복사
-- `State Snapshot` 자동 초안·수정
-- 정상·경계·실패 테스트
-- Markdown 미리보기·복사·다운로드
-- localStorage 자동 저장
-- 손상 데이터 덮어쓰기 방지와 복구 안내
-- 전체 데이터 삭제
-- 고대비 라이트 테마와 모바일 순차 레이아웃
+- 첫 화면과 실제 제작 화면 분리
+- 초등 / 중·고등 / 성인 선택 후 바로 따라하기 진입
+- 작업 화면은 SAMPLE / FOLLOW 2열
+- 선택 방식 재질문 제거
+- 필수 정보만 기본 노출
+- 보조 설명은 접힌 참고 영역
+- 각 단계에서 WEB 활동과 AI 활동을 별도 강조 블록으로 구분
+- AI 상호작용용 별도 사이드 패널 제거
+- 최종 에이전트 지침을 바로 복사 가능
+- 단계별 마지막 완료 확인 유지
+
+## 완성 결과 미니 데모
+
+워크숍 왼쪽 SAMPLE 영역에서 대상별 완성 결과의 형태를 직접 조작해 볼 수 있다.
+
+- 초등: 용돈·가격·필수지출을 넣고 구매 판단 결과 확인
+- 중·고등: 시험까지 남은 날·공부 가능 시간·과목을 넣고 계획 형태 확인
+- 성인: 여행 일수·예산·인원·취향을 넣고 일정 형태 확인
+
+이 데모는 AI 자체를 흉내 내는 것이 아니라, 학습자가 최종 산출물의 지향점을 먼저 이해하게 하는 로컬 정적 예시다.
+
+## 학습자 화면 6단계
+
+1. 목표
+2. 판단정보
+3. 작동순서
+4. 에이전트 생성
+5. AI 테스트
+6. 완성·개선
+
+내부 교육 생명주기 DEFINE → COLLECT → STRUCTURE → BUILD → TEST → PUBLISH → IMPROVE는 유지한다.
 
 ## 제외 확인
 
-다음 기능은 추가하지 않았다.
+- AI API / API Key 없음
+- 로그인 없음
+- DB / 서버 없음
+- MCP 없음
+- 자동 웹 검색 없음
+- 사용자 행동 추적 없음
+- 외부 CDN 필수 의존 없음
+- LEVEL 2 기능 없음
 
-- AI API / API Key
-- 로그인
-- DB / 서버
-- Firebase / Supabase
-- MCP
-- 자동 웹 검색
-- 사용자 행동 추적
-- 외부 CDN 의존
-- LEVEL 2 기능
+## 정적 검증 범위
 
-## 수행 검증
+`Test-Level1Portal.ps1`은 다음을 확인하도록 개정했다.
 
-### PASS
+- 인트로의 3개 대상별 워크숍 링크
+- `workshop-v3.css`, `workshop-v3.js`, `data.js` 상대 경로
+- SAMPLE / FOLLOW 구조
+- WEB / AI 구분 블록
+- 미니 데모 함수
+- 6단계 학습자 구조
+- 에이전트 지침 생성
+- AI 요청문 생성·복사
+- 최종 패키지 생성
+- localStorage
+- 외부 fetch 호출 없음
 
-- `data.js`: Node `--check` 문법 검사 통과
-- `app.js`: Node `--check` 문법 검사 통과
-- Git 비교: 브랜치는 `main` 대비 ahead, behind 0
-- 변경 범위: `portal/`, `tests/`와 구현 기록 문서에 한정
-- 상대 경로 사용: 모듈의 CSS/JS 및 포털 진입 링크
+PowerShell 스크립트는 ASCII-only로 유지한다.
 
-### CREATED_NOT_EXECUTED_ON_WINDOWS
+## RUNTIME_VALIDATION_REQUIRED
 
-- `tests/Test-Level1Portal.ps1`
-- Windows PowerShell 5.1 로컬 실행 필요
+브라우저 실제 사용 검토는 로컬에서 수행한다.
 
-### RUNTIME_VALIDATION_REQUIRED
+주요 검토 포인트:
 
-현재 실행 환경의 Chromium headless가 정상 종료되지 않아 실제 브라우저 클릭 흐름을 자동 검증하지 못했다.
-
-병합 전 로컬에서 최소 다음을 확인한다.
-
-1. 최초 진입 시 INTRO 표시
-2. DEFINE 입력 후 새로고침 복구
-3. S1~S3 입력 전 COLLECT 미완료
-4. STRUCTURE 4개 단계 게이트
-5. 정상·경계·실패 TEST 게이트
-6. Context Packet 복사
-7. State Snapshot 생성
-8. Markdown 다운로드
-9. 전체 삭제
-10. 키보드 단계 이동과 입력
+1. 인트로에서 대상 선택이 즉시 이해되는가
+2. 워크숍 진입 후 SAMPLE / FOLLOW 구조가 한눈에 보이는가
+3. 왼쪽 미니 데모가 최종 결과물의 지향점을 보여주는가
+4. 한 화면에서 작성할 내용이 과도하지 않은가
+5. WEB과 AI 활동이 혼동되지 않는가
+6. 최종 에이전트 복사가 자연스러운가
 
 ## 판정
 
-`CODE_STATIC_PASS_RUNTIME_LOCAL_REQUIRED`
+`USER_FEEDBACK_APPLIED_PENDING_RUNTIME_REVIEW`
 
-코드 구현 후보는 준비되었으나 실제 브라우저 런타임 검증 전에는 STAGE 03을 COMPLETE로 선언하지 않는다.
+로컬 검토와 이후 GitHub Pages 검증 전에는 STAGE 03을 COMPLETE로 선언하지 않는다.
