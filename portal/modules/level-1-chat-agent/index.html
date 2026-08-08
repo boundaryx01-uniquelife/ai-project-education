@@ -14,9 +14,9 @@
   <header class="topbar">
     <div>
       <a class="home-link" href="../../index.html">AI 프로젝트 교육 통합 프레임워크</a>
-      <p class="eyebrow">LEVEL 1 · 180분 · 실제 제작 활동</p>
+      <p class="eyebrow">LEVEL 1 · 실제 제작 활동</p>
       <h1>생성형 AI와 주고받으며<br>내 미니 에이전트 만들기</h1>
-      <p class="top-summary">설명만 읽는 과정이 아닙니다. 아래 칸을 채우고 AI와 주고받으면 마지막에 <strong>재사용 가능한 에이전트 카드와 실행 패키지</strong>가 완성됩니다.</p>
+      <p class="top-summary">설명만 읽는 과정이 아닙니다. 생활 속 문제 하나를 골라 목표와 판단 규칙을 만들고, AI에서 직접 시험하면 마지막에 <strong>재사용 가능한 에이전트 카드와 실행 패키지</strong>가 완성됩니다.</p>
     </div>
     <div class="top-actions">
       <span id="saveStatus" role="status" aria-live="polite">저장 준비</span>
@@ -28,10 +28,10 @@
     <div>
       <p class="eyebrow">오늘의 도착점</p>
       <h2>“누구를 위해, 어떤 문제를 해결하고, 무엇을 출력하는 에이전트인가?”</h2>
-      <p>목표를 정한 뒤 근거를 넣고, 작동 순서를 만들고, AI와 실제로 시험해 최종 에이전트를 완성합니다.</p>
+      <p>완성 예시를 먼저 본 뒤 목표를 정하고, 판단에 필요한 정보와 작동 순서를 만들고, 생성형 AI에서 실제로 시험합니다.</p>
     </div>
     <div class="mini-flow" aria-label="제작 흐름">
-      <span>① 완성 모습 보기</span><b>→</b><span>② 목표 정하기</span><b>→</b><span>③ 근거 넣기</span><b>→</b><span>④ 작동 방식 만들기</span><b>→</b><span>⑤ AI와 시험하기</span><b>→</b><span>⑥ 완성본 받기</span>
+      <span>① 예시 선택</span><b>→</b><span>② 목표 정하기</span><b>→</b><span>③ 판단 기준 넣기</span><b>→</b><span>④ 작동 방식 만들기</span><b>→</b><span>⑤ AI와 시험하기</span><b>→</b><span>⑥ 완성본 받기</span>
     </div>
   </section>
 
@@ -49,12 +49,12 @@
     <nav class="stage-nav" aria-label="에이전트 제작 단계">
       <div class="nav-head"><strong>내 에이전트 만들기</strong><span id="progressText">0 / 8 완료</span></div>
       <div id="stageButtons"></div>
-      <p class="nav-note">지금 단계 하나만 보세요. 영어 단계명은 내부 프로젝트 구조이고, 화면에서는 실제 해야 할 활동을 중심으로 안내합니다.</p>
+      <p class="nav-note">지금 단계 하나만 보면 됩니다. 화면에서는 실제 해야 할 활동 이름을 사용합니다.</p>
     </nav>
 
     <main id="main" class="main" tabindex="-1">
       <div class="mission-bar">
-        <div><span class="mission-label">지금 할 일</span><strong id="stageMission">완성될 에이전트의 모습을 먼저 확인합니다.</strong></div>
+        <div><span class="mission-label">지금 할 일</span><strong id="stageMission">완성 예시를 하나 고르고 어떤 에이전트인지 먼저 이해합니다.</strong></div>
         <span id="stageBadge" class="badge">작성 필요</span>
       </div>
 
@@ -71,39 +71,49 @@
       </details>
 
       <section class="stage-section" data-stage="intro">
+        <fieldset class="start-mode"><legend>먼저 나와 가까운 완성 예시를 고르세요.</legend>
+          <div class="button-row" id="audienceChoices">
+            <button class="btn secondary" type="button" data-audience="elementary"><strong>초등</strong> · 용돈지킴이</button>
+            <button class="btn secondary" type="button" data-audience="secondary"><strong>중·고등</strong> · 시험기간 플래너</button>
+            <button class="btn secondary" type="button" data-audience="adult"><strong>성인</strong> · 여행 일정 에이전트</button>
+          </div>
+          <p class="hint">예시를 고르면 아래 완성 모습과 목표 초안이 함께 바뀝니다. 이후 자유롭게 수정할 수 있습니다.</p>
+        </fieldset>
+
         <div class="result-preview">
-          <div class="preview-head"><span>완성 예시</span><strong>과학 탐구 질문 코치</strong></div>
+          <div class="preview-head"><span id="previewAudience">초등 예시</span><strong id="previewName">용돈지킴이</strong></div>
+          <p id="previewTagline">사고 싶은 물건이 생겼을 때, 지금 사도 되는지 같이 판단해주는 에이전트</p>
           <div class="preview-body">
-            <div><small>사용자가 넣는 것</small><p>“6학년, 빛 단원, 40분, 모둠 실험”</p></div>
+            <div><small>사용자가 넣는 것</small><p id="previewInput">현재 용돈 32,000원 / 물건 18,000원 / 다음 용돈까지 12일 / 꼭 필요한 지출 8,000원</p></div>
             <div class="preview-arrow">↓</div>
-            <div class="preview-steps"><span>대상 확인</span><span>근거 비교</span><span>질문 좁히기</span><span>실험 가능성 점검</span></div>
+            <div class="preview-steps" id="previewSteps"><span>현재 돈 확인</span><span>남는 돈 계산</span><span>필수지출 확인</span><span>사기·기다리기 비교</span></div>
             <div class="preview-arrow">↓</div>
-            <div class="preview-output"><small>에이전트가 내놓는 것</small><p><strong>탐구 질문 1개 + 실험 계획 초안 + 근거 부족 경고 + 교사 확인표</strong></p></div>
+            <div class="preview-output"><small>에이전트가 내놓는 것</small><p><strong id="previewOutput">사기 / 기다리기 판단 + 예상 잔액 + 이유 + 더 싼 대안</strong></p></div>
           </div>
         </div>
 
         <div class="goal-starter">
-          <h3>먼저, 내가 만들 에이전트의 목표를 한 줄로 잡아봅니다.</h3>
-          <p class="hint">완벽하게 쓰지 않아도 됩니다. 다음 단계에서 구체화합니다.</p>
+          <h3>이제 내가 만들 에이전트의 목표를 한 줄로 잡아봅니다.</h3>
+          <p class="hint">선택한 예시가 자동으로 들어갑니다. 내 상황에 맞게 바꾸면 됩니다.</p>
           <div class="grid3">
-            <label>누가 사용할까?<textarea data-bind="define.user" rows="2" placeholder="예: 초등 6학년 과학 교사"></textarea></label>
-            <label>무슨 문제를 해결할까?<textarea data-bind="define.problem" rows="2" placeholder="예: 너무 넓은 탐구 질문을 실험 가능한 질문으로 좁히기"></textarea></label>
-            <label>무엇을 받게 할까?<textarea data-bind="structure.outputFormat" rows="2" placeholder="예: 탐구 질문 + 실험 계획 + 확인표"></textarea></label>
+            <label>누가 사용할까?<textarea data-bind="define.user" rows="2"></textarea></label>
+            <label>무슨 문제를 해결할까?<textarea data-bind="define.problem" rows="2"></textarea></label>
+            <label>무엇을 받게 할까?<textarea data-bind="structure.outputFormat" rows="2"></textarea></label>
           </div>
         </div>
 
-        <fieldset class="start-mode"><legend>시작 방법 선택</legend>
-          <label class="mode"><input type="radio" name="mode" value="example" data-bind="mode"> <span><strong>예시 그대로 체험</strong><small>완성 과정을 먼저 빠르게 경험합니다.</small></span></label>
-          <label class="mode"><input type="radio" name="mode" value="modify" data-bind="mode"> <span><strong>내 수업에 맞게 바꾸기</strong><small>추천. 공통 구조는 유지하고 교과·학년·문제만 바꿉니다.</small></span></label>
+        <fieldset class="start-mode"><legend>만드는 방식 선택</legend>
+          <label class="mode"><input type="radio" name="mode" value="example" data-bind="mode"> <span><strong>선택한 예시로 빠르게 체험</strong><small>완성 과정을 먼저 경험합니다.</small></span></label>
+          <label class="mode"><input type="radio" name="mode" value="modify" data-bind="mode"> <span><strong>예시를 내 상황에 맞게 바꾸기</strong><small>추천. 구조는 유지하고 조건과 목표를 바꿉니다.</small></span></label>
           <label class="mode"><input type="radio" name="mode" value="custom" data-bind="mode"> <span><strong>처음부터 직접 만들기</strong><small>빈 양식에서 시작합니다.</small></span></label>
           <button id="applyMode" class="btn secondary" type="button">선택한 방식으로 시작</button>
         </fieldset>
         <details class="promise-details">
-          <summary>시작 전 3가지 약속 확인</summary>
+          <summary>이 활동에서 지킬 3가지 원칙 보기</summary>
           <fieldset><legend class="sr-only">단계형 프로젝트의 핵심</legend>
-            <label class="check"><input type="checkbox" data-diff="0"> 근거 자료를 먼저 확인하고 출처를 남긴다.</label>
+            <label class="check"><input type="checkbox" data-diff="0"> 판단에 필요한 정보와 기준을 먼저 확인한다.</label>
             <label class="check"><input type="checkbox" data-diff="1"> 작업을 여러 단계로 나누고 중간 결과를 남긴다.</label>
-            <label class="check"><input type="checkbox" data-diff="2"> 정상뿐 아니라 경계·실패 입력으로 검증한다.</label>
+            <label class="check"><input type="checkbox" data-diff="2"> 정상뿐 아니라 애매·실패 입력으로 검증한다.</label>
           </fieldset>
         </details>
       </section>
@@ -121,22 +131,22 @@
       </section>
 
       <section class="stage-section" data-stage="collect" hidden>
-        <div class="step-intro"><strong>근거 넣기</strong><span>에이전트가 마음대로 꾸며내지 않도록 확인 가능한 자료 3건을 넣습니다.</span></div>
-        <aside class="callout warning"><strong>수업에서는 교사가 제공한 자료 묶음 사용을 권장합니다.</strong> 처음부터 웹 검색까지 시키면 ‘에이전트 만들기’보다 자료 찾기에 시간이 더 걸릴 수 있습니다.</aside>
+        <div class="step-intro"><strong>판단 기준·정보 넣기</strong><span>에이전트가 마음대로 추측하지 않도록 실제 판단에 필요한 정보나 규칙을 최소 3개 넣습니다.</span></div>
+        <aside class="callout warning"><strong>웹 검색 자료만 ‘근거’인 것은 아닙니다.</strong> 현재 용돈, 시험 날짜, 여행 예산처럼 사용자가 제공하는 사실과 명시적인 판단 규칙도 중요한 근거입니다.</aside>
         <div id="sourceCards"></div>
       </section>
 
       <section class="stage-section" data-stage="structure" hidden>
-        <div class="step-intro"><strong>작동 방식 만들기</strong><span>사용자 입력을 받은 뒤 에이전트가 어떤 순서로 생각하고 검사할지 정합니다.</span></div>
-        <label>사용자가 에이전트에게 넣어야 할 정보<textarea data-bind="structure.requiredInput" rows="3" placeholder="예: 학년, 교과, 단원, 수업 시간, 원하는 활동 형태"></textarea></label>
+        <div class="step-intro"><strong>작동 방식 만들기</strong><span>사용자 입력을 받은 뒤 에이전트가 어떤 순서로 확인하고 비교하고 판단할지 정합니다.</span></div>
+        <label>사용자가 에이전트에게 넣어야 할 정보<textarea data-bind="structure.requiredInput" rows="3" placeholder="예: 예산, 날짜, 우선순위, 반드시 지켜야 할 조건"></textarea></label>
         <fieldset><legend>에이전트가 처리할 순서 4~6개</legend><p class="hint">각 칸은 실제 에이전트가 수행할 한 가지 행동입니다.</p><div id="stepRows"></div></fieldset>
-        <label>최종 출력 모습<textarea data-bind="structure.outputFormat" rows="3" placeholder="예: 목표 / 활동 흐름 / 사용 근거 / 주의점 / 교사 확인표"></textarea></label>
+        <label>최종 출력 모습<textarea data-bind="structure.outputFormat" rows="3"></textarea></label>
         <label>스스로 확인할 기준<textarea data-bind="structure.validationRules" rows="3"></textarea></label>
         <label>멈추거나 다시 물어봐야 할 조건<textarea data-bind="structure.stopRules" rows="3"></textarea></label>
       </section>
 
       <section class="stage-section" data-stage="build" hidden>
-        <div class="step-intro success"><strong>여기서 실제 에이전트가 만들어집니다.</strong><span>앞에서 정한 목표·근거·작동 순서를 하나의 실행 가능한 에이전트 카드로 자동 조립합니다.</span></div>
+        <div class="step-intro success"><strong>여기서 실제 에이전트가 만들어집니다.</strong><span>앞에서 정한 목표·판단 기준·작동 순서를 하나의 실행 가능한 에이전트 카드로 자동 조립합니다.</span></div>
         <label>완성 중인 에이전트 카드<textarea id="agentCard" rows="22" readonly></textarea></label>
       </section>
 
@@ -151,7 +161,7 @@
       </section>
 
       <section class="stage-section" data-stage="publish" hidden>
-        <div class="step-intro success"><strong>완성본 받기</strong><span>목표, 근거, 에이전트 카드, 테스트 기록을 한 파일로 묶습니다.</span></div>
+        <div class="step-intro success"><strong>완성본 받기</strong><span>목표, 판단 기준, 에이전트 카드, 테스트 기록을 한 파일로 묶습니다.</span></div>
         <label>전체 공유 패키지<textarea id="markdownPreview" rows="28" readonly></textarea></label>
         <div class="button-row"><button id="markPreview" class="btn secondary" type="button">완성본 확인</button><button id="copyMarkdown" class="btn secondary" type="button">Markdown 복사</button><button id="downloadMarkdown" class="btn" type="button">에이전트 패키지 다운로드</button></div>
       </section>
