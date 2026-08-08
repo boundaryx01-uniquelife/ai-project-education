@@ -3,95 +3,76 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="샘플을 보며 따라 만드는 LEVEL 1 미니 에이전트 워크숍">
-  <title>LEVEL 1 | 따라하기 워크숍</title>
+  <meta name="description" content="샘플을 보며 MVP 제작부터 수정, 검증, 배포 판단까지 경험하는 AI 에이전트 워크숍">
+  <title>LEVEL 1 | 에이전트 제작 워크숍</title>
   <link rel="stylesheet" href="./workshop-v3.css">
 </head>
 <body>
   <header class="top">
     <div class="top-inner">
       <div class="brand">
-        <a id="backIntro" href="./index.html">← 인트로</a>
+        <a href="./index.html">← 인트로</a>
         <div>
           <span id="audienceChip" class="audience-chip">대상</span>
-          <h1>샘플을 보며 내 미니 에이전트 만들기</h1>
+          <h1>에이전트 제작 워크숍</h1>
         </div>
       </div>
       <div class="top-actions">
-        <span id="saveStatus" class="save" role="status" aria-live="polite">저장 준비</span>
+        <span id="saveStatus" class="save" role="status">저장 준비</span>
         <button id="reset" class="btn ghost small" type="button">기록 초기화</button>
       </div>
     </div>
   </header>
 
-  <div class="progress-wrap">
-    <nav id="progress" class="progress" aria-label="따라하기 단계"></nav>
-  </div>
+  <div class="progress-wrap"><nav id="progress" class="progress" aria-label="제작 단계"></nav></div>
 
   <main class="shell">
     <header class="stage-title">
-      <div>
-        <p id="stageHint">왼쪽 샘플을 보고 오른쪽만 작성하세요.</p>
-        <h2 id="stageName"></h2>
-      </div>
-      <span id="stageCount" class="stage-count">1 / 6</span>
+      <div><p id="stageHint">왼쪽의 작동 예시를 보고 오른쪽에서 내 버전을 만듭니다.</p><h2 id="stageName"></h2></div>
+      <span id="stageCount" class="stage-count">1 / 4</span>
     </header>
 
     <div class="board">
-      <aside class="sample" aria-label="따라할 샘플">
-        <span class="panel-label sample-label">SAMPLE · 왼쪽은 참고</span>
-        <h3>이렇게 만들면 됩니다</h3>
-        <p class="sample-summary">먼저 완성 결과를 눌러보고, 현재 단계의 샘플 문장을 참고하세요.</p>
+      <aside class="sample" aria-label="작동 예시">
+        <div class="sample-top"><span class="panel-label sample-label">SAMPLE</span><span class="live-dot">● LIVE PREVIEW</span></div>
+        <h3 id="sampleTitle">작동하는 결과부터 봅니다</h3>
+        <p id="sampleLead" class="sample-summary"></p>
 
-        <section id="demoBox" class="demo" aria-label="완성 결과 미니 데모"></section>
+        <section class="product-shell">
+          <div class="product-bar"><span></span><span></span><span></span><strong id="productName">Mini Agent</strong></div>
+          <div id="demoBox" class="demo"></div>
+        </section>
 
-        <section id="sampleStage" aria-label="현재 단계 샘플"></section>
+        <section id="sampleStage" class="sample-stage"></section>
 
         <details class="reference">
-          <summary>왜 이렇게 작성하는지 참고 설명 보기</summary>
-          <div class="reference-body">
-            <p>샘플을 그대로 외우는 것이 목적이 아닙니다. <strong>입력 → 판단 기준 → 처리 순서 → 출력</strong> 구조를 보고 비슷한 형태로 작성하는 것이 핵심입니다.</p>
-            <p>교육용 내부 생명주기인 DEFINE, COLLECT, STRUCTURE, BUILD, TEST, PUBLISH, IMPROVE는 이 6개 화면 안에서 자연스럽게 수행됩니다.</p>
-          </div>
+          <summary>참고 설명 보기</summary>
+          <div id="referenceBody" class="reference-body"></div>
         </details>
       </aside>
 
-      <section class="follow" aria-label="내가 따라 작성하는 곳">
-        <span class="panel-label follow-label">FOLLOW · 오른쪽만 작성</span>
-        <h3>지금은 이것만 하세요</h3>
+      <section class="follow" aria-label="따라하기">
+        <div class="follow-top"><span class="panel-label follow-label">FOLLOW</span><strong>오른쪽만 작성하세요</strong></div>
 
         <section class="task-block task-web">
-          <div class="task-head">
-            <strong>웹페이지에서 할 일</strong>
-            <span class="task-tag">WEB</span>
-          </div>
+          <div class="task-head"><strong>① 웹페이지에서 할 일</strong><span class="task-tag">WEB</span></div>
           <p id="webHelp" class="task-help"></p>
           <div id="webForm"></div>
         </section>
 
         <section class="task-block task-ai">
-          <div class="task-head">
-            <strong>생성형 AI에서 할 일</strong>
-            <span class="task-tag">AI</span>
-          </div>
+          <div class="task-head"><strong>② 생성형 AI에서 할 일</strong><span class="task-tag">AI</span></div>
           <p id="aiHelp" class="task-help"></p>
           <pre id="aiPrompt" class="prompt"></pre>
-          <div class="copy-row">
-            <button id="copyAI" class="btn small" type="button">AI에 보낼 내용 복사</button>
-          </div>
-          <p class="ai-note">복사한 내용을 ChatGPT·Claude 등 새 채팅에 붙여넣습니다. AI가 준 답은 필요한 단계에서 오른쪽 기록란에만 간단히 남깁니다.</p>
+          <div class="copy-row"><button id="copyAI" class="btn small" type="button">AI에 보낼 내용 복사</button></div>
         </section>
 
-        <section class="finish" aria-label="단계 완료 확인">
-          <h3>마지막 확인</h3>
-          <p id="finishState">아직 작성할 내용이 있습니다</p>
-          <ul id="finishList" class="finish-list"></ul>
+        <section class="checkpoint">
+          <div><span>CHECK</span><strong id="checkTitle">다음 단계로 가기 전</strong></div>
+          <p id="finishState">확인할 내용이 있습니다.</p>
         </section>
 
-        <div class="nav">
-          <button id="prev" class="btn secondary" type="button">이전</button>
-          <button id="next" class="btn" type="button">다음 단계</button>
-        </div>
+        <div class="nav"><button id="prev" class="btn secondary" type="button">이전</button><button id="next" class="btn" type="button">다음 단계</button></div>
       </section>
     </div>
   </main>
