@@ -43,7 +43,12 @@ $Checks = @(
     @{ Name = "Three test types"; Value = $Js.Contains('"normal","boundary","failure"') },
     @{ Name = "No fetch calls"; Value = -not $Js.Contains("fetch(") },
     @{ Name = "No external CDN"; Value = -not ($Html -match 'https?://') },
-    @{ Name = "Data version"; Value = $Data.Contains('version:"1.0.0"') }
+    @{ Name = "Data version"; Value = $Data.Contains('version:"1.1.0"') },
+    @{ Name = "Elementary example"; Value = $Data.Contains('name:"용돈지킴이"') },
+    @{ Name = "Secondary example"; Value = $Data.Contains('name:"시험기간 플래너"') },
+    @{ Name = "Adult example"; Value = $Data.Contains('name:"여행 일정 에이전트"') },
+    @{ Name = "Audience selector"; Value = $Html.Contains('data-audience="elementary"') -and $Html.Contains('data-audience="secondary"') -and $Html.Contains('data-audience="adult"') },
+    @{ Name = "Audience switch logic"; Value = $Ux.Contains("function renderAudience") }
 )
 
 $Failed = @()
