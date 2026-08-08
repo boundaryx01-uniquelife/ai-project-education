@@ -30,24 +30,27 @@ $Checks = @(
     @{ Name = "Intro elementary route"; Value = $Intro.Contains('workshop.html?audience=elementary') },
     @{ Name = "Intro secondary route"; Value = $Intro.Contains('workshop.html?audience=secondary') },
     @{ Name = "Intro adult route"; Value = $Intro.Contains('workshop.html?audience=adult') },
-    @{ Name = "Workshop v3 CSS"; Value = $Workshop.Contains('href="./workshop-v3.css"') },
+    @{ Name = "Workshop CSS"; Value = $Workshop.Contains('href="./workshop-v3.css"') },
     @{ Name = "Workshop data"; Value = $Workshop.Contains('src="./data.js"') },
-    @{ Name = "Workshop v3 JS"; Value = $Workshop.Contains('src="./workshop-v3.js"') },
+    @{ Name = "Workshop JS"; Value = $Workshop.Contains('src="./workshop-v3.js"') },
     @{ Name = "Sample panel"; Value = $Workshop.Contains('id="sampleStage"') },
     @{ Name = "Follow panel"; Value = $Workshop.Contains('id="webForm"') },
-    @{ Name = "Web task block"; Value = $Workshop.Contains('task-web') },
-    @{ Name = "AI task block"; Value = $Workshop.Contains('task-ai') },
-    @{ Name = "Final checkpoint"; Value = $Workshop.Contains('id="finishState"') },
-    @{ Name = "Interactive demo"; Value = $Js.Contains('function renderDemo') },
-    @{ Name = "Six learner stages"; Value = $Js.Contains('name:"6.') },
-    @{ Name = "Agent output"; Value = $Js.Contains('function agentText') },
-    @{ Name = "AI copy prompt"; Value = $Js.Contains('function aiPrompt') },
-    @{ Name = "Final package"; Value = $Js.Contains('function finalPackage') },
+    @{ Name = "Web activity block"; Value = $Workshop.Contains('task-web') },
+    @{ Name = "AI activity block"; Value = $Workshop.Contains('task-ai') },
+    @{ Name = "Interactive product preview"; Value = $Workshop.Contains('product-shell') -and $Js.Contains('function renderDemo') },
+    @{ Name = "MVP phase"; Value = $Js.Contains('name:"1. MVP') },
+    @{ Name = "Refine phase"; Value = $Js.Contains('name:"2.') -and $Js.Contains('mustNot') },
+    @{ Name = "Validation phase"; Value = $Js.Contains('name:"3.') -and $Js.Contains('userResult') -and $Js.Contains('aiResult') },
+    @{ Name = "Deployment decision phase"; Value = $Js.Contains('name:"4.') -and $Js.Contains('function architecture') },
+    @{ Name = "Four learner stages"; Value = $Js.Contains('${state.stage+1} / 4') },
+    @{ Name = "Agent instruction"; Value = $Js.Contains('function baseAgent') },
+    @{ Name = "AI prompt"; Value = $Js.Contains('function stagePrompt') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
     @{ Name = "No fetch call"; Value = -not $Js.Contains('fetch(') },
     @{ Name = "No external CDN"; Value = -not ($Workshop -match 'https?://') },
     @{ Name = "Two-column layout"; Value = $Css.Contains('.board{display:grid') },
-    @{ Name = "Elementary example"; Value = $Data.Contains('name:"') -and $Data.Contains('elementary:') },
+    @{ Name = "Product preview style"; Value = $Css.Contains('.product-shell') -and $Css.Contains('.demo-card') },
+    @{ Name = "Elementary example"; Value = $Data.Contains('elementary:') },
     @{ Name = "Secondary example"; Value = $Data.Contains('secondary:') },
     @{ Name = "Adult example"; Value = $Data.Contains('adult:') }
 )
@@ -67,4 +70,4 @@ if ($Failed.Count -gt 0) {
     throw ("Static validation failed: " + ($Failed -join ", "))
 }
 
-Write-Host "PASS: LEVEL 1 intro and simplified workshop static validation"
+Write-Host "PASS: LEVEL 1 four-phase workshop static validation"
