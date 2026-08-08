@@ -7,11 +7,9 @@ $Module = Join-Path $Root "portal\modules\level-1-chat-agent"
 $RequiredFiles = @(
     "index.html",
     "workshop.html",
-    "styles.css",
-    "a11y.css",
+    "workshop-v3.css",
+    "workshop-v3.js",
     "data.js",
-    "app.js",
-    "ux-v2.js",
     "README.md"
 )
 
@@ -24,29 +22,34 @@ foreach ($Name in $RequiredFiles) {
 
 $Intro = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Workshop = Get-Content -LiteralPath (Join-Path $Module "workshop.html") -Raw
-$Js = Get-Content -LiteralPath (Join-Path $Module "app.js") -Raw
-$Ux = Get-Content -LiteralPath (Join-Path $Module "ux-v2.js") -Raw
+$Js = Get-Content -LiteralPath (Join-Path $Module "workshop-v3.js") -Raw
+$Css = Get-Content -LiteralPath (Join-Path $Module "workshop-v3.css") -Raw
 $Data = Get-Content -LiteralPath (Join-Path $Module "data.js") -Raw
 
 $Checks = @(
-    @{ Name = "Intro elementary link"; Value = $Intro.Contains('workshop.html?audience=elementary') },
-    @{ Name = "Intro secondary link"; Value = $Intro.Contains('workshop.html?audience=secondary') },
-    @{ Name = "Intro adult link"; Value = $Intro.Contains('workshop.html?audience=adult') },
-    @{ Name = "Workshop relative CSS"; Value = $Workshop.Contains('href="./styles.css"') },
-    @{ Name = "Workshop relative data"; Value = $Workshop.Contains('src="./data.js"') },
-    @{ Name = "Workshop relative app"; Value = $Workshop.Contains('src="./app.js"') },
-    @{ Name = "Workshop relative UX"; Value = $Workshop.Contains('src="./ux-v2.js"') },
-    @{ Name = "Audience profiles"; Value = $Data.Contains("audienceExamples") -and $Data.Contains("elementary") -and $Data.Contains("secondary") -and $Data.Contains("adult") },
-    @{ Name = "Query audience handoff"; Value = $Ux.Contains("URLSearchParams") -and $Ux.Contains("queryAudience") },
-    @{ Name = "Change example link"; Value = $Ux.Contains("changeExample") -and $Ux.Contains("./index.html") },
-    @{ Name = "Local storage"; Value = $Js.Contains("localStorage") },
-    @{ Name = "Context packet"; Value = $Js.Contains("function packet") },
-    @{ Name = "State snapshot"; Value = $Js.Contains("function snapshot") },
-    @{ Name = "Markdown export"; Value = $Js.Contains("function markdown") },
-    @{ Name = "Three test types"; Value = $Js.Contains('"normal","boundary","failure"') },
-    @{ Name = "No fetch calls"; Value = -not $Js.Contains("fetch(") },
-    @{ Name = "No external CDN in workshop"; Value = -not ($Workshop -match 'https?://') },
-    @{ Name = "Data version"; Value = $Data.Contains('version:"1.1.0"') }
+    @{ Name = "Intro elementary route"; Value = $Intro.Contains('workshop.html?audience=elementary') },
+    @{ Name = "Intro secondary route"; Value = $Intro.Contains('workshop.html?audience=secondary') },
+    @{ Name = "Intro adult route"; Value = $Intro.Contains('workshop.html?audience=adult') },
+    @{ Name = "Workshop v3 CSS"; Value = $Workshop.Contains('href="./workshop-v3.css"') },
+    @{ Name = "Workshop data"; Value = $Workshop.Contains('src="./data.js"') },
+    @{ Name = "Workshop v3 JS"; Value = $Workshop.Contains('src="./workshop-v3.js"') },
+    @{ Name = "Sample panel"; Value = $Workshop.Contains('id="sampleStage"') },
+    @{ Name = "Follow panel"; Value = $Workshop.Contains('id="webForm"') },
+    @{ Name = "Web task block"; Value = $Workshop.Contains('task-web') },
+    @{ Name = "AI task block"; Value = $Workshop.Contains('task-ai') },
+    @{ Name = "Final checkpoint"; Value = $Workshop.Contains('id="finishState"') },
+    @{ Name = "Interactive demo"; Value = $Js.Contains('function renderDemo') },
+    @{ Name = "Six learner stages"; Value = $Js.Contains('name:"6.') },
+    @{ Name = "Agent output"; Value = $Js.Contains('function agentText') },
+    @{ Name = "AI copy prompt"; Value = $Js.Contains('function aiPrompt') },
+    @{ Name = "Final package"; Value = $Js.Contains('function finalPackage') },
+    @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
+    @{ Name = "No fetch call"; Value = -not $Js.Contains('fetch(') },
+    @{ Name = "No external CDN"; Value = -not ($Workshop -match 'https?://') },
+    @{ Name = "Two-column layout"; Value = $Css.Contains('.board{display:grid') },
+    @{ Name = "Elementary example"; Value = $Data.Contains('name:"') -and $Data.Contains('elementary:') },
+    @{ Name = "Secondary example"; Value = $Data.Contains('secondary:') },
+    @{ Name = "Adult example"; Value = $Data.Contains('adult:') }
 )
 
 $Failed = @()
@@ -64,4 +67,4 @@ if ($Failed.Count -gt 0) {
     throw ("Static validation failed: " + ($Failed -join ", "))
 }
 
-Write-Host "PASS: LEVEL 1 split intro/workshop validation"
+Write-Host "PASS: LEVEL 1 intro and simplified workshop static validation"
