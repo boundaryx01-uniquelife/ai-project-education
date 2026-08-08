@@ -4,7 +4,7 @@
   const D=window.LEVEL1_DATA;
   const audienceKey="ai-project-education.level1.audience";
   const friendly=[
-    "완성 예시 선택",
+    "완성 예시 확인",
     "1. 목표 정하기",
     "2. 판단 기준 넣기",
     "3. 작동 방식 만들기",
@@ -13,9 +13,8 @@
     "6. 완성본 받기",
     "7. 개선하기"
   ];
-
   const titles=[
-    "나와 가까운 완성 예시부터 골라봅니다.",
+    "선택한 예시의 완성 모습을 확인합니다.",
     "에이전트의 목표를 한 장면으로 확정합니다.",
     "에이전트가 판단할 때 필요한 정보와 기준을 넣습니다.",
     "입력을 받은 뒤 무엇을 어떤 순서로 할지 정합니다.",
@@ -24,9 +23,8 @@
     "다른 사람이 다시 쓸 수 있는 완성 패키지를 받습니다.",
     "테스트 결과를 반영해 한 번 개선하고 끝냅니다."
   ];
-
   const missions=[
-    "초등·중고등·성인 예시 중 하나를 고르고 완성 모습을 확인하세요.",
+    "선택한 완성 예시의 입력 → 판단 → 결과 흐름을 먼저 확인하세요.",
     "누가 언제 쓰며, 어떤 문제가 해결되면 성공인지 정하세요.",
     "판단에 꼭 필요한 사실·조건·규칙을 최소 3개 정하세요.",
     "사용자 입력 → 처리 순서 → 출력 → 검증·중단 조건을 연결하세요.",
@@ -35,7 +33,6 @@
     "목표·판단 기준·에이전트 카드·테스트가 한 패키지로 묶였는지 확인하세요.",
     "테스트나 동료 의견을 근거로 수정 전후를 남기세요."
   ];
-
   const internal=["INTRO","DEFINE","COLLECT","STRUCTURE","BUILD","TEST","PUBLISH","IMPROVE"];
   const $=s=>document.querySelector(s);
   const all=s=>[...document.querySelectorAll(s)];
@@ -91,15 +88,12 @@
     if($("#previewInput")) $("#previewInput").textContent=profile.input;
     if($("#previewOutput")) $("#previewOutput").textContent=profile.output;
     if($("#previewSteps")) $("#previewSteps").innerHTML=profile.steps.map(step=>`<span>${step}</span>`).join("");
-
     all("[data-audience]").forEach(button=>{
       const selected=button.dataset.audience===key;
       button.setAttribute("aria-pressed",String(selected));
       button.classList.toggle("secondary",!selected);
     });
-
     try{localStorage.setItem(audienceKey,key)}catch(_){ }
-
     if(applyFields){
       setBound("define.user",profile.define.user);
       setBound("define.scene",profile.define.scene);
@@ -120,13 +114,33 @@
       button.setAttribute("aria-pressed","false");
       button.addEventListener("click",()=>renderAudience(button.dataset.audience,true));
     });
-    let saved="elementary";
-    try{saved=localStorage.getItem(audienceKey)||"elementary"}catch(_){ }
-    if(!D.audienceExamples?.[saved]) saved="elementary";
-    renderAudience(saved,false);
+
+    const queryAudience=new URLSearchParams(location.search).get("audience");
+    const queryValid=!!D.audienceExamples?.[queryAudience];
+    let selected=queryValid?queryAudience:"elementary";
+    if(!queryValid){
+      try{selected=localStorage.getItem(audienceKey)||"elementary"}catch(_){ }
+      if(!D.audienceExamples?.[selected]) selected="elementary";
+    }
+
+    renderAudience(selected,queryValid);
+
+    if(queryValid){
+      const chooser=$("#audienceChoices")?.closest("fieldset");
+      if(chooser) chooser.hidden=true;
+      const topActions=$(".top-actions");
+      if(topActions&&!$("#changeExample")){
+        const link=document.createElement("a");
+        link.id="changeExample";
+        link.className="btn secondary";
+        link.href="./index.html";
+        link.textContent="예시 다시 선택";
+        topActions.prepend(link);
+      }
+    }
+
     $("#resetAll")?.addEventListener("click",()=>{
       try{localStorage.removeItem(audienceKey)}catch(_){ }
-      setTimeout(()=>renderAudience("elementary",false),0);
     });
   }
 
