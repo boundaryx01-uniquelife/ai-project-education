@@ -1,1 +1,215 @@
-window.LEVEL1_DATA={version:"1.1.0",stages:[{id:"intro",label:"INTRO",title:"완성 모습을 먼저 본다",purpose:"내가 실제로 만들 에이전트가 어떤 입력을 받고 어떤 판단을 거쳐 어떤 결과를 내놓는지 먼저 확인합니다.",good:"입력 → 판단 기준 → 처리 순서 → 결과가 한눈에 보입니다.",bad:"기능 이름만 나열되어 실제로 무엇을 만들어야 하는지 알기 어렵습니다.",teacher:["첫 화면에서 10초 안에 완성 결과를 이해할 수 있는지 확인합니다.","대상별 예시를 고른 뒤 자신의 문제로 바꾸게 합니다."]},{id:"define",label:"DEFINE",title:"목표를 한 장면으로 정한다",purpose:"누가, 언제, 어떤 문제 때문에 이 에이전트를 쓰는지와 성공 결과를 구체적으로 정합니다.",good:"사용자·상황·문제·성공 결과가 한 문장으로 연결됩니다.",bad:"‘생활을 편하게 해주는 AI’처럼 범위가 너무 넓습니다.",teacher:["‘누가 언제 쓰는가?’를 바로 답할 수 있는지 봅니다.","개인 식별정보는 넣지 않도록 안내합니다."]},{id:"collect",label:"COLLECT",title:"판단에 필요한 정보와 기준을 넣는다",purpose:"에이전트가 마음대로 추측하지 않도록 실제 판단에 필요한 정보·규칙·확인 가능한 자료를 최소 3개 정합니다.",good:"현재 돈·가격·저축 목표, 시험 날짜·과목·공부 가능 시간, 여행 날짜·예산·이동 조건처럼 판단에 직접 필요한 정보를 구분합니다.",bad:"근거 없이 ‘적당히’, ‘알아서’, ‘좋은 쪽으로’ 판단하게 합니다.",teacher:["웹 자료가 꼭 필요한 것은 아닙니다. 사용자 입력과 명시적인 기준도 근거가 됩니다.","확인 불가능한 정보를 사실처럼 쓰지 않게 합니다."]},{id:"structure",label:"STRUCTURE",title:"작동 순서를 만든다",purpose:"필수 입력, 4~6개의 처리 단계, 출력 형식, 검증·중단 조건을 연결합니다.",good:"입력 확인 → 조건 계산·비교 → 제외 조건 적용 → 후보 정리 → 최종 추천 → 주의사항 표시.",bad:"‘분석하고 좋은 결과를 추천한다’처럼 실제 처리 순서가 보이지 않습니다.",teacher:["각 단계가 서로 다른 행동인지 확인합니다.","부족한 입력이 있을 때 다시 질문하는 조건을 넣게 합니다."]},{id:"build",label:"BUILD",title:"실제 미니 에이전트로 조립한다",purpose:"앞에서 정한 목표·정보·처리 순서·출력·중단 규칙을 하나의 재사용 가능한 에이전트 카드로 만듭니다.",good:"다른 사람이 카드를 읽고 어떤 값을 넣어야 하는지 바로 이해할 수 있습니다.",bad:"설명은 많지만 실제 입력 방법과 결과 형식이 없습니다.",teacher:["다른 사람이 그대로 복사해 사용할 수 있는지 봅니다.","AI의 판단을 무조건 정답으로 확정하지 않도록 합니다."]},{id:"test",label:"TEST",title:"AI에서 실제로 시험한다",purpose:"정상·애매·실패 입력을 생성형 AI에 보내고 결과를 비교합니다.",good:"정상 1건, 조건 충돌 1건, 정보 부족·위험 조건 1건을 실제로 실행합니다.",bad:"원하는 답이 나온 한 번의 실행만 보고 끝냅니다.",teacher:["예상과 실제 답이 달랐던 부분을 중요하게 다룹니다.","실패에서 멈추거나 질문하는지 확인합니다."]},{id:"publish",label:"PUBLISH",title:"완성 패키지로 묶는다",purpose:"목표, 필요한 입력, 판단 기준, 에이전트 카드, 테스트 기록을 하나의 재사용 패키지로 정리합니다.",good:"다른 사람이 별도 설명 없이 바로 사용할 수 있습니다.",bad:"채팅 결과 일부만 남아 사용 방법을 알 수 없습니다.",teacher:["입력 방법과 제한 조건이 보이는지 확인합니다.","개인정보가 남아 있지 않은지 확인합니다."]},{id:"improve",label:"IMPROVE",title:"한 번 개선한다",purpose:"테스트와 피드백을 근거로 실제 규칙이나 출력 방식을 한 번 수정합니다.",good:"‘예산 초과인데 추천함’ 문제를 발견하고 예산 초과 후보 제외 규칙을 추가합니다.",bad:"‘더 자세하게 했다’처럼 무엇을 왜 바꿨는지 알 수 없습니다.",teacher:["수정 이유가 실제 테스트 결과와 연결되는지 봅니다.","최종 평가는 사람의 판단으로 남깁니다."]}],audienceExamples:{elementary:{audience:"초등",name:"용돈지킴이",tagline:"사고 싶은 물건이 생겼을 때, 지금 사도 되는지 같이 판단해주는 에이전트",input:"현재 용돈 32,000원 / 물건 18,000원 / 다음 용돈까지 12일 / 꼭 필요한 지출 8,000원",steps:["현재 돈과 예정 지출 확인","구매 후 남는 돈 계산","저축·필수지출 기준 확인","사기·기다리기·대안 비교"],output:"사기 / 기다리기 판단 + 예상 잔액 + 이유 + 더 싼 대안",define:{user:"용돈을 스스로 관리하고 싶은 초등학생",scene:"사고 싶은 물건이나 간식이 생겨 지금 사도 될지 고민할 때",problem:"기분만 보고 사면 다음 용돈일까지 필요한 돈이 부족할 수 있다.",constraints:"현재 용돈, 물건 가격, 다음 용돈일까지 남은 기간, 꼭 필요한 지출을 고려한다.",success:"구매 여부와 구매 후 남는 돈을 이해하고 스스로 선택할 수 있다."},outputFormat:"사기/기다리기 판단 + 구매 후 예상 잔액 + 이유 3개 + 가능한 대안"},secondary:{audience:"중·고등",name:"시험기간 플래너",tagline:"시험 날짜와 공부 가능 시간을 보고 현실적인 공부 순서를 짜주는 에이전트",input:"시험 D-10 / 6과목 / 평일 2시간 / 수학·영어 취약 / 주말 5시간",steps:["시험 날짜와 과목 확인","가능한 총 공부 시간 계산","취약도·분량 우선순위 정하기","날짜별 과목 배치","밀렸을 때 재조정 규칙 적용"],output:"날짜별 공부 계획 + 오늘 할 일 3개 + 과목별 시간 + 밀렸을 때 수정안",define:{user:"시험기간 공부 계획을 스스로 세우고 싶은 중·고등학생",scene:"시험 1~3주 전 여러 과목을 어떻게 나눠 공부할지 막막할 때",problem:"과목 수와 공부량에 비해 시간이 제한되어 우선순위를 정하기 어렵다.",constraints:"시험 날짜, 과목별 범위·난이도, 하루 공부 가능 시간, 학원·학교 일정을 고려한다.",success:"매일 실행 가능한 공부량과 우선순위가 있는 계획을 만들 수 있다."},outputFormat:"날짜별 공부 계획 + 오늘의 핵심 3개 + 과목별 배분 시간 + 일정이 밀렸을 때 재조정안"},adult:{audience:"성인",name:"여행 일정 에이전트",tagline:"날짜·예산·동행·취향·이동조건을 받아 무리 없는 여행 일정을 설계해주는 에이전트",input:"3박 4일 / 가족 3명 / 총예산 180만원 / 수영·맛집 선호 / 렌터카 없음",steps:["여행 조건 확인","장소 후보와 운영시간·이동시간 확인","예산·동선·취향으로 후보 비교","하루 이동량 제한 적용","일정과 대안 플랜 구성"],output:"일자별 일정 + 이동 순서 + 예상 비용 + 예약 필요 항목 + 우천 대안",define:{user:"가족 또는 개인 여행 일정을 효율적으로 만들고 싶은 성인",scene:"여행지를 정한 뒤 숙소·식사·관광·이동을 한 일정으로 묶어야 할 때",problem:"가고 싶은 곳은 많지만 이동시간·예산·운영시간을 함께 고려하기 어렵다.",constraints:"여행 날짜, 인원, 총예산, 숙소 위치, 교통수단, 취향, 체력과 예약 조건을 고려한다.",success:"하루 이동이 과하지 않고 예산과 우선순위가 반영된 실행 가능한 일정을 얻는다."},outputFormat:"일자별 일정 + 이동 순서·시간 + 예상 비용 + 예약 필요 항목 + 날씨나 휴무 시 대안"}},modes:{example:{label:"기준 예시 체험",define:{user:"용돈을 스스로 관리하고 싶은 초등학생",scene:"사고 싶은 물건이나 간식이 생겨 지금 사도 될지 고민할 때",problem:"기분만 보고 사면 다음 용돈일까지 필요한 돈이 부족할 수 있다.",constraints:"현재 용돈, 물건 가격, 다음 용돈일까지 남은 기간, 꼭 필요한 지출을 고려한다.",success:"구매 여부와 구매 후 남는 돈을 이해하고 스스로 선택할 수 있다."}},modify:{label:"예시를 내 상황에 맞게 바꾸기",define:{user:"",scene:"",problem:"",constraints:"",success:""}},custom:{label:"직접 주제 설계",define:{user:"",scene:"",problem:"",constraints:"",success:""}}},defaultSources:[{id:"S1",title:"",author:"",date:"",location:"",evidence:"",limitation:""},{id:"S2",title:"",author:"",date:"",location:"",evidence:"",limitation:""},{id:"S3",title:"",author:"",date:"",location:"",evidence:"",limitation:""}],defaultSteps:["사용자와 필수 입력을 확인한다.","판단에 필요한 정보와 기준을 확인한다.","조건을 비교하고 제외해야 할 경우를 찾는다.","결과 후보를 정리하고 이유와 주의점을 함께 제시한다.","",""]};
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="생성형 AI와 주고받으며 실제 미니 에이전트를 만드는 LEVEL 1 학습 작업대">
+  <title>LEVEL 1 | 내 미니 에이전트 만들기</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./a11y.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+  <header class="topbar">
+    <div>
+      <a class="home-link" href="../../index.html">AI 프로젝트 교육 통합 프레임워크</a>
+      <p class="eyebrow">LEVEL 1 · 실제 제작 활동</p>
+      <h1>생성형 AI와 주고받으며<br>내 미니 에이전트 만들기</h1>
+      <p class="top-summary">설명만 읽는 과정이 아닙니다. 생활 속 문제 하나를 골라 목표와 판단 규칙을 만들고, AI에서 직접 시험하면 마지막에 <strong>재사용 가능한 에이전트 카드와 실행 패키지</strong>가 완성됩니다.</p>
+    </div>
+    <div class="top-actions">
+      <span id="saveStatus" role="status" aria-live="polite">저장 준비</span>
+      <button id="resetAll" class="btn danger" type="button">전체 데이터 삭제</button>
+    </div>
+  </header>
+
+  <section class="destination" aria-label="오늘 만들 결과">
+    <div>
+      <p class="eyebrow">오늘의 도착점</p>
+      <h2>“누구를 위해, 어떤 문제를 해결하고, 무엇을 출력하는 에이전트인가?”</h2>
+      <p>완성 예시를 먼저 본 뒤 목표를 정하고, 판단에 필요한 정보와 작동 순서를 만들고, 생성형 AI에서 실제로 시험합니다.</p>
+    </div>
+    <div class="mini-flow" aria-label="제작 흐름">
+      <span>① 예시 선택</span><b>→</b><span>② 목표 정하기</span><b>→</b><span>③ 판단 기준 넣기</span><b>→</b><span>④ 작동 방식 만들기</span><b>→</b><span>⑤ AI와 시험하기</span><b>→</b><span>⑥ 완성본 받기</span>
+    </div>
+  </section>
+
+  <div class="privacy" role="note"><strong>개인정보·민감정보를 입력하지 마세요.</strong> 입력 내용은 이 브라우저의 localStorage에만 저장됩니다.</div>
+  <div id="recovery" class="recovery" hidden>
+    <div><strong>저장 데이터를 읽지 못했습니다.</strong> 자동으로 덮어쓰지 않았습니다.</div>
+    <div class="button-row">
+      <button id="downloadRecovery" class="btn secondary" type="button">손상 데이터 저장</button>
+      <button id="startFresh" class="btn" type="button">새 상태로 시작</button>
+    </div>
+  </div>
+  <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+  <div class="workspace">
+    <nav class="stage-nav" aria-label="에이전트 제작 단계">
+      <div class="nav-head"><strong>내 에이전트 만들기</strong><span id="progressText">0 / 8 완료</span></div>
+      <div id="stageButtons"></div>
+      <p class="nav-note">지금 단계 하나만 보면 됩니다. 화면에서는 실제 해야 할 활동 이름을 사용합니다.</p>
+    </nav>
+
+    <main id="main" class="main" tabindex="-1">
+      <div class="mission-bar">
+        <div><span class="mission-label">지금 할 일</span><strong id="stageMission">완성 예시를 하나 고르고 어떤 에이전트인지 먼저 이해합니다.</strong></div>
+        <span id="stageBadge" class="badge">작성 필요</span>
+      </div>
+
+      <header class="stage-head">
+        <div><p id="stageKicker" class="eyebrow"></p><h2 id="stageTitle"></h2><p id="stagePurpose"></p></div>
+      </header>
+
+      <details class="example-details">
+        <summary>기준 예시와 주의 예시 보기</summary>
+        <div class="examples">
+          <article class="example good"><h3>기준 예시</h3><p id="goodExample"></p></article>
+          <article class="example caution"><h3>주의할 예시</h3><p id="badExample"></p></article>
+        </div>
+      </details>
+
+      <section class="stage-section" data-stage="intro">
+        <fieldset class="start-mode"><legend>먼저 나와 가까운 완성 예시를 고르세요.</legend>
+          <div class="button-row" id="audienceChoices">
+            <button class="btn secondary" type="button" data-audience="elementary"><strong>초등</strong> · 용돈지킴이</button>
+            <button class="btn secondary" type="button" data-audience="secondary"><strong>중·고등</strong> · 시험기간 플래너</button>
+            <button class="btn secondary" type="button" data-audience="adult"><strong>성인</strong> · 여행 일정 에이전트</button>
+          </div>
+          <p class="hint">예시를 고르면 아래 완성 모습과 목표 초안이 함께 바뀝니다. 이후 자유롭게 수정할 수 있습니다.</p>
+        </fieldset>
+
+        <div class="result-preview">
+          <div class="preview-head"><span id="previewAudience">초등 예시</span><strong id="previewName">용돈지킴이</strong></div>
+          <p id="previewTagline">사고 싶은 물건이 생겼을 때, 지금 사도 되는지 같이 판단해주는 에이전트</p>
+          <div class="preview-body">
+            <div><small>사용자가 넣는 것</small><p id="previewInput">현재 용돈 32,000원 / 물건 18,000원 / 다음 용돈까지 12일 / 꼭 필요한 지출 8,000원</p></div>
+            <div class="preview-arrow">↓</div>
+            <div class="preview-steps" id="previewSteps"><span>현재 돈 확인</span><span>남는 돈 계산</span><span>필수지출 확인</span><span>사기·기다리기 비교</span></div>
+            <div class="preview-arrow">↓</div>
+            <div class="preview-output"><small>에이전트가 내놓는 것</small><p><strong id="previewOutput">사기 / 기다리기 판단 + 예상 잔액 + 이유 + 더 싼 대안</strong></p></div>
+          </div>
+        </div>
+
+        <div class="goal-starter">
+          <h3>이제 내가 만들 에이전트의 목표를 한 줄로 잡아봅니다.</h3>
+          <p class="hint">선택한 예시가 자동으로 들어갑니다. 내 상황에 맞게 바꾸면 됩니다.</p>
+          <div class="grid3">
+            <label>누가 사용할까?<textarea data-bind="define.user" rows="2"></textarea></label>
+            <label>무슨 문제를 해결할까?<textarea data-bind="define.problem" rows="2"></textarea></label>
+            <label>무엇을 받게 할까?<textarea data-bind="structure.outputFormat" rows="2"></textarea></label>
+          </div>
+        </div>
+
+        <fieldset class="start-mode"><legend>만드는 방식 선택</legend>
+          <label class="mode"><input type="radio" name="mode" value="example" data-bind="mode"> <span><strong>선택한 예시로 빠르게 체험</strong><small>완성 과정을 먼저 경험합니다.</small></span></label>
+          <label class="mode"><input type="radio" name="mode" value="modify" data-bind="mode"> <span><strong>예시를 내 상황에 맞게 바꾸기</strong><small>추천. 구조는 유지하고 조건과 목표를 바꿉니다.</small></span></label>
+          <label class="mode"><input type="radio" name="mode" value="custom" data-bind="mode"> <span><strong>처음부터 직접 만들기</strong><small>빈 양식에서 시작합니다.</small></span></label>
+          <button id="applyMode" class="btn secondary" type="button">선택한 방식으로 시작</button>
+        </fieldset>
+        <details class="promise-details">
+          <summary>이 활동에서 지킬 3가지 원칙 보기</summary>
+          <fieldset><legend class="sr-only">단계형 프로젝트의 핵심</legend>
+            <label class="check"><input type="checkbox" data-diff="0"> 판단에 필요한 정보와 기준을 먼저 확인한다.</label>
+            <label class="check"><input type="checkbox" data-diff="1"> 작업을 여러 단계로 나누고 중간 결과를 남긴다.</label>
+            <label class="check"><input type="checkbox" data-diff="2"> 정상뿐 아니라 애매·실패 입력으로 검증한다.</label>
+          </fieldset>
+        </details>
+      </section>
+
+      <section class="stage-section" data-stage="define" hidden>
+        <div class="step-intro"><strong>목표 확정</strong><span>에이전트가 해결할 문제를 한 장면으로 좁힙니다.</span></div>
+        <div class="grid2">
+          <label>사용자<textarea data-bind="define.user" rows="3"></textarea></label>
+          <label>사용 장면<textarea data-bind="define.scene" rows="3"></textarea></label>
+          <label>해결할 문제<textarea data-bind="define.problem" rows="4"></textarea></label>
+          <label>제약<textarea data-bind="define.constraints" rows="4"></textarea></label>
+        </div>
+        <label>성공 조건<textarea data-bind="define.success" rows="4"></textarea></label>
+        <aside class="callout"><strong>한 문장 점검</strong> “이 에이전트는 <u>누가</u>, <u>어떤 상황에서</u>, <u>어떤 문제를</u> 해결해 <u>어떤 결과</u>를 얻게 한다.”가 말이 되면 다음으로 갑니다.</aside>
+      </section>
+
+      <section class="stage-section" data-stage="collect" hidden>
+        <div class="step-intro"><strong>판단 기준·정보 넣기</strong><span>에이전트가 마음대로 추측하지 않도록 실제 판단에 필요한 정보나 규칙을 최소 3개 넣습니다.</span></div>
+        <aside class="callout warning"><strong>웹 검색 자료만 ‘근거’인 것은 아닙니다.</strong> 현재 용돈, 시험 날짜, 여행 예산처럼 사용자가 제공하는 사실과 명시적인 판단 규칙도 중요한 근거입니다.</aside>
+        <div id="sourceCards"></div>
+      </section>
+
+      <section class="stage-section" data-stage="structure" hidden>
+        <div class="step-intro"><strong>작동 방식 만들기</strong><span>사용자 입력을 받은 뒤 에이전트가 어떤 순서로 확인하고 비교하고 판단할지 정합니다.</span></div>
+        <label>사용자가 에이전트에게 넣어야 할 정보<textarea data-bind="structure.requiredInput" rows="3" placeholder="예: 예산, 날짜, 우선순위, 반드시 지켜야 할 조건"></textarea></label>
+        <fieldset><legend>에이전트가 처리할 순서 4~6개</legend><p class="hint">각 칸은 실제 에이전트가 수행할 한 가지 행동입니다.</p><div id="stepRows"></div></fieldset>
+        <label>최종 출력 모습<textarea data-bind="structure.outputFormat" rows="3"></textarea></label>
+        <label>스스로 확인할 기준<textarea data-bind="structure.validationRules" rows="3"></textarea></label>
+        <label>멈추거나 다시 물어봐야 할 조건<textarea data-bind="structure.stopRules" rows="3"></textarea></label>
+      </section>
+
+      <section class="stage-section" data-stage="build" hidden>
+        <div class="step-intro success"><strong>여기서 실제 에이전트가 만들어집니다.</strong><span>앞에서 정한 목표·판단 기준·작동 순서를 하나의 실행 가능한 에이전트 카드로 자동 조립합니다.</span></div>
+        <label>완성 중인 에이전트 카드<textarea id="agentCard" rows="22" readonly></textarea></label>
+      </section>
+
+      <section class="stage-section" data-stage="test" hidden>
+        <div class="step-intro"><strong>AI와 실제 시험하기</strong><span>아래 입력을 AI에 보내고, 나온 답을 그대로 기록해 에이전트가 어디서 흔들리는지 찾습니다.</span></div>
+        <div class="test-tabs" role="tablist" aria-label="테스트 종류">
+          <button class="tab" type="button" role="tab" data-test-tab="normal">1. 정상 입력</button>
+          <button class="tab" type="button" role="tab" data-test-tab="boundary">2. 애매한 입력</button>
+          <button class="tab" type="button" role="tab" data-test-tab="failure">3. 위험·실패 입력</button>
+        </div>
+        <div id="testPanels"></div>
+      </section>
+
+      <section class="stage-section" data-stage="publish" hidden>
+        <div class="step-intro success"><strong>완성본 받기</strong><span>목표, 판단 기준, 에이전트 카드, 테스트 기록을 한 파일로 묶습니다.</span></div>
+        <label>전체 공유 패키지<textarea id="markdownPreview" rows="28" readonly></textarea></label>
+        <div class="button-row"><button id="markPreview" class="btn secondary" type="button">완성본 확인</button><button id="copyMarkdown" class="btn secondary" type="button">Markdown 복사</button><button id="downloadMarkdown" class="btn" type="button">에이전트 패키지 다운로드</button></div>
+      </section>
+
+      <section class="stage-section" data-stage="improve" hidden>
+        <div class="step-intro"><strong>한 번 고쳐서 진짜 내 것으로 만들기</strong><span>테스트와 동료 의견 중 하나를 선택해 수정 전후를 남깁니다.</span></div>
+        <div class="grid2"><label>동료 피드백 1 · 어려웠던 부분<textarea data-bind="improve.feedback1" rows="3"></textarea></label><label>동료 피드백 2 · 잘 작동한 부분<textarea data-bind="improve.feedback2" rows="3"></textarea></label></div>
+        <label>동료 피드백 3 · 실제 사용 전 고쳐야 할 부분<textarea data-bind="improve.feedback3" rows="3"></textarea></label>
+        <div class="grid2"><label>수정 전<textarea data-bind="improve.before" rows="4"></textarea></label><label>수정 후<textarea data-bind="improve.after" rows="4"></textarea></label></div>
+        <label>다음 개선 과제<textarea data-bind="improve.next" rows="3"></textarea></label>
+      </section>
+
+      <section class="ai-workbench" aria-label="생성형 AI와 주고받기">
+        <div class="ai-workbench-head">
+          <div><p class="eyebrow">AI와 주고받는 실제 활동</p><h3>작성한 내용을 AI에 보내고, 답을 다시 이 작업대에 가져오세요.</h3></div>
+          <span class="loop-badge">작성 → 복사 → AI → 결과 확인</span>
+        </div>
+        <ol class="exchange-flow">
+          <li><strong>1</strong><span>위의 현재 단계 내용을 작성</span></li>
+          <li><strong>2</strong><span>아래 <b>AI에게 보낼 내용</b>을 복사</span></li>
+          <li><strong>3</strong><span>ChatGPT·Claude 등 생성형 AI에 붙여넣기</span></li>
+          <li><strong>4</strong><span>AI 답을 확인하고 필요한 부분을 위 양식 또는 테스트 기록에 반영</span></li>
+        </ol>
+        <div class="packet-card">
+          <div class="side-head"><div><h4>지금 AI에게 보낼 내용</h4><small>Context Packet · 현재 단계에 필요한 정보만 자동 조립</small></div><button id="copyPacket" class="btn" type="button">AI에 보낼 내용 복사</button></div>
+          <pre id="packet"></pre>
+        </div>
+        <details class="support-details">
+          <summary>새 채팅으로 옮길 때 필요한 상태 요약 보기</summary>
+          <div class="support-grid">
+            <section><div class="side-head"><div><h4>상태 요약</h4><small>State Snapshot</small></div><button id="refreshSnapshot" class="btn compact secondary" type="button">자동 초안</button></div><label>이어갈 내용<textarea id="snapshot" rows="8"></textarea></label></section>
+            <section><h4>교사용 점검</h4><ul id="teacherCheck"></ul></section>
+          </div>
+        </details>
+        <details class="support-details"><summary>현재 산출물 미리보기</summary><pre id="outputPreview"></pre></details>
+      </section>
+
+      <section class="completion focus-completion">
+        <div class="completion-title"><span>마지막으로 여기만 확인</span><h3>이 단계를 끝내도 될까요?</h3></div>
+        <ul id="completionList"></ul>
+      </section>
+
+      <footer class="stage-footer"><button id="prevStage" class="btn secondary" type="button">이전</button><button id="nextStage" class="btn" type="button">확인하고 다음으로</button></footer>
+    </main>
+  </div>
+
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+  <script src="./ux-v2.js"></script>
+</body>
+</html>
