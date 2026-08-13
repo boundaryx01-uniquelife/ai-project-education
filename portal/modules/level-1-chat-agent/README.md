@@ -74,6 +74,10 @@ AI가 반환한 HTML은 `iframe sandbox="allow-scripts"` 안에서 실행한다.
 
 ## 로컬 실행
 
+Windows에서는 `portal` 폴더 안의 `Start-Portal.cmd`를 더블클릭합니다. 브라우저가 자동으로 열리고, 서버 창을 닫으면 실행이 종료됩니다.
+
+명령줄로 실행하려면:
+
 ```powershell
 Set-Location "C:\DEV\ai-project-education\portal"
 .\Start-LocalPortal.ps1
