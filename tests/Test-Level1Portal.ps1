@@ -33,7 +33,7 @@ $Checks = @(
     @{ Name = "Stage 3 user validation"; Value = $Js.Contains('testSituation') -and $Js.Contains('testOutcome') -and $Js.Contains('feedback') },
     @{ Name = "Stage 3 AI decision"; Value = $Js.Contains('accepted') -and $Js.Contains('rejected') -and $Js.Contains('decisionReason') },
     @{ Name = "Stage 3 AI skip path"; Value = $Js.Contains('skipReason') -and $Js.Contains('substituteEvidence') },
-    @{ Name = "Stage 3 validation loop"; Value = $Js.Contains('revisionNeeded') -and $Js.Contains('revisionPlan') -and $Js.Contains('state.stage=1') -and $Js.Contains('archiveValidation') },
+    @{ Name = "Stage 3 in-place validation loop"; Value = $Js.Contains('revisionNeeded') -and $Js.Contains('revisionPlan') -and $Js.Contains('revisionApplied') -and $Js.Contains('retestPassed') -and $Js.Contains('renderValidationForm') },
     @{ Name = "Revision and validation history"; Value = $Js.Contains('refinementHistory') -and $Js.Contains('validationHistory') -and $Js.Contains('archiveRefinement') },
     @{ Name = "Stage 4 decisions"; Value = $Js.Contains('browserStorage') -and $Js.Contains('database') -and $Js.Contains('external') -and $Js.Contains('nextFunctions') },
     @{ Name = "Project package export"; Value = $Workshop.Contains('downloadMarkdown') -and $Workshop.Contains('downloadHtml') -and $Js.Contains('function projectMarkdown') },
