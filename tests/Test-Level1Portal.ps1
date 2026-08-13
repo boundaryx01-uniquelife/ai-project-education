@@ -7,8 +7,8 @@ $Module = Join-Path $Root "portal\modules\level-1-chat-agent"
 $RequiredFiles = @(
     "index.html",
     "workshop.html",
-    "workshop-v5.css",
-    "workshop-v5.js",
+    "workshop-v6.css",
+    "workshop-v6.js",
     "data.js",
     "README.md"
 )
@@ -22,8 +22,8 @@ foreach ($Name in $RequiredFiles) {
 
 $Intro = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Workshop = Get-Content -LiteralPath (Join-Path $Module "workshop.html") -Raw
-$Js = Get-Content -LiteralPath (Join-Path $Module "workshop-v5.js") -Raw
-$Css = Get-Content -LiteralPath (Join-Path $Module "workshop-v5.css") -Raw
+$Js = Get-Content -LiteralPath (Join-Path $Module "workshop-v6.js") -Raw
+$Css = Get-Content -LiteralPath (Join-Path $Module "workshop-v6.css") -Raw
 $Data = Get-Content -LiteralPath (Join-Path $Module "data.js") -Raw
 
 $Checks = @(
@@ -33,26 +33,24 @@ $Checks = @(
     @{ Name = "Intro money product screen"; Value = $Intro.Contains('Pocket Guard') },
     @{ Name = "Intro study product screen"; Value = $Intro.Contains('Focus Plan') },
     @{ Name = "Intro travel product screen"; Value = $Intro.Contains('Bohol') },
-    @{ Name = "Workshop v5 CSS"; Value = $Workshop.Contains('href="./workshop-v5.css"') },
-    @{ Name = "Workshop v5 JS"; Value = $Workshop.Contains('src="./workshop-v5.js"') },
-    @{ Name = "Live panel"; Value = $Workshop.Contains('id="liveBody"') -and $Workshop.Contains('MY AGENT') },
-    @{ Name = "Follow panel"; Value = $Workshop.Contains('id="webForm"') },
-    @{ Name = "Web activity block"; Value = $Workshop.Contains('task-web') },
-    @{ Name = "AI activity block"; Value = $Workshop.Contains('task-ai') },
-    @{ Name = "MVP phase"; Value = $Js.Contains('name:"1. MVP') },
-    @{ Name = "Refine phase"; Value = $Js.Contains('mustNot') -and $Js.Contains('askAgain') },
+    @{ Name = "Workshop v6 CSS"; Value = $Workshop.Contains('href="./workshop-v6.css"') },
+    @{ Name = "Workshop v6 JS"; Value = $Workshop.Contains('src="./workshop-v6.js"') },
+    @{ Name = "Runnable iframe"; Value = $Js.Contains('sandbox="allow-scripts"') -and $Js.Contains('srcdoc') },
+    @{ Name = "Sandbox CSP"; Value = $Js.Contains('Content-Security-Policy') -and $Js.Contains("connect-src 'none'") },
+    @{ Name = "HTML artifact state"; Value = $Js.Contains('artifactHtml') },
+    @{ Name = "HTML fence stripping"; Value = $Js.Contains('function stripFence') },
+    @{ Name = "Runnable HTML gate"; Value = $Js.Contains('function hasRunnableHtml') },
+    @{ Name = "MVP implementation prompt"; Value = $Js.Contains('single HTML') -or $Js.Contains('HTML/CSS/JavaScript') },
+    @{ Name = "Code paste box"; Value = $Js.Contains('id="artifactHtml"') },
+    @{ Name = "Refinement phase"; Value = $Js.Contains('mustNot') -and $Js.Contains('askAgain') },
     @{ Name = "Validation phase"; Value = $Js.Contains('userResult') -and $Js.Contains('aiResult') },
-    @{ Name = "Deployment phase"; Value = $Js.Contains('function arch') },
+    @{ Name = "Deployment phase"; Value = $Js.Contains('function architecture') },
     @{ Name = "Four learner stages"; Value = $Js.Contains('${state.stage+1} / 4') },
-    @{ Name = "Live preview renderer"; Value = $Js.Contains('function renderLive') },
-    @{ Name = "Follow input updates live"; Value = $Js.Contains('renderLive();renderProgress()') },
-    @{ Name = "Agent instruction"; Value = $Js.Contains('function baseAgent') },
-    @{ Name = "AI prompt"; Value = $Js.Contains('function prompt') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
     @{ Name = "No fetch call"; Value = -not $Js.Contains('fetch(') },
     @{ Name = "No external CDN"; Value = -not ($Workshop -match 'https?://') },
     @{ Name = "Two-column layout"; Value = $Css.Contains('.board{display:grid') },
-    @{ Name = "Live product styles"; Value = $Css.Contains('.product-name') -and $Css.Contains('.result-shell') },
+    @{ Name = "Preview frame style"; Value = $Css.Contains('.preview-frame') },
     @{ Name = "Elementary example data"; Value = $Data.Contains('elementary:') },
     @{ Name = "Secondary example data"; Value = $Data.Contains('secondary:') },
     @{ Name = "Adult example data"; Value = $Data.Contains('adult:') }
@@ -73,4 +71,4 @@ if ($Failed.Count -gt 0) {
     throw ("Static validation failed: " + ($Failed -join ", "))
 }
 
-Write-Host "PASS: LEVEL 1 live-linked four-phase workshop static validation"
+Write-Host "PASS: LEVEL 1 executable MVP workshop static validation"
