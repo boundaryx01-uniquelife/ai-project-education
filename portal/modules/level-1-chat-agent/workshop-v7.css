@@ -16,3 +16,6 @@
 .validation-loop { box-shadow:0 3px 10px rgba(23,78,129,.08); }
 .validation-loop > p { margin:0; color:#425466; }
 .retest-grid { display:grid; grid-template-columns:1fr; gap:10px; }
+.iteration-history { padding:12px; border:1px solid #c7b0dc; border-radius:10px; background:#faf7fd; }
+.iteration-history summary { cursor:pointer; font-weight:900; color:#4d2a73; }
+.iteration-history p { margin:10px 0 0; padding-top:10px; border-top:1px solid #e4d8ef; font-size:.88rem; }
