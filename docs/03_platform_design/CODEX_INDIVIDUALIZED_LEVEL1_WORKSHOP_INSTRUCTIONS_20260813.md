@@ -7,12 +7,22 @@
 
 ## 1. Read first
 
-Use these as the implementation baseline:
+Use these as the implementation baseline, in this priority order:
 
-1. `docs/02_curriculum_design/AI_AGENT_EDUCATION_FINAL_BASELINE_20260813.md`
-2. `docs/03_platform_design/CODEX_LEVEL_1_PORTAL_MVP_INSTRUCTIONS_20260807.md`
-3. current files under `portal/modules/level-1-chat-agent/`
-4. `tests/Test-Level1Portal.ps1`
+1. `docs/02_curriculum_design/AI_AGENT_EDUCATION_FINAL_BASELINE_20260813.md` — canonical implementation baseline
+2. `docs/02_curriculum_design/claude_reference_20260813/HANDOFF_CLAUDE_TO_CODEX_20260813.md` — Claude handoff/reference
+3. `docs/02_curriculum_design/claude_reference_20260813/AI_AGENT_EDUCATION_CLAUDE_FINAL_20260813.md` — Claude final-structure reference
+4. `docs/02_curriculum_design/claude_reference_20260813/AI_AGENT_LESSON_PLANNING_CLAUDE_NOTES_20260813.md` — earlier planning context
+5. `docs/03_platform_design/CODEX_LEVEL_1_PORTAL_MVP_INSTRUCTIONS_20260807.md`
+6. current files under `portal/modules/level-1-chat-agent/`
+7. `tests/Test-Level1Portal.ps1`
+
+If any Claude reference wording conflicts with the canonical baseline, follow `AI_AGENT_EDUCATION_FINAL_BASELINE_20260813.md`.
+
+In particular, Stage 3 is locked as follows:
+- AI validation is optional.
+- If AI validation is performed, accept/reject decisions and reasons are required.
+- If AI validation is skipped, skip reason and substitute validation evidence are required.
 
 Do not silently rewrite historical STAGE 02 decision documents.
 
