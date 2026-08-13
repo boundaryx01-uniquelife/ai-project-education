@@ -1,0 +1,10 @@
+@import url("./workshop-v6.css");
+
+.self-check { display:grid; gap:8px; margin:4px 0; padding:12px; border:1px solid #9bb8d4; border-radius:10px; background:#fff; }
+.self-check legend { font-weight:900; }
+.check { display:flex; align-items:flex-start; gap:7px; font-size:.88rem; font-weight:700; }
+.check input { margin-top:4px; }
+.validation-message { padding:12px; border-radius:10px; background:#fff8df; color:#6d510d; }
+.export-panel { margin-top:14px; padding:15px; border:2px solid #8ec5a8; border-radius:13px; background:#f1fbf6; }
+.export-panel h3, .export-panel p { margin-top:0; }
+.export-actions { display:flex; flex-wrap:wrap; gap:9px; }

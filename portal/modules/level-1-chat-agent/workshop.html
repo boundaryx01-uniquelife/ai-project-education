@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="AI가 만든 단일 HTML MVP를 왼쪽에서 실제 실행하며 수정·검증하는 LEVEL 1 워크숍">
   <title>LEVEL 1 | 실행형 MVP 워크숍</title>
-  <link rel="stylesheet" href="./workshop-v6.css">
+  <link rel="stylesheet" href="./workshop-v7.css">
 </head>
 <body>
   <header class="top">
@@ -55,6 +55,12 @@
         </section>
 
         <section class="finish" aria-label="단계 확인"><h3>이 단계의 통과 기준</h3><p id="finishState"></p></section>
+
+        <section id="exportPanel" class="export-panel hidden" aria-label="최종 프로젝트 패키지 내보내기">
+          <h3>최종 프로젝트 패키지</h3>
+          <p>실행 HTML과 네 단계의 학습 기록을 각각 파일로 남기세요.</p>
+          <div class="export-actions"><button id="downloadMarkdown" class="btn success" type="button">학습 기록 .md 다운로드</button><button id="downloadHtml" class="btn secondary" type="button">최종 MVP .html 다운로드</button></div>
+        </section>
 
         <div class="nav"><button id="prev" class="btn secondary" type="button">이전</button><button id="next" class="btn" type="button">다음 단계</button></div>
       </section>
