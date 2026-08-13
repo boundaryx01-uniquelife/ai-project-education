@@ -23,6 +23,7 @@ $Data = Get-Content -LiteralPath (Join-Path $Module "data.js") -Raw
 $Checks = @(
     @{ Name = "Four stages"; Value = $Js.Contains('${state.stage+1} / 4') -and $Js.Contains('1. MVP') -and $Js.Contains('2. ') -and $Js.Contains('3. ') -and $Js.Contains('4. ') },
     @{ Name = "Active CSS reference"; Value = $Workshop.Contains('href="./workshop-v7.css"') -and $Css.Contains('workshop-v6.css') },
+    @{ Name = "Readable code surfaces"; Value = $Css.Contains('.prompt, .codebox') -and $Css.Contains('background:#0f172a') -and $Css.Contains('ui-monospace') -and $Css.Contains('color:#e5eef8') },
     @{ Name = "Active JS reference"; Value = $Workshop.Contains('src="./workshop-v6.js"') },
     @{ Name = "Runnable sandbox iframe"; Value = $Js.Contains('sandbox="allow-scripts"') -and $Js.Contains('srcdoc') },
     @{ Name = "HTML document extraction"; Value = $Js.Contains('function extractHtmlDocument') -and $Js.Contains('code.value=state.artifactHtml') },

@@ -1,5 +1,30 @@
 @import url("./workshop-v6.css");
 
+/* 코드 입력·표시 영역은 일반 문서 입력과 확실히 구분한다. */
+.prompt, .codebox {
+  border:1px solid #334155;
+  border-radius:10px;
+  background:#0f172a;
+  color:#e5eef8;
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:13px;
+  line-height:1.55;
+  letter-spacing:0;
+}
+.prompt {
+  max-height:320px;
+  padding:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.codebox {
+  min-height:240px;
+  padding:14px;
+  caret-color:#7dd3fc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.codebox::placeholder { color:#94a3b8; opacity:1; }
+.codebox::selection, .prompt::selection { background:#1d4ed8; color:#fff; }
+
 .self-check { display:grid; gap:8px; margin:4px 0; padding:12px; border:1px solid #9bb8d4; border-radius:10px; background:#fff; }
 .self-check legend { font-weight:900; }
 .check { display:flex; align-items:flex-start; gap:7px; font-size:.88rem; font-weight:700; }
