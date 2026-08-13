@@ -4,11 +4,13 @@ $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 $Module = Join-Path $Root "portal\modules\level-1-chat-agent"
 $RequiredFiles = @("index.html", "workshop.html", "workshop-v6.css", "workshop-v7.css", "workshop-v6.js", "data.js", "README.md")
+$LocalLauncher = Join-Path $Root "portal\Start-LocalPortal.ps1"
 
 foreach ($Name in $RequiredFiles) {
     $Path = Join-Path $Module $Name
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { throw ("Missing required file: " + $Path) }
 }
+if (-not (Test-Path -LiteralPath $LocalLauncher -PathType Leaf)) { throw ("Missing local portal launcher: " + $LocalLauncher) }
 
 $Intro = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Workshop = Get-Content -LiteralPath (Join-Path $Module "workshop.html") -Raw
@@ -47,6 +49,7 @@ $Checks = @(
     @{ Name = "Representative examples"; Value = $Data.Contains('elementary:') -and $Data.Contains('secondary:') -and $Data.Contains('adult:') },
     @{ Name = "Free topic path"; Value = $Data.Contains('custom:') -and $Data.Contains('modify:') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') }
+    @{ Name = "Local deployment launcher"; Value = (Get-Content -LiteralPath $LocalLauncher -Raw).Contains('HttpListener') }
 )
 
 $Failed = @()

@@ -76,12 +76,27 @@ AI가 반환한 HTML은 `iframe sandbox="allow-scripts"` 안에서 실행한다.
 
 ```powershell
 Set-Location "C:\DEV\ai-project-education\portal"
-python -m http.server 8080
+.\Start-LocalPortal.ps1
 ```
 
 인트로:
 
 `http://localhost:8080/modules/level-1-chat-agent/`
+
+PowerShell 실행 정책 때문에 차단되면 다음 명령을 사용합니다.
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Start-LocalPortal.ps1"
+```
+
+## GitHub Pages 배포
+
+`feature/stage-03-level-1-portal` 또는 `main`에 `portal/` 변경이 푸시되면 GitHub Actions가 Pages 배포를 실행합니다.
+
+- 포털: `https://boundaryx01-uniquelife.github.io/ai-project-education/`
+- LEVEL 1: `https://boundaryx01-uniquelife.github.io/ai-project-education/modules/level-1-chat-agent/`
+
+처음 한 번은 GitHub 저장소의 **Settings → Pages → Build and deployment**에서 Source를 **GitHub Actions**로 설정해야 합니다.
 
 ## 정적 검증
 
