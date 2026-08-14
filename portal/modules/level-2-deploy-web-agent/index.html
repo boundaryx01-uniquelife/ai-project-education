@@ -10,31 +10,32 @@
   <main class="shell">
     <header class="top">
       <a href="../../index.html">← 통합 포털</a>
-      <span>LEVEL 2 · 배포형 웹 에이전트</span>
+      <span>LEVEL 2 · 4~6시간 배포형 웹 에이전트</span>
     </header>
     <section class="intro">
-      <p class="eyebrow">START FROM LEVEL 1</p>
-      <h1>검증한 MVP를 배포 가능한 웹 도구로 확장합니다.</h1>
-      <p>LEVEL 1에서 내려받은 이어가기 문서를 붙여넣고, 지켜야 할 규칙·제한과 LEVEL 2의 테스트·배포 범위를 정하세요.</p>
+      <p class="eyebrow">INDEPENDENT COURSE</p>
+      <h1>다른 사람이 쓸 수 있는 웹 도구를 설계·배포합니다.</h1>
+      <p>LEVEL 2는 독립 과정입니다. 이 과정 안에서 사용자 흐름, 화면별 입력·출력, 오류 처리, 브라우저 저장, GitHub Pages 배포와 재검증을 완성합니다.</p>
       <p id="saveStatus" class="save" role="status">저장 준비</p>
     </section>
 
-    <section class="card import-card">
-      <h2>1. LEVEL 1 인계 자료 불러오기</h2>
-      <p><code>LEVEL 2~4 이어가기 .md</code> 파일 내용을 붙여넣은 뒤 적용합니다. 원문은 이 브라우저에만 저장됩니다.</p>
-      <textarea id="handoffText" class="codebox" rows="10" spellcheck="false" placeholder="# LEVEL 1 → LEVEL 2~4 이어가기 패킷"></textarea>
-      <button id="applyHandoff" type="button">인계 내용 적용</button>
+    <section class="card">
+      <h2>1. 프로젝트 브리프</h2>
+      <div class="grid">
+        <label>웹 도구 이름<input data-bind="projectName"></label>
+        <label>대상 사용자<input data-bind="user"></label>
+        <label class="full">해결할 문제<textarea data-bind="problem" rows="2"></textarea></label>
+        <label class="full">사용자가 얻을 결과<textarea data-bind="outcome" rows="2"></textarea></label>
+        <label class="full">지켜야 할 규칙·제한<textarea data-bind="rules" rows="3"></textarea></label>
+      </div>
     </section>
 
     <section class="card">
-      <h2>2. LEVEL 2 시작 범위</h2>
+      <h2>2. 배포형 웹 도구 설계</h2>
       <div class="grid">
-        <label>프로젝트명<input data-bind="projectName"></label>
-        <label>대상 사용자<input data-bind="user"></label>
-        <label class="full">해결할 문제<textarea data-bind="problem" rows="2"></textarea></label>
-        <label class="full">현재 MVP의 규칙·조건<textarea data-bind="rules" rows="3"></textarea></label>
-        <label class="full">알려진 제한·유의 사항<textarea data-bind="limitations" rows="3"></textarea></label>
-        <label class="full">LEVEL 2에서 우선 구현할 기능<textarea data-bind="nextFunctions" rows="3" placeholder="예: 브라우저에 저장되는 과목·시험일 관리와 공유 가능한 정적 웹 화면"></textarea></label>
+        <label class="full">사용자 흐름<textarea data-bind="userFlow" rows="3" placeholder="예: 정보 입력 → 조건 선택 → 결과 확인 → 저장 또는 내보내기"></textarea></label>
+        <label class="full">화면별 입력·출력 정의<textarea data-bind="screenDefinition" rows="3" placeholder="예: 입력 화면 / 결과 화면 / 사용 안내·제한 화면"></textarea></label>
+        <label class="full">이번 과정에서 구현할 핵심 기능<textarea data-bind="nextFunctions" rows="3"></textarea></label>
       </div>
     </section>
 
@@ -50,8 +51,8 @@
     </section>
 
     <section class="card actions">
-      <h2>4. 다음 작업으로 넘기기</h2>
-      <p>아래 파일은 LEVEL 2 구현 대화나 작업 지시서에 붙여 넣을 수 있는 최소 컨텍스트입니다.</p>
+      <h2>4. 구현 작업으로 넘기기</h2>
+      <p>아래 파일은 이 LEVEL 2 프로젝트의 구현 대화나 작업 지시서에 붙여 넣을 최소 컨텍스트입니다.</p>
       <button id="downloadContext" type="button">LEVEL 2 컨텍스트 .md 다운로드</button>
       <button id="downloadSnapshot" class="secondary" type="button">상태 스냅샷 .md 다운로드</button>
     </section>

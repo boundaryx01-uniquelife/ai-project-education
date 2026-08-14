@@ -10,12 +10,13 @@ foreach ($Name in $Files) {
 $Html = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Module "level2.js") -Raw
 $Checks = @(
-    @{ Name = "Level 1 handoff import"; Value = $Html.Contains('handoffText') -and $Js.Contains('applyHandoff') },
-    @{ Name = "Constraints carried forward"; Value = $Js.Contains('limitations') -and $Js.Contains('rules') -and $Js.Contains('DO NOT CHANGE') },
+    @{ Name = "Independent project brief"; Value = $Html.Contains('projectName') -and $Html.Contains('userFlow') -and -not $Html.Contains('handoffText') },
+    @{ Name = "Screen and result design"; Value = $Html.Contains('screenDefinition') -and $Js.Contains('screenDefinition') },
     @{ Name = "Level 2 context packet"; Value = $Js.Contains('PROJECT CONTEXT PACKET') -and $Js.Contains('STOP CONDITION') },
     @{ Name = "Deployment validation"; Value = $Js.Contains('pages:false') -and $Html.Contains('data-check="pages"') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
-    @{ Name = "No network integration"; Value = -not $Js.Contains('fetch(') }
+    @{ Name = "No network integration"; Value = -not $Js.Contains('fetch(') },
+    @{ Name = "No Level 1 dependency"; Value = -not $Js.Contains('handoff') -and -not $Js.Contains('LEVEL 1 인계') }
 )
 $Failed = @()
 foreach ($Check in $Checks) { if ($Check.Value) { Write-Host ("PASS: " + $Check.Name) } else { Write-Host ("FAIL: " + $Check.Name); $Failed += $Check.Name } }
