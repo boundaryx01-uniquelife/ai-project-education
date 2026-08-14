@@ -1,80 +1,12 @@
 <!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LEVEL 1 | 대화형 미니 에이전트</title>
-  <link rel="stylesheet" href="./level1.css">
-  <link rel="stylesheet" href="./level1-gates.css">
-</head>
-<body>
-  <main class="shell">
-    <header class="top"><a href="../../index.html">← 통합 포털</a><span>LEVEL 1 · 3시간 대화형 미니 에이전트</span></header>
-    <section class="hero">
-      <p class="eyebrow">CHAT AGENT BASICS</p>
-      <h1>한정된 역할과 근거를 가진 대화봇을 만듭니다.</h1>
-      <p>이 과정은 배포형 웹앱을 만드는 과정이 아닙니다. 대화의 역할, 답변 범위, 근거, 모르는 질문에 대응하는 규칙을 설계하고 외부 채팅 AI에서 직접 검증합니다.</p>
-      <p id="saveStatus" class="save" role="status">저장 준비</p>
-    </section>
-    <nav class="progress" aria-label="LEVEL 1 단계"><span data-progress="0">1. 시작 판단</span><span data-progress="1">2. 대화 규칙</span><span data-progress="2">3. 프롬프트</span><span data-progress="3">4. 검증·완성</span><span data-progress="4">5. 보완 계획</span></nav>
-
-    <section class="layout">
-      <aside class="preview">
-        <p class="panel-label">MY CHAT AGENT</p>
-        <h2 id="agentPreview">나의 대화봇</h2>
-        <dl>
-          <div><dt>역할</dt><dd id="rolePreview">아직 정하지 않음</dd></div>
-          <div><dt>답변 근거</dt><dd id="sourcePreview">아직 정하지 않음</dd></div>
-          <div><dt>하지 않을 일</dt><dd id="boundaryPreview">아직 정하지 않음</dd></div>
-        </dl>
-        <div class="honesty"><strong>중요</strong><p>이 페이지가 AI 응답을 자동 생성하지는 않습니다. 복사한 프롬프트를 ChatGPT·Claude 등에 보내고, 답변을 사람이 검토합니다.</p></div>
-      </aside>
-
-      <div class="workflow">
-        <section class="card feasibility-card step-panel" data-step="0"><p class="step">1. CHECK FIRST</p><h2>이 주제가 대화봇으로 적합한가?</h2><p>대화봇은 모든 질문에 답하는 도구가 아닙니다. 반복해서 나올 질문 유형이 있고, 답변 범위를 제한할 수 있으며, 신뢰 가능한 자료를 확보할 수 있을 때만 시작합니다.</p><div class="form-grid">
-          <label class="full">대화 주제와 사용 상황<textarea data-bind="topicFit" rows="2" placeholder="예: 중학생이 정의·용기·선택에 관한 자신의 생각을 정리하는 철학 대화"></textarea></label>
-          <label class="full">예상 질문 2~3개<textarea data-bind="expectedQuestions" rows="2" placeholder="예: 정의로운 선택은 무엇인가? / 친구와 갈등할 때 어떤 질문을 해볼 수 있나?"></textarea></label>
-          <label class="full">이 봇이 답할 수 있는 범위와 답하지 않을 범위<textarea data-bind="responseScope" rows="3" placeholder="예: 제공한 발췌문 안의 개념 질문만 다룸. 원문에 없는 인용·전문 상담은 답하지 않음."></textarea></label>
-          <label class="full">신뢰 가능한 자료 목록<textarea data-bind="sourceRecords" rows="4" placeholder="자료명 | 작성·발행 주체 | 링크 또는 보관 위치 | 작성일/판본 | 이 자료를 쓰는 이유\n예: 소크라테스 발췌문 | 교육부 수업자료 | 교사 제공 PDF 3쪽 | 2025 | 수업에서 검토한 번역문"></textarea></label>
-        </div><div class="ai-check"><strong>AI에게 적합성 판단을 요청하세요.</strong><p>아래 프롬프트를 ChatGPT·Claude 등에 보내고, AI 판단은 참고로만 사용합니다. 자료의 실제 발행 주체·날짜·사용 조건은 원문에서 직접 확인하세요.</p><pre id="feasibilityPrompt" class="prompt"></pre><button id="copyFeasibilityPrompt" type="button">적합성 판단 프롬프트 복사</button><details><summary>판단 근거를 찾는 방법</summary><ol><li>교육기관·공공기관·도서관·원저작자·공식 출판사처럼 작성 주체가 확인되는 자료부터 찾습니다.</li><li>발행일·판본·원문 위치·사용 조건을 기록합니다.</li><li>서로 다른 두 자료가 같은 핵심 개념을 뒷받침하는지 비교합니다.</li><li>자료에 없는 사실·인용은 챗봇의 답변 범위에서 제외합니다.</li></ol></details></div><div class="form-grid decision-fields">
-          <label class="full">AI 판단 결과 요약 또는 원문<textarea data-bind="feasibilityAiResponse" rows="4" placeholder="AI가 제시한 적합성, 자료 신뢰도, 위험·보완점, 최종 판단을 붙여넣거나 요약합니다."></textarea></label>
-          <label>학습자의 최종 판단<select data-bind="feasibilityDecision"><option value="">선택하세요</option><option value="ready">적합 — 이 주제로 진행</option><option value="revise">보완 필요 — 주제·범위·자료 수정</option><option value="stop">부적합 — 다른 주제 선택</option></select></label>
-          <label>판단 이유<textarea data-bind="feasibilityReason" rows="2" placeholder="AI 판단과 실제 자료 확인을 바탕으로 적합하다고 판단한 이유"></textarea></label>
-        </div><div class="checks">
-          <label><input type="checkbox" data-check="chatSuitable"> 반복해서 나올 질문 유형과 사용 목적이 분명하다.</label>
-          <label><input type="checkbox" data-check="boundedResponse"> 답변 범위와 답변하지 않을 범위를 구분했다.</label>
-          <label><input type="checkbox" data-check="reliableSources"> 답변에 쓸 신뢰 가능한 자료를 최소 2건 확보했다.</label>
-          <label><input type="checkbox" data-check="sourceUsable"> 자료의 사용 조건을 확인했고, 필요한 부분을 대화 프롬프트에 제공할 수 있다.</label>
-        </div><p id="feasibilityState" class="gate-message" role="status"></p><button class="secondary start-revision" type="button">이 결과로 보완 계획 만들기</button></section>
-
-        <section class="card step-panel" data-step="1"><p class="step">2. DEFINE</p><h2>대화 규칙 설계</h2><div class="form-grid">
-          <label>대화봇 이름<input data-bind="name" placeholder="예: 소크라테스와 생각 나누기"></label>
-          <label>누가 사용하나<input data-bind="user" placeholder="예: 중학생"></label>
-          <label class="full">대화 역할<textarea data-bind="role" rows="2" placeholder="예: 질문을 되물으며 생각을 돕는 철학 대화 상대"></textarea></label>
-          <label class="full">사용할 근거·자료 범위<textarea data-bind="sources" rows="3" placeholder="예: 교사가 제공한 소크라테스 발췌문 3개와 수업 활동지. 자료에 없는 사실은 단정하지 않음."></textarea></label>
-          <label class="full">답변할 수 있는 주제<textarea data-bind="topics" rows="2" placeholder="예: 질문, 정의, 선택의 이유를 묻는 대화"></textarea></label>
-          <label class="full">금지·재질문 규칙<textarea data-bind="boundaries" rows="3" placeholder="예: 출처 없는 인용문을 만들지 않는다. 자료가 부족하면 모른다고 말하고 추가 정보를 요청한다."></textarea></label>
-        </div><button class="secondary start-revision" type="button">이 규칙으로 보완 계획 만들기</button></section>
-
-        <section class="card prompt-card step-panel" data-step="2"><p class="step">3. BUILD</p><h2>외부 AI에 보낼 대화 프롬프트</h2><pre id="prompt" class="prompt"></pre><button id="copyPrompt" type="button">프롬프트 복사</button><section class="mvp-preview" aria-labelledby="previewTitle"><div class="preview-heading"><div><p class="eyebrow">LOCAL MVP PREVIEW</p><h3 id="previewTitle">대화 흐름 미리보기</h3></div><span>규칙 확인용</span></div><p>API 없이 현재 설정한 역할·자료 범위·금지 규칙이 대화에 어떻게 표시되는지 확인합니다. 실제 AI 응답은 4단계에서 외부 AI로 검증합니다.</p><div id="previewChat" class="chat-window" aria-live="polite"><p class="chat-empty">질문을 입력하면 규칙 기반 MVP 응답을 보여줍니다.</p></div><label class="full">미리보기 질문<input data-bind="previewQuestion" placeholder="예: 정의로운 선택은 언제 어려워질까?"></label><button id="runPreview" type="button">MVP 대화 미리보기</button></section><button class="secondary start-revision" type="button">이 MVP로 보완 계획 만들기</button></section>
-
-        <section class="card step-panel" data-step="3"><p class="step">4. TEST</p><h2>대화 응답 검증</h2><p>복사한 프롬프트를 외부 채팅 AI에 붙여 넣고, 아래 질문으로 실제 대화를 시험하세요.</p><div class="form-grid">
-          <label class="full">시험 질문<textarea data-bind="testQuestion" rows="2" placeholder="예: 정의로운 선택은 언제 어려워질까?"></textarea></label>
-          <label class="full">실제 응답 요약<textarea data-bind="testResponse" rows="3" placeholder="AI가 어떤 질문·근거·답변을 했는지 짧게 기록"></textarea></label>
-          <label class="full">발견한 문제 또는 수정할 규칙<textarea data-bind="testFinding" rows="2"></textarea></label>
-        </div><section class="mvp-preview validation-preview" aria-labelledby="validationTitle"><div class="preview-heading"><div><p class="eyebrow">VALIDATION PREVIEW</p><h3 id="validationTitle">실제 응답 비교 보기</h3></div><span>외부 AI 결과</span></div><p>위에 기록한 시험 질문과 실제 외부 AI 응답을 대화 형태로 다시 확인하고, 체크 항목으로 규칙 준수 여부를 판단합니다.</p><div id="validationChat" class="chat-window" aria-live="polite"><p class="chat-empty">시험 질문과 실제 응답을 기록하면 여기에 표시됩니다.</p></div><button id="showValidationPreview" type="button">기록한 실제 응답 보기</button></section>
-        <div class="checks">
-          <label><input type="checkbox" data-check="stayedInRole"> 정한 역할과 주제 범위 안에서 답했다.</label>
-          <label><input type="checkbox" data-check="usedSources"> 근거가 부족할 때 출처를 꾸며내지 않았다.</label>
-          <label><input type="checkbox" data-check="askedAgain"> 모르는 내용은 재질문하거나 답변 범위를 밝혔다.</label>
-        </div>
-        <button class="secondary start-revision" type="button">이 검증 결과로 보완 계획 만들기</button><button id="downloadPackage" class="secondary" type="button">LEVEL 1 대화봇 패키지 .md 다운로드</button>
-      </section>
-      <section class="card revision-panel step-panel" data-step="4" aria-labelledby="revisionTitle"><p class="step">5. IMPROVE</p><h2 id="revisionTitle">핀포인트 보완 계획</h2><p>전체를 다시 쓰지 않습니다. 이전 결과를 보고, 한 가지 수정만 정한 뒤 AI에게 구체화 요청을 보냅니다.</p><section class="revision-source"><h3>이전 결과</h3><pre id="revisionSourceSummary" class="prompt"></pre></section><div class="form-grid revision-fields"><label>수정할 위치<select id="revisionTarget"></select></label><label class="full">고칠 한 가지<textarea id="revisionIssue" rows="2" placeholder="예: 자료 밖의 인용을 하지 않는 규칙이 약하다."></textarea></label><label class="full">원하는 결과<textarea id="revisionOutcome" rows="2" placeholder="예: 근거가 없으면 모른다고 말하고 필요한 정보를 재질문한다."></textarea></label></div><div class="ai-check revision-ai"><strong>AI에게 핀포인트 수정안을 요청하세요.</strong><p>사용자가 정한 한 가지 수정만 다루도록 프롬프트가 만들어집니다.</p><pre id="pinpointPrompt" class="prompt"></pre><button id="copyPinpointPrompt" type="button">핀포인트 수정 프롬프트 복사</button></div><label class="full">AI가 제안한 문장 또는 재검증 질문 <small>(선택)</small><textarea id="pinpointAiAdvice" rows="3" placeholder="필요할 때만 AI 제안을 붙여넣습니다."></textarea></label><section class="final-prompt"><h3>최종 수정 문장 반영</h3><p>외부 AI와 대화해 다듬은 최종 문장을 붙여넣거나, 현재 수정 계획으로 초안을 만드세요. 반영하면 외부 AI용 프롬프트와 3단계 MVP 미리보기에 즉시 포함됩니다.</p><textarea id="finalPrompt" rows="4" placeholder="예: 제공된 자료에 근거가 없으면 결론을 단정하지 말고, 모른다고 말한 뒤 학생이 생각을 정리할 수 있는 질문 한 개를 제시하라."></textarea><div class="revision-actions"><button id="buildFinalPrompt" class="secondary" type="button">수정 계획으로 최종 문장 만들기</button><button id="applyFinalPrompt" type="button">이 문장을 MVP에 자동 반영</button><button id="previewAppliedMvp" class="secondary" type="button">반영된 MVP 미리보기</button></div><p id="appliedPromptState" class="gate-message" role="status"></p></section><div class="revision-actions"><button id="savePinpointPlan" type="button">보완 계획 확정 · 이력에 남기기</button><button id="goToRevision" class="secondary" type="button">수정 위치로 이동하기</button></div><p id="revisionState" class="gate-message" role="status"></p><div id="revisionHistory" class="revision-history" aria-live="polite"></div></section>
-      <div class="stage-nav"><button id="prevStage" class="secondary" type="button">이전 단계</button><span id="stageStatus" aria-live="polite"></span><button id="nextStage" type="button">다음 단계</button></div>
-    </div>
-    </section>
-  </main>
-  <script src="./level1.js"></script>
-</body>
-</html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LEVEL 1 | 자료 기반 챗봇</title><link rel="stylesheet" href="./level1.css"></head><body><main class="shell">
+<header class="top"><a href="../../index.html">← 통합 포털</a><span>LEVEL 1 · 3차시 따라하기 + 개인 실습</span></header>
+<section class="hero"><p class="eyebrow">DATA-BASED SINGLE CHATBOT</p><h1>예시를 따라 만든 뒤, 나만의 자료 기반 챗봇을 만듭니다.</h1><p>생성형 AI는 자료를 정리하고 응답 카드를 만드는 데 사용합니다. 완성된 챗봇은 API 없이 브라우저에서 실행되는 단일 HTML입니다.</p><div class="mode"><button id="guidedMode" type="button">① 따라하기 실습</button><button id="personalMode" class="secondary" type="button">② 빈 개인 실습 시작</button></div><p id="saveStatus" class="save" role="status">저장 준비</p></section>
+<nav class="progress" aria-label="3차시 단계"><span data-progress="0">1차시 · 자료와 질문</span><span data-progress="1">2차시 · 응답 카드</span><span data-progress="2">3차시 · MVP 실행</span></nav>
+<section class="layout"><aside class="preview"><p class="panel-label">MY SINGLE CHATBOT</p><h2 id="botNamePreview">진로 고민 철학자 대화봇</h2><dl><div><dt>주제</dt><dd id="topicPreview">-</dd></div><div><dt>응답 카드</dt><dd id="cardCountPreview">0개</dd></div><div><dt>현재 모드</dt><dd id="modePreview">따라하기 실습</dd></div></dl><div class="honesty"><strong>핵심</strong><p>이 챗봇은 내장한 자료·질문 카드 안에서만 답합니다. 자료에 없는 질문은 답을 꾸며내지 않고 탐색 질문으로 돌려줍니다.</p></div></aside>
+<div class="workflow">
+<section class="card step-panel" data-step="0"><p class="step">LESSON 1 · SEE & ADJUST</p><h2>자료와 질문을 확인합니다.</h2><p>따라하기 실습은 이미 채워져 있습니다. 처음부터 길게 작성하지 말고, 필요한 문장만 더하거나 지우세요.</p><div class="form-grid"><label>챗봇 이름<input data-bind="name"></label><label>대상 사용자<input data-bind="user"></label><label class="full">대화 주제<textarea data-bind="topic" rows="2"></textarea></label><label class="full">답변 범위와 하지 않을 일<textarea data-bind="scope" rows="3"></textarea></label><label class="full">확인한 자료 목록<textarea data-bind="sources" rows="5"></textarea></label></div><section class="ai-check"><strong>필요하면 AI에게 자료·응답 카드 생성을 요청하세요.</strong><pre id="researchPrompt" class="prompt"></pre><button id="copyResearchPrompt" type="button">자료 기반 응답 카드 프롬프트 복사</button></section></section>
+<section class="card step-panel" data-step="1"><p class="step">LESSON 2 · ANSWER CARDS</p><h2>반복 질문에 답할 카드를 만듭니다.</h2><p>카드 하나는 질문 유형 하나만 다룹니다. 따라하기 카드에서 문장을 다듬거나, 개인 실습에서 직접 추가하세요.</p><div id="cardsEditor" class="cards-editor"></div><button id="addCard" class="secondary" type="button">응답 카드 추가</button></section>
+<section class="card step-panel" data-step="2"><p class="step">LESSON 3 · RUN THE MVP</p><h2>실제 자료 기반 챗봇을 대화해 봅니다.</h2><p>카드의 키워드와 일치하는 질문에 답합니다. 일치하지 않으면 범위를 밝히고 탐색 질문을 제시합니다.</p><div id="mvpChat" class="chat-window" aria-live="polite"><p class="chat-empty">아래 예시 질문을 입력해 보세요.</p></div><div class="chat-entry"><input id="mvpQuestion" placeholder="예: 부모님이 원하는 진로와 내가 관심 있는 분야가 달라"><button id="sendMvpQuestion" type="button">보내기</button></div><div class="actions"><button id="downloadHtml" type="button">실행 가능한 단일 HTML 챗봇 다운로드</button><button id="copyBuildPrompt" class="secondary" type="button">AI에게 더 풍부한 HTML 챗봇 만들기 요청</button></div><pre id="buildPrompt" class="prompt"></pre></section>
+<div class="stage-nav"><button id="prevStage" class="secondary" type="button">이전</button><span id="stageStatus"></span><button id="nextStage" type="button">다음</button></div></div></section>
+</main><script src="./level1.js"></script></body></html>
