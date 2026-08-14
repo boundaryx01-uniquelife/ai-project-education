@@ -10,7 +10,7 @@ $Checks = @(
  @{Name="Prefilled career philosopher example";Value=$Js.Contains('const guided=') -and $Js.Contains('career.go.kr') -and $Js.Contains('work24.go.kr')},
  @{Name="Blank personal practice";Value=$Html.Contains('personalMode') -and $Js.Contains('const blank=') -and $Js.Contains('function setMode')},
  @{Name="AI-assisted data-card prompt";Value=$Html.Contains('copyResearchPrompt') -and $Js.Contains('function researchPrompt')},
- @{Name="Runnable data-based MVP";Value=$Html.Contains('mvpChat') -and $Html.Contains('sendMvpQuestion') -and $Js.Contains('function findCard') -and $Js.Contains('function sendQuestion')},
+ @{Name="Context-aware data-based MVP";Value=$Html.Contains('mvpChat') -and $Html.Contains('sendMvpQuestion') -and $Js.Contains('function findCard') -and $Js.Contains('continuation') -and $Js.Contains('conversation={card')},
  @{Name="Standalone HTML export";Value=$Html.Contains('downloadHtml') -and $Js.Contains('function standaloneHtml')},
  @{Name="No API or network integration";Value=(-not $Js.Contains('fetch(')) -and (-not $Js.Contains('api.openai')) -and (-not $Js.Contains('apiKey'))},
  @{Name="Local storage";Value=$Js.Contains('localStorage')}
