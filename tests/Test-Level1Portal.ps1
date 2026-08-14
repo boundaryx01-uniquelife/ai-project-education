@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 $Root = Split-Path -Parent $PSScriptRoot
 $Module = Join-Path $Root "portal\modules\level-1-chat-agent"
-$Files = @("index.html", "level1.css", "level1.js", "README.md")
+$Files = @("index.html", "level1.css", "level1-gates.css", "level1.js", "README.md")
 foreach ($Name in $Files) {
     if (-not (Test-Path -LiteralPath (Join-Path $Module $Name) -PathType Leaf)) { throw ("Missing LEVEL 1 file: " + $Name) }
 }
@@ -13,6 +13,7 @@ $Checks = @(
     @{ Name = "Conversation role design"; Value = $Html.Contains('data-bind="role"') -and $Html.Contains('data-bind="boundaries"') },
     @{ Name = "Topic feasibility gate"; Value = $Html.Contains('topicFit') -and $Html.Contains('expectedQuestions') -and $Js.Contains('function feasibilityMissing') },
     @{ Name = "Reliable source gate"; Value = $Html.Contains('sourceRecords') -and $Js.Contains('reliableSources') -and $Js.Contains('sourceUsable') },
+    @{ Name = "AI feasibility helper and decision"; Value = $Html.Contains('copyFeasibilityPrompt') -and $Html.Contains('feasibilityAiResponse') -and $Html.Contains('feasibilityDecision') -and $Js.Contains('function feasibilityPrompt') -and $Js.Contains('feasibilityDecision!=="ready"') },
     @{ Name = "Manual external AI workflow"; Value = $Html.Contains('외부 채팅 AI') -and $Js.Contains('navigator.clipboard') },
     @{ Name = "Source scope and honesty"; Value = $Html.Contains('data-bind="sources"') -and $Js.Contains('출처를 만들지 마라') },
     @{ Name = "Conversation validation"; Value = $Html.Contains('testQuestion') -and $Html.Contains('stayedInRole') -and $Js.Contains('testFinding') },

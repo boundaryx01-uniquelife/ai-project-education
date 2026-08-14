@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LEVEL 1 | 대화형 미니 에이전트</title>
   <link rel="stylesheet" href="./level1.css">
+  <link rel="stylesheet" href="./level1-gates.css">
 </head>
 <body>
   <main class="shell">
@@ -35,6 +36,10 @@
           <label class="full">예상 질문 2~3개<textarea data-bind="expectedQuestions" rows="2" placeholder="예: 정의로운 선택은 무엇인가? / 친구와 갈등할 때 어떤 질문을 해볼 수 있나?"></textarea></label>
           <label class="full">이 봇이 답할 수 있는 범위와 답하지 않을 범위<textarea data-bind="responseScope" rows="3" placeholder="예: 제공한 발췌문 안의 개념 질문만 다룸. 원문에 없는 인용·전문 상담은 답하지 않음."></textarea></label>
           <label class="full">신뢰 가능한 자료 목록<textarea data-bind="sourceRecords" rows="4" placeholder="자료명 | 작성·발행 주체 | 링크 또는 보관 위치 | 작성일/판본 | 이 자료를 쓰는 이유\n예: 소크라테스 발췌문 | 교육부 수업자료 | 교사 제공 PDF 3쪽 | 2025 | 수업에서 검토한 번역문"></textarea></label>
+        </div><div class="ai-check"><strong>AI에게 적합성 판단을 요청하세요.</strong><p>아래 프롬프트를 ChatGPT·Claude 등에 보내고, AI 판단은 참고로만 사용합니다. 자료의 실제 발행 주체·날짜·사용 조건은 원문에서 직접 확인하세요.</p><pre id="feasibilityPrompt" class="prompt"></pre><button id="copyFeasibilityPrompt" type="button">적합성 판단 프롬프트 복사</button><details><summary>판단 근거를 찾는 방법</summary><ol><li>교육기관·공공기관·도서관·원저작자·공식 출판사처럼 작성 주체가 확인되는 자료부터 찾습니다.</li><li>발행일·판본·원문 위치·사용 조건을 기록합니다.</li><li>서로 다른 두 자료가 같은 핵심 개념을 뒷받침하는지 비교합니다.</li><li>자료에 없는 사실·인용은 챗봇의 답변 범위에서 제외합니다.</li></ol></details></div><div class="form-grid decision-fields">
+          <label class="full">AI 판단 결과 요약 또는 원문<textarea data-bind="feasibilityAiResponse" rows="4" placeholder="AI가 제시한 적합성, 자료 신뢰도, 위험·보완점, 최종 판단을 붙여넣거나 요약합니다."></textarea></label>
+          <label>학습자의 최종 판단<select data-bind="feasibilityDecision"><option value="">선택하세요</option><option value="ready">적합 — 이 주제로 진행</option><option value="revise">보완 필요 — 주제·범위·자료 수정</option><option value="stop">부적합 — 다른 주제 선택</option></select></label>
+          <label>판단 이유<textarea data-bind="feasibilityReason" rows="2" placeholder="AI 판단과 실제 자료 확인을 바탕으로 적합하다고 판단한 이유"></textarea></label>
         </div><div class="checks">
           <label><input type="checkbox" data-check="chatSuitable"> 반복해서 나올 질문 유형과 사용 목적이 분명하다.</label>
           <label><input type="checkbox" data-check="boundedResponse"> 답변 범위와 답변하지 않을 범위를 구분했다.</label>
