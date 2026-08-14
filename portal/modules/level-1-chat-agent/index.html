@@ -29,6 +29,18 @@
       </aside>
 
       <div class="workflow">
+        <section class="card feasibility-card"><p class="step">0. CHECK FIRST</p><h2>이 주제가 대화봇으로 적합한가?</h2><p>대화봇은 모든 질문에 답하는 도구가 아닙니다. 반복해서 나올 질문 유형이 있고, 답변 범위를 제한할 수 있으며, 신뢰 가능한 자료를 확보할 수 있을 때만 시작합니다.</p><div class="form-grid">
+          <label class="full">대화 주제와 사용 상황<textarea data-bind="topicFit" rows="2" placeholder="예: 중학생이 정의·용기·선택에 관한 자신의 생각을 정리하는 철학 대화"></textarea></label>
+          <label class="full">예상 질문 2~3개<textarea data-bind="expectedQuestions" rows="2" placeholder="예: 정의로운 선택은 무엇인가? / 친구와 갈등할 때 어떤 질문을 해볼 수 있나?"></textarea></label>
+          <label class="full">이 봇이 답할 수 있는 범위와 답하지 않을 범위<textarea data-bind="responseScope" rows="3" placeholder="예: 제공한 발췌문 안의 개념 질문만 다룸. 원문에 없는 인용·전문 상담은 답하지 않음."></textarea></label>
+          <label class="full">신뢰 가능한 자료 목록<textarea data-bind="sourceRecords" rows="4" placeholder="자료명 | 작성·발행 주체 | 링크 또는 보관 위치 | 작성일/판본 | 이 자료를 쓰는 이유\n예: 소크라테스 발췌문 | 교육부 수업자료 | 교사 제공 PDF 3쪽 | 2025 | 수업에서 검토한 번역문"></textarea></label>
+        </div><div class="checks">
+          <label><input type="checkbox" data-check="chatSuitable"> 반복해서 나올 질문 유형과 사용 목적이 분명하다.</label>
+          <label><input type="checkbox" data-check="boundedResponse"> 답변 범위와 답변하지 않을 범위를 구분했다.</label>
+          <label><input type="checkbox" data-check="reliableSources"> 답변에 쓸 신뢰 가능한 자료를 최소 2건 확보했다.</label>
+          <label><input type="checkbox" data-check="sourceUsable"> 자료의 사용 조건을 확인했고, 필요한 부분을 대화 프롬프트에 제공할 수 있다.</label>
+        </div><p id="feasibilityState" class="gate-message" role="status"></p></section>
+
         <section class="card"><p class="step">1. DEFINE</p><h2>대화 규칙 설계</h2><div class="form-grid">
           <label>대화봇 이름<input data-bind="name" placeholder="예: 소크라테스와 생각 나누기"></label>
           <label>누가 사용하나<input data-bind="user" placeholder="예: 중학생"></label>

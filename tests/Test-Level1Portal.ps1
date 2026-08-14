@@ -11,6 +11,8 @@ $Html = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Module "level1.js") -Raw
 $Checks = @(
     @{ Name = "Conversation role design"; Value = $Html.Contains('data-bind="role"') -and $Html.Contains('data-bind="boundaries"') },
+    @{ Name = "Topic feasibility gate"; Value = $Html.Contains('topicFit') -and $Html.Contains('expectedQuestions') -and $Js.Contains('function feasibilityMissing') },
+    @{ Name = "Reliable source gate"; Value = $Html.Contains('sourceRecords') -and $Js.Contains('reliableSources') -and $Js.Contains('sourceUsable') },
     @{ Name = "Manual external AI workflow"; Value = $Html.Contains('외부 채팅 AI') -and $Js.Contains('navigator.clipboard') },
     @{ Name = "Source scope and honesty"; Value = $Html.Contains('data-bind="sources"') -and $Js.Contains('출처를 만들지 마라') },
     @{ Name = "Conversation validation"; Value = $Html.Contains('testQuestion') -and $Html.Contains('stayedInRole') -and $Js.Contains('testFinding') },
