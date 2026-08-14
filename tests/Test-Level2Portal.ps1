@@ -16,7 +16,8 @@ $Checks = @(
     @{ Name = "Deployment validation"; Value = $Js.Contains('pages:false') -and $Html.Contains('data-check="pages"') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
     @{ Name = "No network integration"; Value = -not $Js.Contains('fetch(') },
-    @{ Name = "No Level 1 dependency"; Value = -not $Js.Contains('handoff') -and -not $Js.Contains('LEVEL 1 인계') }
+    @{ Name = "No Level 1 dependency"; Value = -not $Js.Contains('handoff') -and -not $Js.Contains('LEVEL 1 인계') },
+    @{ Name = "Level 2 visual identity"; Value = (Get-Content -LiteralPath (Join-Path $Module "level2.css") -Raw).Contains('#4356b8') }
 )
 $Failed = @()
 foreach ($Check in $Checks) { if ($Check.Value) { Write-Host ("PASS: " + $Check.Name) } else { Write-Host ("FAIL: " + $Check.Name); $Failed += $Check.Name } }

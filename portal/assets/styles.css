@@ -1,18 +1,27 @@
 * { box-sizing: border-box; }
 :root { font-family: Arial, "Malgun Gothic", sans-serif; line-height: 1.55; }
-body { margin: 0; background: #f4f6f8; color: #17212b; }
-.shell { width: min(1100px, calc(100% - 32px)); margin: 8vh auto; padding: 48px; background: #fff; border: 1px solid #d7dee5; border-radius: 24px; }
-.eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .16em; }
+body { margin: 0; background: radial-gradient(circle at top right, #dcecff 0, transparent 32%), #f4f6f8; color: #17212b; }
+.shell { width: min(1180px, calc(100% - 32px)); margin: 6vh auto; padding: clamp(28px, 5vw, 54px); background: rgba(255,255,255,.94); border: 1px solid #d7dee5; border-radius: 28px; box-shadow: 0 22px 54px rgba(37,58,83,.11); }
+.eyebrow { color: #41566f; font-size: .78rem; font-weight: 900; letter-spacing: .16em; }
 h1 { max-width: 850px; margin: 20px 0; font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.08; }
 .lead { max-width: 760px; font-size: 1.15rem; }
 .lifecycle { display: flex; flex-wrap: wrap; gap: 8px; margin: 36px 0; }
-.lifecycle span { padding: 9px 13px; border: 1px solid #aeb9c4; border-radius: 999px; font-size: .78rem; font-weight: 700; }
-.levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-.levels article { padding: 20px; border: 1px solid #d7dee5; border-radius: 16px; }
-.levels p { margin: 8px 0 0; }
-.levels .level-time { color: #1558a5; font-weight: 800; }
-.levels .level-output { color: #344e68; font-size: .9rem; font-weight: 700; }
-.levels .level-active { border-color: #4d6f96; background: #f6f9fc; }
-.level-link { display: inline-block; margin-top: 14px; padding: 9px 12px; border: 1px solid #173f73; border-radius: 9px; color: #fff; background: #173f73; font-weight: 800; text-decoration: none; }
+.lifecycle span { padding: 9px 13px; border: 1px solid #aeb9c4; border-radius: 999px; background: #fff; color: #41566f; font-size: .78rem; font-weight: 800; }
+.levels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.level-card { --accent: #41566f; --soft: #f3f6f8; position: relative; display: flex; flex-direction: column; min-height: 310px; padding: 22px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--accent) 26%, #fff); border-radius: 18px; background: linear-gradient(155deg, var(--soft), #fff 58%); box-shadow: 0 9px 20px rgba(37,58,83,.06); text-align: left; }
+.level-card::before { position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--accent); content: ""; }
+.level-card strong { color: var(--accent); font-size: 1.18rem; letter-spacing: .04em; }
+.levels p { margin: 0; }
+.levels .level-time { margin-top: 8px; color: var(--accent); font-size: .84rem; font-weight: 900; }
+.levels .level-description { margin-top: 18px; color: #35495b; font-size: .94rem; }
+.levels .level-output { min-height: 48px; margin-top: 16px; color: #223a50; font-size: .88rem; font-weight: 800; }
+.level-1 { --accent: #17795a; --soft: #ecf8f1; }
+.level-2 { --accent: #4356b8; --soft: #eef0ff; }
+.level-3 { --accent: #b56121; --soft: #fff5e9; }
+.level-4 { --accent: #75439a; --soft: #f7effc; }
+.levels .level-active { border-color: color-mix(in srgb, var(--accent) 45%, #fff); box-shadow: 0 12px 26px color-mix(in srgb, var(--accent) 16%, transparent); }
+.level-link { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; margin-top: auto; padding: 9px 12px; border: 1px solid var(--accent); border-radius: 10px; color: #fff; background: var(--accent); font-size: .88rem; font-weight: 900; text-align: center; text-decoration: none; }
 .level-link:focus-visible { outline: 3px solid #0a66c2; outline-offset: 3px; }
 .status { margin-top: 28px; font-weight: 700; }
+@media (max-width: 920px) { .levels { grid-template-columns: repeat(2, minmax(0, 1fr)); } .level-card { min-height: 270px; } }
+@media (max-width: 560px) { .shell { margin: 18px auto; } .levels { grid-template-columns: 1fr; } .level-card { min-height: 0; } .levels .level-output { min-height: 0; } }
