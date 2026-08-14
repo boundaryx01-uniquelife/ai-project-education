@@ -15,6 +15,7 @@ $Checks = @(
     @{ Name = "Reliable source gate"; Value = $Html.Contains('sourceRecords') -and $Js.Contains('reliableSources') -and $Js.Contains('sourceUsable') },
     @{ Name = "AI feasibility helper and test-mode decision"; Value = $Html.Contains('copyFeasibilityPrompt') -and $Html.Contains('feasibilityAiResponse') -and $Html.Contains('feasibilityDecision') -and $Js.Contains('function feasibilityPrompt') -and $Js.Contains('const TEST_MODE=true') -and $Js.Contains('if(!TEST_MODE&&missing.length)') },
     @{ Name = "Manual external AI workflow"; Value = $Html.Contains('외부 채팅 AI') -and $Js.Contains('navigator.clipboard') },
+    @{ Name = "Build and test MVP previews"; Value = $Html.Contains('previewChat') -and $Html.Contains('validationChat') -and $Html.Contains('runPreview') -and $Html.Contains('showValidationPreview') -and $Js.Contains('function renderMvpPreview') -and $Js.Contains('function renderValidationPreview') },
     @{ Name = "Source scope and honesty"; Value = $Html.Contains('data-bind="sources"') -and $Js.Contains('출처를 만들지 마라') },
     @{ Name = "Conversation validation"; Value = $Html.Contains('testQuestion') -and $Html.Contains('stayedInRole') -and $Js.Contains('testFinding') },
     @{ Name = "Step-by-step workspace"; Value = $Html.Contains('data-step="0"') -and $Html.Contains('data-step="3"') -and $Js.Contains('function renderStage') -and $Js.Contains('function gateMessage') },
