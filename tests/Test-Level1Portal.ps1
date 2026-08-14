@@ -11,6 +11,7 @@ $Html = Get-Content -LiteralPath (Join-Path $Module "index.html") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Module "level1.js") -Raw
 $Checks = @(
     @{ Name = "Conversation role design"; Value = $Html.Contains('data-bind="role"') -and $Html.Contains('data-bind="boundaries"') },
+    @{ Name = "Starter topic for new draft"; Value = $Js.Contains('진로에 대한 고민이 많은 학생들의 고민을 해결해주는 철학자 대화봇') -and $Js.Contains('STARTER_TOPIC') },
     @{ Name = "Topic feasibility gate"; Value = $Html.Contains('topicFit') -and $Html.Contains('expectedQuestions') -and $Js.Contains('function feasibilityMissing') },
     @{ Name = "Reliable source gate"; Value = $Html.Contains('sourceRecords') -and $Js.Contains('reliableSources') -and $Js.Contains('sourceUsable') },
     @{ Name = "AI feasibility helper and test-mode decision"; Value = $Html.Contains('copyFeasibilityPrompt') -and $Html.Contains('feasibilityAiResponse') -and $Html.Contains('feasibilityDecision') -and $Js.Contains('function feasibilityPrompt') -and $Js.Contains('TEST_MODE=true') -and $Js.Contains('if(!TEST_MODE&&missing.length)') },
