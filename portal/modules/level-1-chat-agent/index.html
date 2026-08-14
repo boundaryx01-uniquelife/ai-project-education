@@ -70,6 +70,7 @@
         </div>
         <button id="downloadPackage" class="secondary" type="button">LEVEL 1 대화봇 패키지 .md 다운로드</button>
       </section>
+      <section class="card revision-panel" aria-labelledby="revisionTitle"><p class="step">IMPROVE</p><h2 id="revisionTitle">현재 단계 보완 작업</h2><p id="revisionGuide">각 단계의 결과를 유지한 채 보완 여부와 수정 이유를 기록합니다.</p><div class="form-grid"><label>현재 판단<select id="revisionDecision"><option value="">검토 중</option><option value="ready">현재 단계 통과</option><option value="revise">보완 필요</option></select></label><label>수정할 위치<select id="revisionReturnStage"></select></label><label class="full">보완 이유와 수정할 항목<textarea id="revisionReason" rows="3" placeholder="예: 자료의 발행 주체가 불명확함. 공식 자료 2건으로 교체하고 답변 범위를 좁힌다."></textarea></label></div><div class="revision-actions"><button id="saveRevision" type="button">보완 기록 저장</button><button id="goToRevision" class="secondary" type="button">수정하러 가기</button></div><p id="revisionState" class="gate-message" role="status"></p><div id="revisionHistory" class="revision-history" aria-live="polite"></div></section>
       <div class="stage-nav"><button id="prevStage" class="secondary" type="button">이전 단계</button><span id="stageStatus" aria-live="polite"></span><button id="nextStage" type="button">다음 단계</button></div>
     </div>
     </section>
