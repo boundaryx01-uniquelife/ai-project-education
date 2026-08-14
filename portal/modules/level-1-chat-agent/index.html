@@ -15,6 +15,7 @@
       <p>이 과정은 배포형 웹앱을 만드는 과정이 아닙니다. 대화의 역할, 답변 범위, 근거, 모르는 질문에 대응하는 규칙을 설계하고 외부 채팅 AI에서 직접 검증합니다.</p>
       <p id="saveStatus" class="save" role="status">저장 준비</p>
     </section>
+    <nav class="progress" aria-label="LEVEL 1 단계"><span data-progress="0">1. 시작 판단</span><span data-progress="1">2. 대화 규칙</span><span data-progress="2">3. 프롬프트</span><span data-progress="3">4. 검증·완성</span></nav>
 
     <section class="layout">
       <aside class="preview">
@@ -29,7 +30,7 @@
       </aside>
 
       <div class="workflow">
-        <section class="card feasibility-card"><p class="step">0. CHECK FIRST</p><h2>이 주제가 대화봇으로 적합한가?</h2><p>대화봇은 모든 질문에 답하는 도구가 아닙니다. 반복해서 나올 질문 유형이 있고, 답변 범위를 제한할 수 있으며, 신뢰 가능한 자료를 확보할 수 있을 때만 시작합니다.</p><div class="form-grid">
+        <section class="card feasibility-card step-panel" data-step="0"><p class="step">1. CHECK FIRST</p><h2>이 주제가 대화봇으로 적합한가?</h2><p>대화봇은 모든 질문에 답하는 도구가 아닙니다. 반복해서 나올 질문 유형이 있고, 답변 범위를 제한할 수 있으며, 신뢰 가능한 자료를 확보할 수 있을 때만 시작합니다.</p><div class="form-grid">
           <label class="full">대화 주제와 사용 상황<textarea data-bind="topicFit" rows="2" placeholder="예: 중학생이 정의·용기·선택에 관한 자신의 생각을 정리하는 철학 대화"></textarea></label>
           <label class="full">예상 질문 2~3개<textarea data-bind="expectedQuestions" rows="2" placeholder="예: 정의로운 선택은 무엇인가? / 친구와 갈등할 때 어떤 질문을 해볼 수 있나?"></textarea></label>
           <label class="full">이 봇이 답할 수 있는 범위와 답하지 않을 범위<textarea data-bind="responseScope" rows="3" placeholder="예: 제공한 발췌문 안의 개념 질문만 다룸. 원문에 없는 인용·전문 상담은 답하지 않음."></textarea></label>
@@ -41,7 +42,7 @@
           <label><input type="checkbox" data-check="sourceUsable"> 자료의 사용 조건을 확인했고, 필요한 부분을 대화 프롬프트에 제공할 수 있다.</label>
         </div><p id="feasibilityState" class="gate-message" role="status"></p></section>
 
-        <section class="card"><p class="step">1. DEFINE</p><h2>대화 규칙 설계</h2><div class="form-grid">
+        <section class="card step-panel" data-step="1"><p class="step">2. DEFINE</p><h2>대화 규칙 설계</h2><div class="form-grid">
           <label>대화봇 이름<input data-bind="name" placeholder="예: 소크라테스와 생각 나누기"></label>
           <label>누가 사용하나<input data-bind="user" placeholder="예: 중학생"></label>
           <label class="full">대화 역할<textarea data-bind="role" rows="2" placeholder="예: 질문을 되물으며 생각을 돕는 철학 대화 상대"></textarea></label>
@@ -50,9 +51,9 @@
           <label class="full">금지·재질문 규칙<textarea data-bind="boundaries" rows="3" placeholder="예: 출처 없는 인용문을 만들지 않는다. 자료가 부족하면 모른다고 말하고 추가 정보를 요청한다."></textarea></label>
         </div></section>
 
-        <section class="card prompt-card"><p class="step">2. BUILD</p><h2>외부 AI에 보낼 대화 프롬프트</h2><pre id="prompt" class="prompt"></pre><button id="copyPrompt" type="button">프롬프트 복사</button></section>
+        <section class="card prompt-card step-panel" data-step="2"><p class="step">3. BUILD</p><h2>외부 AI에 보낼 대화 프롬프트</h2><pre id="prompt" class="prompt"></pre><button id="copyPrompt" type="button">프롬프트 복사</button></section>
 
-        <section class="card"><p class="step">3. TEST</p><h2>대화 응답 검증</h2><p>복사한 프롬프트를 외부 채팅 AI에 붙여 넣고, 아래 질문으로 실제 대화를 시험하세요.</p><div class="form-grid">
+        <section class="card step-panel" data-step="3"><p class="step">4. TEST</p><h2>대화 응답 검증</h2><p>복사한 프롬프트를 외부 채팅 AI에 붙여 넣고, 아래 질문으로 실제 대화를 시험하세요.</p><div class="form-grid">
           <label class="full">시험 질문<textarea data-bind="testQuestion" rows="2" placeholder="예: 정의로운 선택은 언제 어려워질까?"></textarea></label>
           <label class="full">실제 응답 요약<textarea data-bind="testResponse" rows="3" placeholder="AI가 어떤 질문·근거·답변을 했는지 짧게 기록"></textarea></label>
           <label class="full">발견한 문제 또는 수정할 규칙<textarea data-bind="testFinding" rows="2"></textarea></label>
@@ -64,6 +65,7 @@
         </div>
         <button id="downloadPackage" class="secondary" type="button">LEVEL 1 대화봇 패키지 .md 다운로드</button>
       </section>
+      <div class="stage-nav"><button id="prevStage" class="secondary" type="button">이전 단계</button><span id="stageStatus" aria-live="polite"></span><button id="nextStage" type="button">다음 단계</button></div>
     </div>
     </section>
   </main>

@@ -16,6 +16,7 @@ $Checks = @(
     @{ Name = "Manual external AI workflow"; Value = $Html.Contains('외부 채팅 AI') -and $Js.Contains('navigator.clipboard') },
     @{ Name = "Source scope and honesty"; Value = $Html.Contains('data-bind="sources"') -and $Js.Contains('출처를 만들지 마라') },
     @{ Name = "Conversation validation"; Value = $Html.Contains('testQuestion') -and $Html.Contains('stayedInRole') -and $Js.Contains('testFinding') },
+    @{ Name = "Step-by-step workspace"; Value = $Html.Contains('data-step="0"') -and $Html.Contains('data-step="3"') -and $Js.Contains('function renderStage') -and $Js.Contains('function gateMessage') },
     @{ Name = "Package export"; Value = $Html.Contains('downloadPackage') -and $Js.Contains('function packageMarkdown') },
     @{ Name = "Local storage"; Value = $Js.Contains('localStorage') },
     @{ Name = "No API or network integration"; Value = -not $Js.Contains('fetch(') -and -not $Js.Contains('api.openai') }
