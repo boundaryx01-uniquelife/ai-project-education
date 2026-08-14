@@ -14,7 +14,7 @@ const stages=[
   {name:"3. 검증",title:"사용자 검증과 선택적 AI 검증으로 판단한다",web:"최소 한 번 실제로 사용한 상황과 결과, 문제나 피드백을 기록합니다. AI 검증은 선택입니다.",ai:"AI 검증을 한다면 현재 HTML을 실패시키는 관점에서 검토받고, 제안을 채택하거나 기각한 이유를 직접 판단합니다.",check:"사용자 테스트 1건과 AI 제안에 대한 판단 또는 AI 검증 생략 이유·대체 근거가 필요합니다. AI 출력도 검증 대상입니다."},
   {name:"4. 다음 개발 판단",title:"다음 개발 경계를 결정하고 프로젝트를 내보낸다",web:"로컬/웹, 공유 범위, 브라우저 저장, DB, 외부 API와 원하는 다음 기능을 판단합니다.",ai:"현재 MVP와 결정사항으로 간결한 다음 개발 프롬프트를 만듭니다.",check:"추가 코딩은 하지 않습니다. 다음 개발 경계를 결정하고 최종 HTML과 학습 기록을 내보냅니다."}
 ];
-function init(){return{stage:0,mvpVersion:1,mvp:{name:profile.name,user:"",problem:"",outcome:"",required:"",rules:""},selfCheck:{inputChanges:false,ruleBased:false,notEcho:false},artifactHtml:"",refine:{issue:"",change:"",constraintConfirmed:false},refinementHistory:[],lastRefinement:"",validate:{testSituation:"",testOutcome:"",feedback:"",userTests:[],aiMode:"skip",aiResponse:"",accepted:"",rejected:"",deferred:"",decisionReason:"",skipReason:"",substituteEvidence:"",revisionNeeded:"",revisionPlan:"",revisionApplied:false,revalidationRequired:false,retestSituation:"",retestOutcome:"",retestFeedback:"",retestPassed:false,currentVersionComplete:false},validationHistory:[],lastValidation:"",delivery:{place:"local",share:"personal",browserStorage:"no",database:"no",external:"no",nextFunctions:""}}}
+function init(){return{stage:0,mvpVersion:1,mvp:{name:profile.name,user:"",problem:"",outcome:"",required:"",rules:""},selfCheck:{inputChanges:false,ruleBased:false,notEcho:false},artifactHtml:"",refine:{issue:"",change:"",constraintConfirmed:false},refinementHistory:[],lastRefinement:"",validate:{testSituation:"",testOutcome:"",feedback:"",userTests:[],aiMode:"skip",aiResponse:"",accepted:"",rejected:"",deferred:"",decisionReason:"",skipReason:"",substituteEvidence:"",revisionNeeded:"",revisionPlan:"",revisionApplied:false,revalidationRequired:false,retestSituation:"",retestOutcome:"",retestFeedback:"",retestPassed:false,currentVersionComplete:false},validationHistory:[],lastValidation:"",delivery:{place:"local",share:"personal",browserStorage:"no",database:"no",external:"no",nextFunctions:"",limitations:""}}}
 let state=init();
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){const s=JSON.parse(raw);state={...init(),...s,mvp:{...init().mvp,...s.mvp},selfCheck:{...init().selfCheck,...s.selfCheck},refine:{...init().refine,...s.refine},validate:{...init().validate,...s.validate,userTests:Array.isArray(s.validate?.userTests)?s.validate.userTests:[]},refinementHistory:Array.isArray(s.refinementHistory)?s.refinementHistory:[],validationHistory:Array.isArray(s.validationHistory)?s.validationHistory:[],delivery:{...init().delivery,...s.delivery}}}}catch(_){} }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));$("#saveStatus").textContent="자동 저장됨"}catch(_){$("#saveStatus").textContent="저장 사용 불가"}}
@@ -131,6 +131,58 @@ function renderStageThreeAI(){if(state.validate.revisionNeeded!=="yes")return;$(
 function bindInputs(){all("[data-bind]").forEach(el=>{const [a,b]=el.dataset.bind.split(".");const apply=()=>{state[a][b]=el.value;save();if(el.tagName==="SELECT"){render();return}renderLive();renderProgress();$("#aiPrompt").textContent=stagePrompt()};el.addEventListener(el.tagName==="SELECT"?"change":"input",apply)});all("[data-check]").forEach(el=>el.addEventListener("change",()=>{const [a,b]=el.dataset.check.split(".");state[a][b]=el.checked;save();renderProgress()}));const code=$("#artifactHtml");if(code)code.addEventListener("input",()=>{const nextHtml=extractHtmlDocument(code.value);const changed=nextHtml&&nextHtml!==state.artifactHtml;state.artifactHtml=nextHtml;if(changed&&state.stage===1){state.mvpVersion++}if(changed&&state.stage===2&&state.validate.revisionNeeded==="yes"){state.mvpVersion++;state.validate.revisionApplied=true;state.validate.revalidationRequired=true;state.validate.currentVersionComplete=false;state.validate.retestSituation="";state.validate.retestOutcome="";state.validate.retestFeedback="";state.validate.retestPassed=false}if(code.value!==state.artifactHtml)code.value=state.artifactHtml;save();if(changed&&(state.stage===1||state.stage===2)){render();return}renderLive();renderProgress();$("#aiPrompt").textContent=stagePrompt();const st=code.parentElement.querySelector(".code-status");if(st)st.textContent=hasRunnableHtml()?`실행 가능한 HTML만 추출해 MVP v${state.mvpVersion}로 적용했습니다.`:"완전한 HTML 문서가 감지되지 않았습니다. <!doctype html>부터 </html>까지 붙여넣으세요."})}
 async function copyPrompt(){try{await navigator.clipboard.writeText(stagePrompt());$("#copyAI").textContent="복사됨";setTimeout(()=>$("#copyAI").textContent="AI에 보낼 내용 복사",1000)}catch(_){alert("복사하지 못했습니다. 프롬프트를 직접 선택해 복사해 주세요.")}}
 function historyLines(records,formatter,empty){return records.length?records.map(formatter).join("\n"):empty}
+function continuationMarkdown(){const m=state.mvp,d=state.delivery;const refinements=historyLines(state.refinementHistory,r=>`- 발견 문제: ${r.issue}\n  - 반영한 행동·제약: ${r.change}`,"- 기록 없음");const validations=historyLines(state.validationHistory,v=>`- ${v.iteration} / ${v.mvpVersion}: ${v.status} (${v.revisionNeeded==="yes"?"수정·재검증 완료":"현재 범위 통과"})`,"- 기록 없음");return`# LEVEL 1 → LEVEL 2~4 이어가기 패킷
+
+## PROJECT
+- 프로젝트명: ${clean(m.name)||"LEVEL 1 MVP"}
+- 사용자: ${clean(m.user)}
+- 해결할 문제: ${clean(m.problem)}
+- 현재 MVP 버전: MVP v${state.mvpVersion}
+
+## COMPLETED
+- 실행 가능한 단일 HTML MVP와 수정·검증 기록을 만들었다.
+- 현재 권장 개발 경계: ${architecture()}
+
+## FIXED DECISIONS
+- 필수 입력: ${clean(m.required)}
+- 사용자에게 제공할 결과: ${clean(m.outcome)}
+- MVP 규칙·조건: ${clean(m.rules)}
+- 수정에서 확정한 행동·제약:
+${refinements}
+
+## VALIDATION EVIDENCE
+${validations}
+
+## KNOWN LIMITATIONS / CAUTIONS
+- 학습자가 기록한 제한·유의 사항: ${clean(d.limitations)||"추가 기록 없음"}
+- 현재 저장 방식: 브라우저 localStorage ${d.browserStorage==="yes"?"사용":"미사용"}; 기기·브라우저 간 자동 동기화는 없다.
+- 현재 MVP는 외부 API ${d.external==="yes"?"필요 가능성이 확인됨":"없이"}, 데이터베이스 ${d.database==="yes"?"필요 가능성이 확인됨":"없이"} 검증한 범위다.
+- 다음 단계에서 범위를 넓히면, 기존 규칙·검증 결과가 그대로 유효한지 다시 확인한다.
+
+## NEXT
+- 원하는 다음 기능: ${clean(d.nextFunctions)}
+- 배포 위치·공유 범위: ${d.place} / ${d.share}
+
+### LEVEL 2 시작 기준 — 배포형 웹
+- 현재 MVP의 입력·출력·규칙을 화면별 요구사항으로 옮긴다.
+- 빈 입력·오류·새로고침 후 동작을 테스트하고, 사용 안내와 제한을 공개한다.
+- GitHub Pages 주소에서 다시 검증한다.
+
+### LEVEL 3 시작 기준 — 자료 연결형
+- 연결할 자료마다 출처, 사용 조건, 기준 날짜, 입력 형식을 기록한다.
+- 누락·중복·오래된 자료와 개인정보·권한 처리 규칙을 먼저 정한다.
+- 외부 연결은 읽기 전용부터 시작하고 비밀키를 저장소에 넣지 않는다.
+
+### LEVEL 4 시작 기준 — 운영형
+- 프로젝트 헌장, 역할·승인 기준, 백로그를 만든다.
+- 저장소·브랜치·테스트·배포·복구·Release 기록을 운영한다.
+- 피드백과 운영 지표를 다음 버전에 반영하는 절차를 정한다.
+
+## DO NOT CHANGE WITHOUT REVIEW
+- 사용자, 해결 문제, 필수 입력, MVP 규칙·조건을 기능 추가 과정에서 임의로 바꾸지 않는다.
+- LEVEL 1의 검증 기록을 더 넓은 기능·데이터 범위의 통과 증거로 재사용하지 않는다.
+- API, 데이터베이스, 개인정보, 권한, 외부 자료를 추가할 때는 새 위험·오류·출처 검증을 기록한다.
+`}
 function projectMarkdown(){const m=state.mvp,d=state.delivery;const refinement=historyLines(state.refinementHistory,(r,i)=>`${i+1}. 발견한 문제: ${r.issue}\n   - 행동·제약 변경: ${r.change}`,"기록 없음");const validation=historyLines(state.validationHistory,v=>`${v.iteration} · ${v.mvpVersion} · ${v.status}\n   - 사용자 테스트: ${v.userTests.map(t=>`${t.situation} / ${t.outcome} / ${t.feedback}`).join("; ")}\n   - AI 검증: ${v.aiMode==="use"?`실시 / 채택: ${v.accepted} / 기각: ${v.rejected||"해당 없음"} / 보류: ${v.deferred||"없음"} / 이유: ${v.decisionReason}`:`생략 / 이유: ${v.skipReason} / 대체 근거: ${v.substituteEvidence}`}\n   - 수정: ${v.revisionNeeded==="yes"?`${v.revisionPlan} / 재검증: ${v.retestSituation} / ${v.retestOutcome} / ${v.retestFeedback}`:"없음"}`,"기록 없음");return`# ${clean(m.name)||"LEVEL 1 프로젝트"} 학습 패키지
 
 ## 1. 프로젝트 정체성과 목표
@@ -160,9 +212,11 @@ ${validation}
 `}
 function download(name,content,type){try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;document.body.append(a);a.click();const url=a.href;a.remove();setTimeout(()=>URL.revokeObjectURL(url),0)}catch(_){alert("파일을 만들지 못했습니다. 내용을 복사해 직접 저장해 주세요.")}}
 function safeName(){return(clean(state.mvp.name)||"level1-mvp").replace(/[^a-z0-9가-힣_-]+/gi,"-")}
-function render(){renderProgress();renderHeader();renderLive();if(state.stage===2)renderValidationForm();else renderForm();renderAI();if(state.stage===2)renderStageThreeAI();$("#prev").disabled=state.stage===0;$("#next").textContent=state.stage===3?"다음 개발 경계 확인":"다음 단계";$("#next").disabled=false;$("#exportPanel").classList.toggle("hidden",state.stage!==3)}
+function renderContinuationField(){const target=$("#webForm .decision-grid");if(!target)return;target.insertAdjacentHTML("beforeend",field("다음 단계에 넘길 제한·유의 사항","delivery.limitations",state.delivery.limitations,true,3));const input=target.querySelector('[data-bind="delivery.limitations"]');if(input)input.addEventListener("input",()=>{state.delivery.limitations=input.value;save()})}
+function render(){renderProgress();renderHeader();renderLive();if(state.stage===2)renderValidationForm();else renderForm();if(state.stage===3)renderContinuationField();renderAI();if(state.stage===2)renderStageThreeAI();$("#prev").disabled=state.stage===0;$("#next").textContent=state.stage===3?"다음 개발 경계 확인":"다음 단계";$("#next").disabled=false;$("#exportPanel").classList.toggle("hidden",state.stage!==3)}
 $("#copyAI").onclick=copyPrompt;$("#prev").onclick=()=>{if(state.stage>0){state.stage--;save();render()}};$("#next").onclick=()=>{const msg=gateMessage(state.stage);if(msg){alert(msg);return}if(state.stage===1){archiveRefinement();state.stage=2}else if(state.stage===2){archiveValidation();state.stage=3}else if(state.stage<3)state.stage++;else{alert(`현재 판단: ${architecture()}\n다음 개발 경계가 기록되었습니다. 프로젝트 패키지를 내보내세요.`);return}save();render()};$("#reset").onclick=()=>{if(confirm("현재 대상의 작업 내용을 모두 지울까요?")){localStorage.removeItem(KEY);state=init();render()}};
 $("#downloadMarkdown").onclick=()=>download(`${safeName()}-learning-package.md`,projectMarkdown(),"text/markdown;charset=utf-8");
 $("#downloadHtml").onclick=()=>{if(!hasRunnableHtml()){alert("먼저 실행 가능한 최종 HTML을 붙여넣어 주세요.");return}download(`${safeName()}.html`,extractHtmlDocument(state.artifactHtml),"text/html;charset=utf-8")};
+$("#downloadHandoff").onclick=()=>download(`${safeName()}-level-2-4-handoff.md`,continuationMarkdown(),"text/markdown;charset=utf-8");
 load();render();
 })();

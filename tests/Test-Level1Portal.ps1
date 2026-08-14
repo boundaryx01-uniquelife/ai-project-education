@@ -46,6 +46,8 @@ $Checks = @(
     @{ Name = "Stage 3 current version completion"; Value = $Js.Contains('currentVersionComplete') -and $Js.Contains('현재 MVP 버전 검증 완료') },
     @{ Name = "Stage 3 single-column layout"; Value = $Css.Contains('.validation-grid { display:grid; grid-template-columns:1fr;') },
     @{ Name = "Final export validation loop"; Value = $Js.Contains('validationHistory') -and $Js.Contains('retestSituation') -and $Js.Contains('mvpVersion') },
+    @{ Name = "Level 2 to 4 handoff export"; Value = $Workshop.Contains('downloadHandoff') -and $Js.Contains('function continuationMarkdown') -and $Js.Contains('LEVEL 2 시작 기준') -and $Js.Contains('LEVEL 3 시작 기준') -and $Js.Contains('LEVEL 4 시작 기준') },
+    @{ Name = "Handoff limitations record"; Value = $Js.Contains('delivery.limitations') -and $Js.Contains('다음 단계에 넘길 제한·유의 사항') -and $Js.Contains('DO NOT CHANGE WITHOUT REVIEW') },
     @{ Name = "Stage 4 decisions"; Value = $Js.Contains('browserStorage') -and $Js.Contains('database') -and $Js.Contains('external') -and $Js.Contains('nextFunctions') },
     @{ Name = "Project package export"; Value = $Workshop.Contains('downloadMarkdown') -and $Workshop.Contains('downloadHtml') -and $Js.Contains('function projectMarkdown') },
     @{ Name = "Individual project fields"; Value = $Js.Contains('mvp.name') -and $Js.Contains('mvp.user') -and $Js.Contains('mvp.problem') -and $Js.Contains('mvp.outcome') -and $Js.Contains('mvp.required') -and $Js.Contains('mvp.rules') },
