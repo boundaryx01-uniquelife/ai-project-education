@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEVEL 2 | 배포형 웹 에이전트 시작 작업대</title>
+  <link rel="stylesheet" href="./level2.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <a href="../../index.html">← 통합 포털</a>
+      <span>LEVEL 2 · 배포형 웹 에이전트</span>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">START FROM LEVEL 1</p>
+      <h1>검증한 MVP를 배포 가능한 웹 도구로 확장합니다.</h1>
+      <p>LEVEL 1에서 내려받은 이어가기 문서를 붙여넣고, 지켜야 할 규칙·제한과 LEVEL 2의 테스트·배포 범위를 정하세요.</p>
+      <p id="saveStatus" class="save" role="status">저장 준비</p>
+    </section>
+
+    <section class="card import-card">
+      <h2>1. LEVEL 1 인계 자료 불러오기</h2>
+      <p><code>LEVEL 2~4 이어가기 .md</code> 파일 내용을 붙여넣은 뒤 적용합니다. 원문은 이 브라우저에만 저장됩니다.</p>
+      <textarea id="handoffText" class="codebox" rows="10" spellcheck="false" placeholder="# LEVEL 1 → LEVEL 2~4 이어가기 패킷"></textarea>
+      <button id="applyHandoff" type="button">인계 내용 적용</button>
+    </section>
+
+    <section class="card">
+      <h2>2. LEVEL 2 시작 범위</h2>
+      <div class="grid">
+        <label>프로젝트명<input data-bind="projectName"></label>
+        <label>대상 사용자<input data-bind="user"></label>
+        <label class="full">해결할 문제<textarea data-bind="problem" rows="2"></textarea></label>
+        <label class="full">현재 MVP의 규칙·조건<textarea data-bind="rules" rows="3"></textarea></label>
+        <label class="full">알려진 제한·유의 사항<textarea data-bind="limitations" rows="3"></textarea></label>
+        <label class="full">LEVEL 2에서 우선 구현할 기능<textarea data-bind="nextFunctions" rows="3" placeholder="예: 브라우저에 저장되는 과목·시험일 관리와 공유 가능한 정적 웹 화면"></textarea></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. 배포 전 필수 확인</h2>
+      <div class="checks">
+        <label><input type="checkbox" data-check="inputOutput"> 두 개 이상의 사용자 선택이 결과에 영향을 준다.</label>
+        <label><input type="checkbox" data-check="errorHandling"> 빈 입력·잘못된 입력을 처리한다.</label>
+        <label><input type="checkbox" data-check="refresh"> 새로고침 후 핵심 기능을 확인한다.</label>
+        <label><input type="checkbox" data-check="guide"> 사용 안내와 제한 사항을 화면 또는 문서에 표시한다.</label>
+        <label><input type="checkbox" data-check="pages"> GitHub Pages 주소에서 다시 테스트한다.</label>
+      </div>
+    </section>
+
+    <section class="card actions">
+      <h2>4. 다음 작업으로 넘기기</h2>
+      <p>아래 파일은 LEVEL 2 구현 대화나 작업 지시서에 붙여 넣을 수 있는 최소 컨텍스트입니다.</p>
+      <button id="downloadContext" type="button">LEVEL 2 컨텍스트 .md 다운로드</button>
+      <button id="downloadSnapshot" class="secondary" type="button">상태 스냅샷 .md 다운로드</button>
+    </section>
+  </main>
+  <script src="./level2.js"></script>
+</body>
+</html>
