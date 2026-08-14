@@ -4,7 +4,7 @@ const D=window.LEVEL1_DATA;
 const qs=new URLSearchParams(location.search);
 const audience=["elementary","secondary","adult"].includes(qs.get("audience"))?qs.get("audience"):"elementary";
 const profile=D.audienceExamples[audience];
-const KEY=`ai-project-education.level1.v6.${audience}`;
+const KEY=`ai-project-education.level2.web-tool.v1.${audience}`;
 const $=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const clean=v=>String(v??"").trim();
@@ -12,7 +12,7 @@ const stages=[
   {name:"1. MVP 제작",title:"AI에게 실제로 실행되는 첫 MVP를 만들게 한다",web:"목표와 최소 기능을 정합니다. 그 뒤 AI가 만든 단일 HTML 코드를 아래에 붙여넣으면 왼쪽에서 즉시 실행됩니다.",ai:"설명서나 MD가 아니라 HTML/CSS/JS가 모두 포함된 단일 실행 파일을 만들도록 요청합니다.",check:"왼쪽 LIVE MVP에서 버튼·입력·결과가 실제로 작동하면 2단계 수정·제약으로 넘어갑니다."},
   {name:"2. 수정·제약",title:"작동하는 MVP를 써보고 행동 규칙을 고친다",web:"왼쪽 MVP를 직접 사용해 문제를 찾고, 반드시 할 일·금지조건·재질문 조건을 적습니다.",ai:"현재 HTML 전체와 수정 조건을 함께 보내 수정된 단일 HTML 파일 전체를 다시 받습니다.",check:"수정된 HTML을 다시 붙여넣어 왼쪽 MVP의 행동이 실제로 달라졌는지 확인합니다."},
   {name:"3. 검증",title:"사용자 검증과 선택적 AI 검증으로 판단한다",web:"최소 한 번 실제로 사용한 상황과 결과, 문제나 피드백을 기록합니다. AI 검증은 선택입니다.",ai:"AI 검증을 한다면 현재 HTML을 실패시키는 관점에서 검토받고, 제안을 채택하거나 기각한 이유를 직접 판단합니다.",check:"사용자 테스트 1건과 AI 제안에 대한 판단 또는 AI 검증 생략 이유·대체 근거가 필요합니다. AI 출력도 검증 대상입니다."},
-  {name:"4. 다음 개발 판단",title:"다음 개발 경계를 결정하고 프로젝트를 내보낸다",web:"로컬/웹, 공유 범위, 브라우저 저장, DB, 외부 API와 원하는 다음 기능을 판단합니다.",ai:"현재 MVP와 결정사항으로 간결한 다음 개발 프롬프트를 만듭니다.",check:"추가 코딩은 하지 않습니다. 다음 개발 경계를 결정하고 최종 HTML과 학습 기록을 내보냅니다."}
+  {name:"4. 배포·재사용",title:"공유 가능한 웹 도구의 배포 범위를 정하고 프로젝트를 내보낸다",web:"웹 공개, 공유 범위, 브라우저 저장, DB, 외부 API와 필요한 다음 기능을 판단합니다.",ai:"현재 웹 도구와 결정사항으로 과도한 기술 없이 배포 준비 작업을 검토합니다.",check:"배포 범위와 사용 조건을 정하고, 최종 HTML과 작업 기록을 내보냅니다."}
 ];
 function init(){return{stage:0,mvpVersion:1,mvp:{name:profile.name,user:"",problem:"",outcome:"",required:"",rules:""},selfCheck:{inputChanges:false,ruleBased:false,notEcho:false},artifactHtml:"",refine:{issue:"",change:"",constraintConfirmed:false},refinementHistory:[],lastRefinement:"",validate:{testSituation:"",testOutcome:"",feedback:"",userTests:[],aiMode:"skip",aiResponse:"",accepted:"",rejected:"",deferred:"",decisionReason:"",skipReason:"",substituteEvidence:"",revisionNeeded:"",revisionPlan:"",revisionApplied:false,revalidationRequired:false,retestSituation:"",retestOutcome:"",retestFeedback:"",retestPassed:false,currentVersionComplete:false},validationHistory:[],lastValidation:"",delivery:{place:"local",share:"personal",browserStorage:"no",database:"no",external:"no",nextFunctions:"",limitations:""}}}
 let state=init();
@@ -211,12 +211,11 @@ ${validation}
 - 권장 경계: ${architecture()}
 `}
 function download(name,content,type){try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;document.body.append(a);a.click();const url=a.href;a.remove();setTimeout(()=>URL.revokeObjectURL(url),0)}catch(_){alert("파일을 만들지 못했습니다. 내용을 복사해 직접 저장해 주세요.")}}
-function safeName(){return(clean(state.mvp.name)||"level1-mvp").replace(/[^a-z0-9가-힣_-]+/gi,"-")}
+function safeName(){return(clean(state.mvp.name)||"level2-web-tool").replace(/[^a-z0-9가-힣_-]+/gi,"-")}
 function renderContinuationField(){const target=$("#webForm .decision-grid");if(!target)return;target.insertAdjacentHTML("beforeend",field("다음 단계에 넘길 제한·유의 사항","delivery.limitations",state.delivery.limitations,true,3));const input=target.querySelector('[data-bind="delivery.limitations"]');if(input)input.addEventListener("input",()=>{state.delivery.limitations=input.value;save()})}
-function render(){renderProgress();renderHeader();renderLive();if(state.stage===2)renderValidationForm();else renderForm();if(state.stage===3)renderContinuationField();renderAI();if(state.stage===2)renderStageThreeAI();$("#prev").disabled=state.stage===0;$("#next").textContent=state.stage===3?"다음 개발 경계 확인":"다음 단계";$("#next").disabled=false;$("#exportPanel").classList.toggle("hidden",state.stage!==3)}
-$("#copyAI").onclick=copyPrompt;$("#prev").onclick=()=>{if(state.stage>0){state.stage--;save();render()}};$("#next").onclick=()=>{const msg=gateMessage(state.stage);if(msg){alert(msg);return}if(state.stage===1){archiveRefinement();state.stage=2}else if(state.stage===2){archiveValidation();state.stage=3}else if(state.stage<3)state.stage++;else{alert(`현재 판단: ${architecture()}\n다음 개발 경계가 기록되었습니다. 프로젝트 패키지를 내보내세요.`);return}save();render()};$("#reset").onclick=()=>{if(confirm("현재 대상의 작업 내용을 모두 지울까요?")){localStorage.removeItem(KEY);state=init();render()}};
+function render(){renderProgress();renderHeader();renderLive();if(state.stage===2)renderValidationForm();else renderForm();if(state.stage===3)renderContinuationField();renderAI();if(state.stage===2)renderStageThreeAI();$("#prev").disabled=state.stage===0;$("#next").textContent=state.stage===3?"배포 준비 확인":"다음 단계";$("#next").disabled=false;$("#exportPanel").classList.toggle("hidden",state.stage!==3)}
+$("#copyAI").onclick=copyPrompt;$("#prev").onclick=()=>{if(state.stage>0){state.stage--;save();render()}};$("#next").onclick=()=>{const msg=gateMessage(state.stage);if(msg){alert(msg);return}if(state.stage===1){archiveRefinement();state.stage=2}else if(state.stage===2){archiveValidation();state.stage=3}else if(state.stage<3)state.stage++;else{alert(`현재 배포 범위: ${architecture()}\n배포 조건이 기록되었습니다. 프로젝트 패키지를 내보내세요.`);return}save();render()};$("#reset").onclick=()=>{if(confirm("현재 대상의 작업 내용을 모두 지울까요?")){localStorage.removeItem(KEY);state=init();render()}};
 $("#downloadMarkdown").onclick=()=>download(`${safeName()}-learning-package.md`,projectMarkdown(),"text/markdown;charset=utf-8");
 $("#downloadHtml").onclick=()=>{if(!hasRunnableHtml()){alert("먼저 실행 가능한 최종 HTML을 붙여넣어 주세요.");return}download(`${safeName()}.html`,extractHtmlDocument(state.artifactHtml),"text/html;charset=utf-8")};
-$("#downloadHandoff").onclick=()=>download(`${safeName()}-level-2-4-handoff.md`,continuationMarkdown(),"text/markdown;charset=utf-8");
 load();render();
 })();
