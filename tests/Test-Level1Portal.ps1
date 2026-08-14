@@ -13,7 +13,7 @@ $Checks = @(
     @{ Name = "Conversation role design"; Value = $Html.Contains('data-bind="role"') -and $Html.Contains('data-bind="boundaries"') },
     @{ Name = "Topic feasibility gate"; Value = $Html.Contains('topicFit') -and $Html.Contains('expectedQuestions') -and $Js.Contains('function feasibilityMissing') },
     @{ Name = "Reliable source gate"; Value = $Html.Contains('sourceRecords') -and $Js.Contains('reliableSources') -and $Js.Contains('sourceUsable') },
-    @{ Name = "AI feasibility helper and decision"; Value = $Html.Contains('copyFeasibilityPrompt') -and $Html.Contains('feasibilityAiResponse') -and $Html.Contains('feasibilityDecision') -and $Js.Contains('function feasibilityPrompt') -and $Js.Contains('feasibilityDecision!=="ready"') },
+    @{ Name = "AI feasibility helper and test-mode decision"; Value = $Html.Contains('copyFeasibilityPrompt') -and $Html.Contains('feasibilityAiResponse') -and $Html.Contains('feasibilityDecision') -and $Js.Contains('function feasibilityPrompt') -and $Js.Contains('const TEST_MODE=true') -and $Js.Contains('if(!TEST_MODE&&missing.length)') },
     @{ Name = "Manual external AI workflow"; Value = $Html.Contains('외부 채팅 AI') -and $Js.Contains('navigator.clipboard') },
     @{ Name = "Source scope and honesty"; Value = $Html.Contains('data-bind="sources"') -and $Js.Contains('출처를 만들지 마라') },
     @{ Name = "Conversation validation"; Value = $Html.Contains('testQuestion') -and $Html.Contains('stayedInRole') -and $Js.Contains('testFinding') },
