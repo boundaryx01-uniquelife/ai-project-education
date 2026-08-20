@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 $Root = Split-Path -Parent $PSScriptRoot
 $Worksheets = Join-Path $Root "portal\worksheets"
-$Files = @("index.html", "level-1.html", "level-2.html", "level-3.html", "level-3-api-lab.html", "level-4.html", "worksheets.css", "worksheets.js", "api-lab.js")
+$Files = @("index.html", "level-1.html", "level-2.html", "level-3.html", "level-3-api-guide.html", "level-4.html", "worksheets.css", "worksheets.js")
 $Failed = @()
 
 foreach ($File in $Files) {
@@ -17,8 +17,7 @@ $Level1 = Get-Content -LiteralPath (Join-Path $Worksheets "level-1.html") -Raw
 $Level2 = Get-Content -LiteralPath (Join-Path $Worksheets "level-2.html") -Raw
 $Level3 = Get-Content -LiteralPath (Join-Path $Worksheets "level-3.html") -Raw
 $Level4 = Get-Content -LiteralPath (Join-Path $Worksheets "level-4.html") -Raw
-$ApiLab = Get-Content -LiteralPath (Join-Path $Worksheets "level-3-api-lab.html") -Raw
-$ApiLabJs = Get-Content -LiteralPath (Join-Path $Worksheets "api-lab.js") -Raw
+$ApiGuide = Get-Content -LiteralPath (Join-Path $Worksheets "level-3-api-guide.html") -Raw
 $Portal = Get-Content -LiteralPath (Join-Path $Root "portal\index.html") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Worksheets "worksheets.js") -Raw
 
@@ -27,9 +26,8 @@ $Checks = @(
     @{ Name = "Portal links to worksheets"; Value = $Portal.Contains("worksheets/") },
     @{ Name = "Level 1 records source and tests"; Value = $Level1.Contains('data-field="l1-source-note"') -and $Level1.Contains('data-field="l1-test"') },
     @{ Name = "Level 2 includes deployment record"; Value = $Level2.Contains('data-field="l2-url"') -and $Level2.Contains("GitHub Pages") },
-    @{ Name = "Level 3 includes API safety and FAQ"; Value = $Level3.Contains("l3-api-endpoint") -and $Level3.Contains("faq-grid") -and $Level3.Contains("api-flow") },
-    @{ Name = "Level 3 API preparation lab"; Value = $Level3.Contains("level-3-api-lab.html") -and $ApiLab.Contains("data-api-lab") -and $ApiLabJs.Contains("chat_history") },
-    @{ Name = "API lab does not make network calls"; Value = (-not $ApiLabJs.Contains("fetch(")) -and (-not $ApiLabJs.Contains("apiKey")) },
+    @{ Name = "Level 3 includes API safety guidance"; Value = $Level3.Contains("level-3-api-guide.html") -and $Level3.Contains("api-flow") -and $ApiGuide.Contains("faq-grid") },
+    @{ Name = "API guide has no hands-on connection"; Value = (-not $ApiGuide.Contains("fetch(")) -and (-not $ApiGuide.Contains("data-api-")) -and (-not $ApiGuide.Contains("apiKey")) },
     @{ Name = "Level 4 includes operations and recovery"; Value = $Level4.Contains("l4-recover") -and $Level4.Contains("Release") -and $Level4.Contains('data-field="l4-change"') },
     @{ Name = "Worksheet local browser storage"; Value = $Js.Contains("localStorage") -and $Js.Contains("data-field") },
     @{ Name = "Worksheet print support"; Value = $Js.Contains("window.print") }
