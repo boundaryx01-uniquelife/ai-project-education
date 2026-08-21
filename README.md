@@ -8,7 +8,7 @@ AI를 활용한 자료 수집, 분석, 설계, 제작, 검증, 배포와 개선�
 - 로컬 경로: `C:\DEV\ai-project-education`
 - 공식 저장소: `boundaryx01-uniquelife/ai-project-education`
 - 기본 배포: GitHub Pages
-- 현재 단계: STAGE 00 통합 기반 확정
+- 현재 포털 기준: LEVEL 1~4 독립 워크숍 개편안
 
 ## 공통 생명주기
 
@@ -28,4 +28,6 @@ AI를 활용한 자료 수집, 분석, 설계, 제작, 검증, 배포와 개선�
 - 단계별 핸드오프: `docs/handoffs`
 - 교육과정: `curriculum`
 - 통합 포털: `portal`
+- 현재 LEVEL 1~4 운영 플로우: `docs/02_curriculum_design/LEVEL_1_TO_4_WORKSHOP_FLOW_20260821.md`
+- 이전 실험형 포털 보관함: `portal/legacy`
 - 범용 Skill: `skills/ai-project-education`
