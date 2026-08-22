@@ -50,7 +50,7 @@ function indexFile(config) {
 <body>
   <main>
     <p class="eyebrow" id="short"></p><h1 id="title"></h1><p class="lead" id="purpose"></p>
-    <form id="entryForm"><label id="entryLabel" for="entry"></label><input id="entry" required autocomplete="off"><button type="submit">목록에 추가</button></form>
+    <div id="entryForm"><label id="entryLabel" for="entry"></label><input id="entry" autocomplete="off"><button id="addEntry" type="button">목록에 추가</button></div>
     <ul id="list"></ul><p class="notice">이 기록은 이 브라우저에만 저장됩니다.</p>
   </main>
   <script>
@@ -63,8 +63,8 @@ function indexFile(config) {
     el("short").textContent = config.short; el("title").textContent = config.name; el("purpose").textContent = config.purpose; el("entryLabel").textContent = config.label;
     function render() { const items = read(); const list = el("list"); list.innerHTML = ""; if (!items.length) { list.innerHTML = '<li class="empty">첫 항목을 추가해 보세요.</li>'; return; }
       items.forEach((item, index) => { const row = document.createElement("li"); if (item.done) row.className = "done"; const toggle = document.createElement("button"); toggle.textContent = item.done ? "✓" : "○"; toggle.setAttribute("aria-label", "완료 상태 바꾸기"); toggle.onclick = () => { items[index].done = !items[index].done; write(items); render(); }; const text = document.createElement("span"); text.textContent = item.text; const remove = document.createElement("button"); remove.textContent = "×"; remove.setAttribute("aria-label", "항목 삭제"); remove.onclick = () => { items.splice(index, 1); write(items); render(); }; row.append(toggle, text, remove); list.append(row); }); }
-    el("entryForm").onsubmit = (event) => { event.preventDefault(); const input = el("entry"); const text = input.value.trim(); if (!text) return; const items = read(); items.unshift({ text, done: false }); write(items); input.value = ""; render(); }; render();
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+    el("addEntry").onclick = () => { const input = el("entry"); const text = input.value.trim(); if (!text) return; const items = read(); items.unshift({ text, done: false }); write(items); input.value = ""; render(); }; render();
+    try { if (window.isSecureContext && navigator.serviceWorker) navigator.serviceWorker.register("./service-worker.js").catch(() => {}); } catch {}
   <\/script>
 </body>
 </html>`;
