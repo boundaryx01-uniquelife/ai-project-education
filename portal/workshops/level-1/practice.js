@@ -40,6 +40,7 @@ function indexFile(config) {
     * { box-sizing: border-box; } body { margin: 0; } main { width: min(100% - 32px, 620px); margin: 0 auto; padding: 28px 0 56px; }
     .eyebrow { color: #d85741; font-size: .72rem; font-weight: 800; letter-spacing: .12em; } h1 { margin: 8px 0; font-size: clamp(2rem, 8vw, 3.3rem); line-height: 1.05; letter-spacing: -.06em; }
     .lead { color: #666b7c; } form, li { background: #fff; border: 1px solid #dfded9; border-radius: 14px; } form { display: grid; gap: 9px; padding: 15px; margin-top: 25px; }
+    #entryForm, li { background: #fff; border: 1px solid #dfded9; border-radius: 14px; } #entryForm { display: grid; gap: 9px; padding: 15px; margin-top: 25px; }
     label { font-size: .82rem; font-weight: 800; } input { width: 100%; margin-top: 5px; border: 1px solid #cfd0d4; border-radius: 9px; padding: 11px; font: inherit; }
     button { border: 0; border-radius: 999px; background: #17192d; color: #fff; padding: 11px 15px; font: inherit; font-weight: 800; cursor: pointer; }
     ul { display: grid; gap: 9px; margin: 14px 0 0; padding: 0; list-style: none; } li { display: flex; align-items: center; gap: 10px; padding: 12px; } li.done { opacity: .56; text-decoration: line-through; }
