@@ -1,0 +1,13 @@
+.experiment-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:26px; }
+.experiment-choice { display:grid; gap:8px; min-height:155px; padding:18px; border:1px solid #d9dce2; border-radius:15px; background:#fff; color:#4f5667; text-align:left; cursor:pointer; }
+.experiment-choice b { color:var(--accent); font-family:ui-monospace,Consolas,monospace; font-size:.69rem; }
+.experiment-choice strong { color:#1b2235; font-size:1rem; letter-spacing:-.035em; }
+.experiment-choice span { font-size:.83rem; line-height:1.5; }
+.experiment-choice.selected { border-color:var(--accent); box-shadow:0 10px 21px color-mix(in srgb,var(--accent) 16%,transparent); }
+.experiment-note { display:grid; gap:7px; margin-top:14px; color:#4a5264; font-size:.84rem; }
+.experiment-note textarea { min-height:76px; border:1px solid #cdd2db; border-radius:11px; background:#fff; padding:11px; color:#1b2235; resize:vertical; }
+.experiment-prompt { overflow:hidden; margin-top:15px; border-radius:15px; background:#151b2c; }
+.experiment-prompt pre { min-height:245px; max-height:430px; margin:0; overflow:auto; padding:20px; color:#e5ecfa; font-family:ui-monospace,Consolas,monospace; font-size:.78rem; line-height:1.65; white-space:pre-wrap; }
+.experiment-note-box { margin-top:14px; padding:16px 18px; border-left:4px solid #9bda34; border-radius:0 13px 13px 0; background:#f1f8d8; color:#536039; font-size:.87rem; }
+.experiment-note-box strong { display:block; margin-bottom:3px; color:#334015; }
+@media(max-width:760px){.experiment-grid{grid-template-columns:1fr}}
