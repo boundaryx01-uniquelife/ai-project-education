@@ -18,12 +18,13 @@ $Js = Get-Content -LiteralPath $JsPath -Raw
 $Portal = Get-Content -LiteralPath (Join-Path $Root "portal\index.html") -Raw
 
 $Checks = @(
-    @{ Name = "Four guided practice steps"; Value = $Html.Contains('data-step="1"') -and $Html.Contains('data-step="2"') -and $Html.Contains('data-step="3"') -and $Html.Contains('data-step="4"') },
+    @{ Name = "Five guided practice steps"; Value = $Html.Contains('data-step="1"') -and $Html.Contains('data-step="2"') -and $Html.Contains('data-step="3"') -and $Html.Contains('data-step="4"') -and $Html.Contains('data-step="5"') },
     @{ Name = "Three prefilled student examples"; Value = $Js.Contains('study:') -and $Js.Contains('project:') -and $Js.Contains('career:') },
     @{ Name = "Custom idea path"; Value = $Html.Contains('id="useCustom"') -and $Js.Contains('function selectExample') },
     @{ Name = "Copyable AI prompt"; Value = $Html.Contains('data-copy="promptText"') -and $Js.Contains('function copyPrompt') -and $Js.Contains('manifest.webmanifest') },
     @{ Name = "Editable complete PWA files"; Value = $Html.Contains('data-file="index.html"') -and $Html.Contains('data-file="service-worker.js"') -and $Js.Contains('function starterFiles') -and $Js.Contains('function workerFile') },
     @{ Name = "Sandbox preview"; Value = $Html.Contains('sandbox="allow-scripts"') -and $Js.Contains('srcdoc') },
+    @{ Name = "Pinpoint refinement step supplies a complete-file prompt"; Value = $Html.Contains('id="refinePrompt"') -and $Html.Contains('data-refine="deadline"') -and $Js.Contains('function refinementPrompt') -and $Js.Contains('현재 index.html 전체 코드') -and $Js.Contains('Math.min(5') },
     @{ Name = "Functional generated app"; Value = $Js.Contains('localStorage') -and $Js.Contains('목록에 추가') -and $Js.Contains('serviceWorker') },
     @{ Name = "Package download actions"; Value = $Html.Contains('id="downloadIndex"') -and $Html.Contains('id="downloadReadme"') -and $Js.Contains('function download') },
     @{ Name = "Manual runtime test checklist"; Value = $Html.Contains('data-test="input"') -and $Html.Contains('data-test="change"') -and $Html.Contains('data-test="reload"') },

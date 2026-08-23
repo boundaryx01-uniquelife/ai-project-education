@@ -4,7 +4,7 @@ const EXAMPLES = {
   career: { id: "career", number: "03", name: "나의 진로 선택 기준 카드", short: "MY COMPASS", purpose: "관심, 강점, 중요하게 여기는 가치를 카드로 적고 탐색 주제를 정리합니다.", label: "나에게 중요한 관심·강점·가치", chips: ["관심", "강점", "가치"] }
 };
 
-const state = { example: "study", file: "index.html", files: {}, originals: {}, tests: {} };
+const state = { example: "study", file: "index.html", files: {}, originals: {}, tests: {}, refinement: "deadline", refinementNote: "" };
 const STORAGE_KEY = "ai-project-education-level1-practice-v1";
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -107,7 +107,7 @@ function renderExamples() {
 
 function selectExample(config, custom = false) {
   state.example = config.id; state.config = config; state.custom = custom; state.files = starterFiles(config); state.originals = { ...state.files }; state.file = "index.html";
-  renderExamples(); renderPrompt(); renderEditor(); refreshPreview(); saveState();
+  renderExamples(); renderPrompt(); renderRefinement(); renderEditor(); refreshPreview(); saveState();
 }
 
 function renderPrompt() {
@@ -121,6 +121,38 @@ function renderPrompt() {
 외부 라이브러리, CDN, API, 서버, 로그인, DB는 사용하지 마.
 PWA 설치를 위해 index.html, manifest.webmanifest, service-worker.js, icon.svg의 전체 코드를 파일명별 Markdown 코드 블록으로 출력해줘.
 설명은 짧게 하고, 바로 실행 가능한 파일 전체 코드를 빠뜨리지 마.`;
+}
+
+const REFINEMENTS = {
+  deadline: "마감일 입력칸을 추가하고, 오늘부터 3일 이내인 항목은 ‘마감 임박’ 표시를 보여줘.",
+  filter: "완료된 항목을 숨기거나 다시 볼 수 있는 버튼을 추가해서, 남은 일에 집중할 수 있게 해줘.",
+  empty: "기록이 하나도 없을 때 사용자가 무엇을 입력하면 좋은지 예시를 보여 주는 첫 사용 안내 카드를 추가해줘."
+};
+
+function refinementPrompt() {
+  const config = currentConfig();
+  const selected = REFINEMENTS[state.refinement] || REFINEMENTS.deadline;
+  const note = state.refinementNote.trim();
+  return `지금 작동하는 ‘${config.name}’ PWA를 한 가지만 보완해줘.
+
+이번 요청의 변경 사항: ${selected}
+${note ? `내가 덧붙이는 조건: ${note}` : ""}
+
+아래 현재 index.html 전체 코드에서 이 기능만 추가하거나 수정해줘.
+기존의 항목 추가, 완료 표시, 삭제, localStorage 저장 기능은 깨지지 않게 유지해줘.
+외부 라이브러리, CDN, API, 서버, 로그인, DB는 추가하지 마.
+설명 대신 수정된 index.html 전체 코드를 Markdown 코드 블록 하나로 출력해줘.
+
+현재 index.html:
+\`\`\`html
+${state.files["index.html"] || ""}
+\`\`\``;
+}
+
+function renderRefinement() {
+  $$('[data-refine]').forEach((button) => button.classList.toggle("selected", button.dataset.refine === state.refinement));
+  $("#refineNote").value = state.refinementNote || "";
+  $("#refinePrompt").textContent = refinementPrompt();
 }
 
 function renderEditor() {
@@ -144,6 +176,12 @@ async function copyPrompt() {
   const button = $("[data-copy='promptText']"); button.textContent = "복사됨"; setTimeout(() => { button.textContent = "복사"; }, 1400);
 }
 
+async function copyRefinement() {
+  const text = $("#refinePrompt").textContent;
+  try { await navigator.clipboard.writeText(text); } catch { const helper = document.createElement("textarea"); helper.value = text; document.body.append(helper); helper.select(); document.execCommand("copy"); helper.remove(); }
+  const button = $("[data-copy='refinePrompt']"); button.textContent = "복사됨"; setTimeout(() => { button.textContent = "복사"; }, 1400);
+}
+
 function download(filename, text, type) {
   const blob = new Blob([text], { type }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.href = url; link.download = filename; link.click(); URL.revokeObjectURL(url);
 }
@@ -162,9 +200,12 @@ function downloadReadme() {
 
 function bindEvents() {
   $$("[data-step-link]").forEach((button) => button.addEventListener("click", () => setStep(Number(button.dataset.stepLink))));
-  $$("[data-next]").forEach((button) => button.addEventListener("click", () => { const now = Number($(".step.active").dataset.step); setStep(Math.min(4, now + 1)); }));
+  $$("[data-next]").forEach((button) => button.addEventListener("click", () => { const now = Number($(".step.active").dataset.step); setStep(Math.min(5, now + 1)); }));
   $$("[data-prev]").forEach((button) => button.addEventListener("click", () => { const now = Number($(".step.active").dataset.step); setStep(Math.max(1, now - 1)); }));
   $("[data-copy='promptText']").addEventListener("click", copyPrompt);
+  $("[data-copy='refinePrompt']").addEventListener("click", copyRefinement);
+  $$('[data-refine]').forEach((button) => button.addEventListener("click", () => { state.refinement = button.dataset.refine; renderRefinement(); saveState(); }));
+  $("#refineNote").addEventListener("input", (event) => { state.refinementNote = event.target.value; renderRefinement(); saveState(); });
   $$("[data-file]").forEach((button) => button.addEventListener("click", () => { state.file = button.dataset.file; renderEditor(); saveState(); }));
   $("#codeEditor").addEventListener("input", (event) => { state.files[state.file] = event.target.value; $("#saveNotice").textContent = "수정 저장됨"; saveState(); });
   $("#refreshPreview").addEventListener("click", () => { refreshPreview(); $("#saveNotice").textContent = "미리보기를 갱신했습니다"; });
@@ -180,5 +221,5 @@ function bindEvents() {
 
 loadState();
 if (!state.files || !state.files["index.html"]) selectExample(state.config || EXAMPLES[state.example]);
-else { renderExamples(); renderPrompt(); renderEditor(); refreshPreview(); }
+else { renderExamples(); renderPrompt(); renderRefinement(); renderEditor(); refreshPreview(); }
 bindEvents();
