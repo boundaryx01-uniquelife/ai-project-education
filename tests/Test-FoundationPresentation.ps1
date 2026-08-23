@@ -21,6 +21,7 @@ $Checks = @(
     @{ Name = "Presentation includes project vocabulary"; Value = $Html.Contains("MVP") -and $Html.Contains("PWA") -and $Html.Contains("AGENT") },
     @{ Name = "MVP and PWA meanings are written out"; Value = $Html.Contains("Minimum Viable Product") -and $Html.Contains("Progressive Web App") },
     @{ Name = "Key concept labels use enlarged display styles"; Value = $Css.Contains(".word-cards strong") -and $Css.Contains(".versus small") },
+    @{ Name = "Korean card meanings are visually prioritized"; Value = $Css.Contains(".word-cards p") -and $Css.Contains("font-weight:800") },
     @{ Name = "Presentation supports previous and next controls"; Value = $Js.Contains('"#previous"') -and $Js.Contains('"#next"') -and $Js.Contains("render") },
     @{ Name = "Presentation supports keyboard and fullscreen"; Value = $Js.Contains("ArrowRight") -and $Js.Contains("requestFullscreen") },
     @{ Name = "Presentation is responsive"; Value = $Css.Contains("@media(max-width:700px)") }

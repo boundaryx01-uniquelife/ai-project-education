@@ -9,8 +9,8 @@
 .versus p{font-size:clamp(1.02rem,1.65vw,1.28rem);line-height:1.55}
 .word-cards article{display:flex;flex-direction:column;justify-content:flex-start;gap:14px;min-height:238px;padding:25px}
 .word-cards strong{display:block;color:#3858c7;font-family:ui-monospace,Consolas,monospace;font-size:clamp(1.25rem,2.1vw,1.75rem);font-weight:900;letter-spacing:.04em}
-.word-cards b{font-size:clamp(1.25rem,2.15vw,1.8rem);line-height:1.16}
-.word-cards p{margin:0;color:#4f5668;font-size:clamp(.95rem,1.45vw,1.16rem);line-height:1.5}
+.word-cards b{color:#687084;font-size:clamp(.84rem,1.1vw,1rem);font-weight:700;letter-spacing:.01em;line-height:1.25}
+.word-cards p{margin:0;color:#1f2946;font-size:clamp(1.12rem,1.8vw,1.5rem);font-weight:800;letter-spacing:-.045em;line-height:1.35}
 .deck-nav p{font-size:.76rem}
 .keyboard-help{font-size:.78rem}
 @media(max-width:700px){.deck-topbar{font-size:.78rem}.deck-topbar button{font-size:.78rem}.eyebrow{font-size:.82rem}.versus article{min-height:0;padding:22px}.word-cards article{min-height:0;padding:21px}.word-cards strong{font-size:1.18rem}}
