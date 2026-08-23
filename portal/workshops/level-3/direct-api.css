@@ -1,0 +1,14 @@
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rule-card a {
+  color: inherit;
+  font-weight: 800;
+}
+
+@media (max-width: 620px) {
+  .field-grid { grid-template-columns: 1fr; }
+}

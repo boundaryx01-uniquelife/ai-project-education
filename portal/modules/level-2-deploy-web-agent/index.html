@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="실행형 MVP를 수정·검증하고 배포 가능한 웹 도구로 발전시키는 LEVEL 2 인트로">
+  <title>LEVEL 2 | 어떤 웹 도구를 배포할까요?</title>
+  <style>
+    *{box-sizing:border-box}:root{font-family:Arial,"Malgun Gothic",sans-serif;color:#17212b;background:#eef2f5;line-height:1.5}body{margin:0}a{color:inherit}.shell{width:min(1220px,calc(100% - 28px));margin:0 auto;padding:30px 0 64px}.home{display:inline-block;margin-bottom:24px;color:#173f73;font-weight:800;text-decoration:none}.hero{padding:clamp(28px,5vw,54px);background:#fff;border:1px solid #ccd5dd;border-radius:24px}.eyebrow{margin:0 0 10px;color:#526171;font-size:.78rem;font-weight:900;letter-spacing:.12em}.hero h1{max-width:900px;margin:0;font-size:clamp(2rem,5vw,3.8rem);line-height:1.08}.lead{max-width:840px;margin:18px 0 0;font-size:1.08rem;color:#465565}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.flow div{padding:14px;background:#f6f8fa;border:1px solid #d6dde4;border-radius:12px}.flow b{display:block;color:#173f73;margin-bottom:4px}.choose{margin-top:30px}.choose h2{margin:0 0 4px;font-size:1.75rem}.choose>p{margin:0 0 18px;color:#526171}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{display:flex;flex-direction:column;background:#fff;border:1px solid #ccd5dd;border-radius:20px;overflow:hidden;text-decoration:none;transition:.15s ease}.card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 14px 34px rgba(25,45,66,.12);outline:3px solid #8cb7e6;outline-offset:2px}.card-copy{padding:20px 20px 14px}.tag{font-size:.78rem;font-weight:900;color:#173f73}.card h3{margin:7px 0 6px;font-size:1.45rem}.card-copy p{margin:0;color:#526171;font-size:.93rem}.mock{margin:0 14px;padding:12px;border-radius:15px;background:#0f1720;color:#eef4fa;min-height:290px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.mock-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.mock-title{font-weight:900}.mock-pill{font-size:.69rem;padding:4px 7px;border-radius:999px;background:#243444;color:#bde3ff}.money-balance{padding:16px;background:linear-gradient(135deg,#173f73,#2569a9);border-radius:13px}.money-balance small,.stat small{display:block;opacity:.72}.money-balance strong{display:block;font-size:1.75rem;margin-top:2px}.decision{margin-top:10px;padding:12px;border-radius:12px;background:#172b24;border:1px solid #2f7553}.decision strong{display:block;color:#9ef0bd}.mini-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.stat{padding:10px;border-radius:10px;background:#192633}.stat b{font-size:.95rem}.guard{margin-top:9px;padding:9px;border-left:3px solid #f5c76b;background:#282619;font-size:.78rem;color:#f7dfa6}.study-date{display:flex;align-items:end;justify-content:space-between}.study-date strong{font-size:1.8rem}.subject{margin-top:9px;padding:10px;border-radius:10px;background:#192633}.subject-head{display:flex;justify-content:space-between;font-size:.82rem}.bar{height:7px;margin-top:7px;border-radius:999px;background:#304152;overflow:hidden}.bar i{display:block;height:100%;background:#58a6ff;border-radius:inherit}.task-list{margin-top:10px;display:grid;gap:6px}.task{display:flex;gap:8px;padding:8px;border-radius:9px;background:#172b24;font-size:.78rem}.task span{color:#9ef0bd}.trip-summary{display:grid;grid-template-columns:1fr 1fr;gap:7px}.trip-summary div{padding:9px;border-radius:10px;background:#192633}.timeline{margin-top:10px;display:grid;gap:8px}.stop{display:grid;grid-template-columns:48px 1fr;gap:8px;align-items:start}.time{font-size:.72rem;color:#8dc8f5;padding-top:5px}.place{padding:8px 9px;border-radius:9px;background:#192633;font-size:.78rem}.place b{display:block;color:#fff}.weather{margin-top:10px;padding:9px;border-radius:10px;background:#2a2417;color:#f8db96;font-size:.78rem}.start{margin:14px;padding:12px;text-align:center;color:#fff;background:#173f73;border-radius:10px;font-weight:900}.note{margin-top:22px;padding:14px 17px;background:#fff4d8;border:1px solid #d8ba75;border-radius:12px}@media(max-width:950px){.cards{grid-template-columns:1fr}.mock{min-height:auto}.flow{grid-template-columns:1fr 1fr}}@media(max-width:560px){.flow{grid-template-columns:1fr}.hero{padding:25px 19px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <a class="home" href="../../index.html">← AI 프로젝트 교육 통합 프레임워크</a>
+    <section class="hero">
+      <p class="eyebrow">LEVEL 2 · DEPLOYABLE WEB TOOL</p>
+      <h1>실제로 쓰고 공유할 수 있는<br>웹 도구를 만듭니다.</h1>
+      <p class="lead">세 화면은 배포형 웹 도구의 축소 예시입니다. 하나를 고른 뒤 워크숍에서 <strong>실행형 MVP를 만들고, 수정·검증한 뒤 정적 웹으로 배포할 준비</strong>를 합니다.</p>
+      <div class="flow">
+        <div><b>1. MVP 제작</b>목표와 최소 기능으로 첫 버전을 만듭니다.</div>
+        <div><b>2. 수정·제약</b>써보고 금지조건과 재질문 조건을 넣습니다.</div>
+        <div><b>3. 검증</b>사용자와 AI가 서로 다른 관점에서 검증합니다.</div>
+        <div><b>4. 배포·재사용</b>공유 범위와 정적 웹 배포 조건을 확인합니다.</div>
+      </div>
+    </section>
+
+    <section class="choose">
+      <h2>어느 결과물을 따라 만들어볼까요?</h2>
+      <p>예시 화면을 먼저 보고, 가장 관심 가는 하나를 선택하세요.</p>
+      <div class="cards">
+        <a class="card" href="./workshop.html?audience=elementary">
+          <div class="card-copy"><span class="tag">초등</span><h3>💰 용돈지킴이</h3><p>단순 계산기가 아니라 구매 판단, 남은 생활비, 위험 신호와 대안을 함께 보여주는 작은 금융 도우미입니다.</p></div>
+          <div class="mock" aria-label="용돈지킴이 예시 화면">
+            <div class="mock-top"><span class="mock-title">Pocket Guard</span><span class="mock-pill">이번 달</span></div>
+            <div class="money-balance"><small>사용 가능한 용돈</small><strong>32,000원</strong><small>다음 용돈까지 12일</small></div>
+            <div class="decision"><strong>✓ 지금 사도 괜찮아요</strong><span>18,000원 구매 후 필수지출을 제외하면 6,000원이 남아요.</span></div>
+            <div class="mini-row"><div class="stat"><small>구매 후 잔액</small><b>14,000원</b></div><div class="stat"><small>필수 지출</small><b>8,000원</b></div></div>
+            <div class="guard">⚠ 잔액이 5,000원 아래로 내려가면 구매를 권하지 않아요.</div>
+          </div>
+          <span class="start">이 에이전트 따라 만들기 →</span>
+        </a>
+
+        <a class="card" href="./workshop.html?audience=secondary">
+          <div class="card-copy"><span class="tag">중·고등</span><h3>📚 시험기간 플래너</h3><p>남은 시간과 취약 과목을 보고 오늘 할 일을 현실적인 시간 블록으로 다시 배치하는 공부 플래너입니다.</p></div>
+          <div class="mock" aria-label="시험기간 플래너 예시 화면">
+            <div class="mock-top"><span class="mock-title">Focus Plan</span><span class="mock-pill">D-8</span></div>
+            <div class="study-date"><div><small>오늘 확보 시간</small><strong>2h 00m</strong></div><span class="mock-pill">5과목</span></div>
+            <div class="subject"><div class="subject-head"><b>수학 · 최우선</b><span>50분</span></div><div class="bar"><i style="width:72%"></i></div></div>
+            <div class="subject"><div class="subject-head"><b>영어 · 취약</b><span>40분</span></div><div class="bar"><i style="width:58%"></i></div></div>
+            <div class="task-list"><div class="task"><span>01</span>수학 오답 12문제</div><div class="task"><span>02</span>영어 본문 2개 복습</div><div class="task"><span>03</span>30분은 밀린 일정 흡수용</div></div>
+          </div>
+          <span class="start">이 에이전트 따라 만들기 →</span>
+        </a>
+
+        <a class="card" href="./workshop.html?audience=adult">
+          <div class="card-copy"><span class="tag">성인</span><h3>✈️ 여행 일정 에이전트</h3><p>가고 싶은 곳을 나열하는 대신 동선·예산·예약·휴식·우천대안까지 한 일정으로 묶는 여행 설계 도우미입니다.</p></div>
+          <div class="mock" aria-label="여행 일정 에이전트 예시 화면">
+            <div class="mock-top"><span class="mock-title">Bohol · Day 2</span><span class="mock-pill">가족 3명</span></div>
+            <div class="trip-summary"><div><small>오늘 예상비용</small><b>₱6,800</b></div><div><small>이동시간</small><b>1h 25m</b></div></div>
+            <div class="timeline"><div class="stop"><span class="time">08:30</span><div class="place"><b>호텔 출발</b>이동 25분</div></div><div class="stop"><span class="time">09:00</span><div class="place"><b>체험 활동</b>예약 확인 · 2시간</div></div><div class="stop"><span class="time">12:00</span><div class="place"><b>점심 + 휴식</b>동선 안에서 90분 확보</div></div><div class="stop"><span class="time">14:00</span><div class="place"><b>실내 후보</b>날씨에 따라 자동 전환</div></div></div>
+            <div class="weather">☂ 비가 강하면 야외 2곳을 실내 플랜 B로 교체</div>
+          </div>
+          <span class="start">이 에이전트 따라 만들기 →</span>
+        </a>
+      </div>
+    </section>
+    <div class="note"><strong>핵심:</strong> 인트로의 화면은 ‘배포할 웹 도구의 샘플’입니다. 워크숍에 들어가면 이 샘플 설명은 사라지고, 왼쪽에는 내가 오른쪽에서 작성한 내용으로 만들어지는 <strong>LIVE WEB TOOL</strong>만 남습니다.</div>
+  </main>
+</body>
+</html>

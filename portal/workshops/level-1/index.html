@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff705a">
+  <title>LEVEL 1 따라하기 | 나의 생활 PWA</title>
+  <link rel="stylesheet" href="./practice.css">
+  <link rel="stylesheet" href="./refinement.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← 홈 · PROJECT PLAYGROUND</a>
+      <div class="top-status"><span></span> LEVEL 01 · LIVE PRACTICE</div>
+      <a class="paper-link" href="../../worksheets/level-1.html" target="_blank" rel="noopener">PROJECT PAPER ↗</a>
+    </header>
+
+    <section class="intro">
+      <div><p class="eyebrow">VIBE CODING START · 3~4 HOURS</p><h1>오늘, 내 첫 PWA를<br>완성합니다.</h1><p>왼쪽은 이 실습, 오른쪽은 Gemini·ChatGPT를 엽니다. 한 단계씩 AI에게 요청하고, 받은 파일을 넣어 실행한 뒤 휴대폰에 설치할 수 있는 PWA 폴더를 만듭니다.</p></div>
+      <aside><strong>오늘의 결과물</strong><span>index.html · manifest.webmanifest · service-worker.js · icon.svg</span><small>외부 API·로그인·DB 없이, 브라우저 저장만 사용합니다.</small></aside>
+    </section>
+
+    <nav class="step-nav" aria-label="따라하기 단계">
+      <button type="button" class="active" data-step-link="1"><b>01</b> 예시 고르기</button>
+      <button type="button" data-step-link="2"><b>02</b> AI에 요청</button>
+      <button type="button" data-step-link="3"><b>03</b> 파일 넣기</button>
+      <button type="button" data-step-link="4"><b>04</b> 한 가지 보완</button>
+      <button type="button" data-step-link="5"><b>05</b> 테스트·배포</button>
+    </nav>
+
+    <section class="step active" data-step="1">
+      <div class="step-heading"><p class="eyebrow">STEP 01</p><h2>먼저, 만들 앱을 고릅니다.</h2><p>세 예시는 이미 채워져 있습니다. 마음에 들지 않는 부분은 고르고 난 뒤 한 가지씩 바꿉니다.</p></div>
+      <div class="example-grid" id="exampleGrid"></div>
+      <details class="custom-idea"><summary>예시 대신 내 아이디어로 시작하기</summary><div class="custom-fields"><label>앱 이름<input id="customName" type="text" placeholder="예: 나의 독서 루틴"></label><label>기록할 한 가지<input id="customLabel" type="text" placeholder="예: 오늘 읽을 책"></label><label class="wide">앱이 도울 일<textarea id="customPurpose" placeholder="예: 매일 읽을 책과 페이지를 기록하고 완료를 표시한다."></textarea></label><button type="button" id="useCustom">이 아이디어로 시작</button></div></details>
+      <div class="next-row"><p><b>다음 행동:</b> 선택한 예시가 마음에 드는지 확인하고 AI 요청문을 만듭니다.</p><button class="next" type="button" data-next>STEP 02로 →</button></div>
+    </section>
+
+    <section class="step" data-step="2">
+      <div class="step-heading"><p class="eyebrow">STEP 02</p><h2>AI에게 ‘파일 묶음’을 요청합니다.</h2><p>아래 요청을 복사해 외부 AI에 보냅니다. 설명이나 일부 코드가 아니라, <b>파일별 전체 코드</b>를 달라고 명시하는 것이 중요합니다.</p></div>
+      <div class="two-column"><div><div class="prompt-box"><div class="box-head"><strong>AI에 보낼 요청</strong><button type="button" class="copy" data-copy="promptText">복사</button></div><pre id="promptText"></pre></div><details class="tip"><summary>AI가 설명만 하고 코드를 안 주면?</summary><p>“설명은 빼고, 바뀐 파일의 전체 코드를 파일명별로 다시 출력해줘. Markdown 코드 블록을 사용해줘.”라고 추가로 요청합니다.</p></details></div><aside class="side-check"><p class="eyebrow">AI 창에서 확인</p><ol><li>파일이 4개인가?</li><li>외부 API·CDN·로그인이 없는가?</li><li>휴대폰 화면을 고려했는가?</li><li>localStorage가 있는가?</li></ol><a href="../../worksheets/level-1.html#prompt" target="_blank" rel="noopener">프롬프트 해설 보기 ↗</a></aside></div>
+      <div class="next-row"><button class="previous" type="button" data-prev>← 예시 다시 고르기</button><p><b>다음 행동:</b> AI가 준 코드를 파일 칸에 붙여 넣습니다.</p><button class="next" type="button" data-next>STEP 03으로 →</button></div>
+    </section>
+
+    <section class="step" data-step="3">
+      <div class="step-heading"><p class="eyebrow">STEP 03</p><h2>받은 파일을 넣고, 바로 실행합니다.</h2><p>기본 예시 파일이 미리 들어 있습니다. AI가 만든 코드가 있다면 해당 파일 전체를 교체하고 <b>미리보기 갱신</b>을 누르세요.</p></div>
+      <div class="file-layout"><div class="file-editor"><div class="file-tabs" role="tablist"><button class="active" type="button" data-file="index.html">index.html</button><button type="button" data-file="manifest.webmanifest">manifest.webmanifest</button><button type="button" data-file="service-worker.js">service-worker.js</button><button type="button" data-file="icon.svg">icon.svg</button></div><label class="editor-label" for="codeEditor">선택한 파일의 전체 코드</label><textarea id="codeEditor" class="code-editor" spellcheck="false"></textarea><div class="editor-actions"><span id="saveNotice" aria-live="polite">자동 저장됨</span><button type="button" id="resetFile">기본 예시로 되돌리기</button><button type="button" id="refreshPreview" class="dark">미리보기 갱신</button></div></div><div class="preview-panel"><div class="preview-head"><strong>실행 미리보기</strong><span>LOCAL SANDBOX</span></div><iframe id="previewFrame" title="내 PWA 미리보기" sandbox="allow-scripts"></iframe><p>여기서는 HTML의 화면과 동작을 확인합니다. PWA 설치 기능은 STEP 05에서 HTTPS 배포 주소로 검사합니다.</p></div></div>
+      <div class="next-row"><button class="previous" type="button" data-prev>← AI 요청으로</button><p><b>다음 행동:</b> 입력·추가·완료 표시가 실제로 바뀌는지 확인합니다.</p><button class="next" type="button" data-next>STEP 04로 →</button></div>
+    </section>
+
+    <section class="step" data-step="4">
+      <div class="step-heading"><p class="eyebrow">STEP 04</p><h2>한 가지씩, 정확하게 보완합니다.</h2><p>첫 실행이 됐다면 한 번에 크게 바꾸지 않습니다. 같은 AI 대화를 이어서 아래 요청을 보내고, 받은 <b>index.html 전체</b>만 바꿔 넣어 다시 실행합니다.</p></div>
+      <div class="refine-grid" id="refineChoices"><button type="button" class="refine-card selected" data-refine="deadline"><b>01 · 정보 하나 더</b><strong>마감일 입력과 임박 표시</strong><span>마감일을 기록하고 3일 이내면 눈에 띄게 보여 줍니다.</span></button><button type="button" class="refine-card" data-refine="filter"><b>02 · 보기 쉽게</b><strong>완료 항목 숨기기</strong><span>완료한 항목을 접고, 남은 일만 모아 봅니다.</span></button><button type="button" class="refine-card" data-refine="empty"><b>03 · 빈 화면 보완</b><strong>첫 사용 안내 카드</strong><span>기록이 없을 때 무엇을 입력할지 예시를 보여 줍니다.</span></button></div>
+      <label class="refine-note" for="refineNote"><b>내가 덧붙일 한 문장</b><textarea id="refineNote" placeholder="예: 마감일이 오늘이면 빨간색으로 보여 줘."></textarea></label>
+      <label class="code-toggle"><input id="includeCurrentCode" type="checkbox"><span><b>새 AI 대화에서 할 때만 현재 index.html 코드도 함께 넣기</b><small>기본값은 꺼짐입니다. 같은 대화를 이어 가면 AI가 이미 만든 코드를 알고 있으므로 코드 전체를 다시 보낼 필요가 없습니다.</small></span></label>
+      <div class="refine-prompt"><div class="box-head"><strong>AI에 보낼 ‘한 가지 보완’ 요청</strong><button type="button" class="copy" data-copy="refinePrompt">복사</button></div><pre id="refinePrompt"></pre></div>
+      <aside class="refine-tip"><strong>보완할 때의 약속</strong><span>“디자인도, 알림도, 로그인도 모두 추가해줘”라고 묶지 않습니다. 기능 하나를 요청하고, 실행·확인한 뒤 다음 기능으로 넘어갑니다.</span></aside>
+      <div class="next-row"><button class="previous" type="button" data-prev>← 실행 화면으로</button><p><b>다음 행동:</b> 바뀐 index.html 전체를 넣고 미리보기를 다시 확인합니다.</p><button class="next" type="button" data-next>STEP 05로 →</button></div>
+    </section>
+
+    <section class="step" data-step="5">
+      <div class="step-heading"><p class="eyebrow">STEP 05</p><h2>테스트하고, PWA 파일로 가져갑니다.</h2><p>단순히 화면이 보이는 것과 실제로 쓸 수 있는 것은 다릅니다. 아래 세 가지를 해 보고, 파일을 내려받아 GitHub Pages에 배포합니다.</p></div>
+      <div class="test-grid"><label><input type="checkbox" data-test="input"><span><b>01 · 입력</b> 새 항목을 넣었을 때 목록에 나타난다.</span></label><label><input type="checkbox" data-test="change"><span><b>02 · 변화</b> 완료 표시나 상태가 실제로 바뀐다.</span></label><label><input type="checkbox" data-test="reload"><span><b>03 · 저장</b> 새로고침 뒤에도 내가 만든 기록이 남는다.</span></label></div>
+      <div class="download-card"><div><p class="eyebrow">PWA PACKAGE</p><h3>파일 4개를 내려받기</h3><p>같은 폴더에 저장한 뒤 GitHub 저장소에 올립니다. `icon.svg`는 나중에 PNG 아이콘으로 바꿔도 됩니다.</p></div><div class="download-actions"><button type="button" id="downloadIndex">index.html</button><button type="button" id="downloadManifest">manifest.webmanifest</button><button type="button" id="downloadWorker">service-worker.js</button><button type="button" id="downloadIcon">icon.svg</button><button type="button" id="downloadReadme" class="primary-download">배포 안내문</button></div></div>
+      <div class="deploy-guide"><div><b>1</b><span>GitHub에서 새 저장소를 만들고 파일 4개를 올립니다.</span></div><div><b>2</b><span>Settings → Pages에서 배포를 켭니다.</span></div><div><b>3</b><span>휴대폰 Chrome에서 배포 주소를 열고 ‘홈 화면에 추가’를 확인합니다.</span></div></div>
+      <aside class="finish-note"><strong>여기까지 왔다면 Level 1의 최소 MVP를 완성했습니다.</strong><span>이제 한 가지 기능만 더 추가하거나, 같은 흐름으로 나만의 생활 앱을 만드세요. 기능을 한꺼번에 늘리지는 않습니다.</span></aside>
+      <div class="next-row"><button class="previous" type="button" data-prev>← 한 가지 보완으로</button><p>참고 자료는 언제든 별도 탭에서 다시 열 수 있습니다.</p><a class="next link-button" href="../../worksheets/level-1.html" target="_blank" rel="noopener">PROJECT PAPER ↗</a></div>
+    </section>
+  </main>
+  <script src="./practice.js?v=3"></script>
+</body>
+</html>

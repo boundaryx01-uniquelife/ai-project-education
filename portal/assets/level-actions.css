@@ -1,0 +1,40 @@
+/* One action system for every Level card on the portal home. */
+.level-result > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 8px;
+  padding: 0 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, #fff);
+  border-radius: 10px;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: .83rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.level-result > .practice-entry {
+  margin-top: auto;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff !important;
+}
+
+.level-result > .practice-entry + a {
+  margin-top: 8px;
+  background: transparent;
+}
+
+.level-result > a:hover,
+.level-result > a:focus-visible {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .level-result > .practice-entry { margin-top: 12px; }
+}

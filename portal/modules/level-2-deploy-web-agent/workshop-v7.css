@@ -1,0 +1,46 @@
+@import url("./workshop-v6.css");
+
+/* 코드 입력·표시 영역은 일반 문서 입력과 확실히 구분한다. */
+.prompt, .codebox {
+  border:1px solid #334155;
+  border-radius:10px;
+  background:#0f172a;
+  color:#e5eef8;
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:13px;
+  line-height:1.55;
+  letter-spacing:0;
+}
+.prompt {
+  max-height:320px;
+  padding:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.codebox {
+  min-height:240px;
+  padding:14px;
+  caret-color:#7dd3fc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.codebox::placeholder { color:#94a3b8; opacity:1; }
+.codebox::selection, .prompt::selection { background:#1d4ed8; color:#fff; }
+
+.self-check { display:grid; gap:8px; margin:4px 0; padding:12px; border:1px solid #9bb8d4; border-radius:10px; background:#fff; }
+.self-check legend { font-weight:900; }
+.check { display:flex; align-items:flex-start; gap:7px; font-size:.88rem; font-weight:700; }
+.check input { margin-top:4px; }
+.validation-message { padding:12px; border-radius:10px; background:#fff8df; color:#6d510d; }
+.export-panel { margin-top:14px; padding:15px; border:2px solid #8ec5a8; border-radius:13px; background:#f1fbf6; }
+.export-panel h3, .export-panel p { margin-top:0; }
+.export-actions { display:flex; flex-wrap:wrap; gap:9px; }
+.validation-loop, .loop-note { padding:12px; border:1px solid #9bb8d4; border-radius:10px; background:#fff; }
+.validation-loop { display:grid; gap:9px; }
+.loop-note { margin:0; color:#174e81; }
+.validation-grid { display:grid; grid-template-columns:1fr; gap:12px; }
+.validation-grid > .full, .validation-loop { grid-column:1 / -1; }
+.validation-loop { box-shadow:0 3px 10px rgba(23,78,129,.08); }
+.validation-loop > p { margin:0; color:#425466; }
+.retest-grid { display:grid; grid-template-columns:1fr; gap:10px; }
+.iteration-history { padding:12px; border:1px solid #c7b0dc; border-radius:10px; background:#faf7fd; }
+.iteration-history summary { cursor:pointer; font-weight:900; color:#4d2a73; }
+.iteration-history p { margin:10px 0 0; padding-top:10px; border-top:1px solid #e4d8ef; font-size:.88rem; }

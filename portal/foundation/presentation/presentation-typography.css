@@ -1,0 +1,4 @@
+/* Korean copy must wrap at spaces and intentional phrases, never in the middle of a word. */
+:root{word-break:keep-all;overflow-wrap:normal;line-break:strict}
+.slide h1,.slide h2,.lead,.prompt p,.promise-list span,.big-example span,.flow span,.steps span,.loop span,.dialogue p,.dialogue b,.versus strong,.versus p,.word-cards b,.word-cards p,.exit-questions li{text-wrap:pretty}
+.slide h1,.slide h2{word-break:keep-all;text-wrap:balance}
