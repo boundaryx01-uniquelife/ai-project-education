@@ -12,7 +12,7 @@ $Portal = Get-Content -LiteralPath (Join-Path $Root "portal\index.html") -Raw
 $LessonText = Get-Content -LiteralPath $Lesson -Raw
 $Failed = @()
 
-@("index.html", "foundation.css", "foundation.js") | ForEach-Object {
+@("index.html", "foundation.css", "foundation-typography.css", "foundation.js") | ForEach-Object {
     if (-not (Test-Path -LiteralPath (Join-Path $Foundation $_) -PathType Leaf)) { $Failed += "Missing foundation portal file: $_" }
 }
 if (-not (Test-Path -LiteralPath $Lesson -PathType Leaf)) { $Failed += "Missing foundation lesson source" }
@@ -29,6 +29,7 @@ $Checks = @(
     @{ Name = "Interactive case sorting is present"; Value = $Js.Contains("CASES") -and $Js.Contains("quiz-feedback") -and $Js.Contains("Agentic AI") },
     @{ Name = "Exit ticket can be copied"; Value = $Html.Contains("data-ticket") -and $Js.Contains("copyTicket") },
     @{ Name = "Foundation visual is responsive"; Value = $Css.Contains("@media(max-width:760px)") -and $Css.Contains(".hero") },
+    @{ Name = "Foundation uses phrase-safe Korean wrapping"; Value = $Html.Contains("AI가 맡을 일부터</em><br>정합니다") -and (Get-Content -LiteralPath (Join-Path $Foundation "foundation-typography.css") -Raw).Contains("word-break:keep-all") },
     @{ Name = "Advanced out-of-scope terms are excluded"; Value = -not ($LessonText -match "Vector DB|\bRAG\b|\bMCP\b") }
 )
 

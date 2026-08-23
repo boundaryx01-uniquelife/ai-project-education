@@ -4,12 +4,12 @@ $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 $Presentation = Join-Path $Root "portal\foundation\presentation"
 $Html = Get-Content -LiteralPath (Join-Path $Presentation "index.html") -Raw
-$Css = (Get-Content -LiteralPath (Join-Path $Presentation "presentation.css") -Raw) + (Get-Content -LiteralPath (Join-Path $Presentation "presentation-overrides.css") -Raw)
+$Css = (Get-Content -LiteralPath (Join-Path $Presentation "presentation.css") -Raw) + (Get-Content -LiteralPath (Join-Path $Presentation "presentation-overrides.css") -Raw) + (Get-Content -LiteralPath (Join-Path $Presentation "presentation-typography.css") -Raw)
 $Js = Get-Content -LiteralPath (Join-Path $Presentation "presentation.js") -Raw
 $Foundation = Get-Content -LiteralPath (Join-Path $Root "portal\foundation\index.html") -Raw
 $Failed = @()
 
-@("index.html", "presentation.css", "presentation-overrides.css", "presentation.js") | ForEach-Object {
+@("index.html", "presentation.css", "presentation-overrides.css", "presentation-typography.css", "presentation.js") | ForEach-Object {
     if (-not (Test-Path -LiteralPath (Join-Path $Presentation $_) -PathType Leaf)) { $Failed += "Missing presentation file: $_" }
 }
 
@@ -24,7 +24,8 @@ $Checks = @(
     @{ Name = "Korean card meanings are visually prioritized"; Value = $Css.Contains(".word-cards p") -and $Css.Contains("font-weight:800") },
     @{ Name = "Presentation supports previous and next controls"; Value = $Js.Contains('"#previous"') -and $Js.Contains('"#next"') -and $Js.Contains("render") },
     @{ Name = "Presentation supports keyboard and fullscreen"; Value = $Js.Contains("ArrowRight") -and $Js.Contains("requestFullscreen") },
-    @{ Name = "Presentation is responsive"; Value = $Css.Contains("@media(max-width:700px)") }
+    @{ Name = "Presentation is responsive"; Value = $Css.Contains("@media(max-width:700px)") },
+    @{ Name = "Presentation uses phrase-safe Korean wrapping"; Value = $Css.Contains("word-break:keep-all") -and $Css.Contains("text-wrap:balance") }
 )
 
 foreach ($Check in $Checks) {
