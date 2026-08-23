@@ -19,11 +19,14 @@ foreach ($Level in 2..4) {
 }
 
 $Level2Js = Get-Content -LiteralPath (Join-Path $Root "portal\workshops\level-2\practice.js") -Raw
+$Level3Html = Get-Content -LiteralPath (Join-Path $Root "portal\workshops\level-3\index.html") -Raw
 $Level3Js = Get-Content -LiteralPath (Join-Path $Root "portal\workshops\level-3\practice.js") -Raw
 $Level4Js = Get-Content -LiteralPath (Join-Path $Root "portal\workshops\level-4\practice.js") -Raw
 $Checks = @(
     @{ Name = "Level 2 separates pasted AI response from learner plan"; Value = $Level2Js.Contains('aiResponse') -and $Level2Js.Contains('makePlan') },
-    @{ Name = "Level 3 uses teacher proxy without service key"; Value = $Level3Js.Contains('proxyUrl') -and $Level3Js.Contains('fetch(') -and -not $Level3Js.Contains('apiKey') },
+    @{ Name = "Level 3 supports learner direct API requests"; Value = $Level3Html.Contains('id="apiKey"') -and $Level3Js.Contains('buildRequestUrl') -and $Level3Js.Contains('fetch(') -and -not $Level3Js.Contains('proxyUrl') },
+    @{ Name = "Level 3 never persists the learner API key"; Value = -not $Level3Js.Contains('state.apiKey') -and -not $Level3Js.Contains('apiKey:') -and $Level3Html.Contains('저장되지 않음') },
+    @{ Name = "Level 3 links automatic-approval API candidates"; Value = $Level3Html.Contains('15034041') -and $Level3Html.Contains('15145474') -and $Level3Html.Contains('15121074') },
     @{ Name = "Level 4 uses server endpoint without secret in browser"; Value = $Level4Js.Contains('serviceUrl') -and $Level4Js.Contains('fetch(') -and -not $Level4Js.Contains('apiKey') },
     @{ Name = "Shared practice surface prevents Korean word breaks"; Value = $SharedCss.Contains('word-break:keep-all') }
 )
