@@ -4,7 +4,7 @@ const EXAMPLES = {
   career: { id: "career", number: "03", name: "나의 진로 선택 기준 카드", short: "MY COMPASS", purpose: "관심, 강점, 중요하게 여기는 가치를 카드로 적고 탐색 주제를 정리합니다.", label: "나에게 중요한 관심·강점·가치", chips: ["관심", "강점", "가치"] }
 };
 
-const state = { example: "study", file: "index.html", files: {}, originals: {}, tests: {}, refinement: "deadline", refinementNote: "" };
+const state = { example: "study", file: "index.html", files: {}, originals: {}, tests: {}, refinement: "deadline", refinementNote: "", includeCurrentCode: false };
 const STORAGE_KEY = "ai-project-education-level1-practice-v1";
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -138,20 +138,21 @@ function refinementPrompt() {
 이번 요청의 변경 사항: ${selected}
 ${note ? `내가 덧붙이는 조건: ${note}` : ""}
 
-아래 현재 index.html 전체 코드에서 이 기능만 추가하거나 수정해줘.
+이전 대화에서 만든 index.html에서 이 기능만 추가하거나 수정해줘.
 기존의 항목 추가, 완료 표시, 삭제, localStorage 저장 기능은 깨지지 않게 유지해줘.
 외부 라이브러리, CDN, API, 서버, 로그인, DB는 추가하지 마.
-설명 대신 수정된 index.html 전체 코드를 Markdown 코드 블록 하나로 출력해줘.
+설명 대신 수정된 index.html 전체 코드를 Markdown 코드 블록 하나로 출력해줘.${state.includeCurrentCode ? `
 
-현재 index.html:
+새 대화에서 작업하므로 현재 index.html 전체 코드는 아래와 같아:
 \`\`\`html
 ${state.files["index.html"] || ""}
-\`\`\``;
+\`\`\`` : ""}`;
 }
 
 function renderRefinement() {
   $$('[data-refine]').forEach((button) => button.classList.toggle("selected", button.dataset.refine === state.refinement));
   $("#refineNote").value = state.refinementNote || "";
+  $("#includeCurrentCode").checked = Boolean(state.includeCurrentCode);
   $("#refinePrompt").textContent = refinementPrompt();
 }
 
@@ -206,6 +207,7 @@ function bindEvents() {
   $("[data-copy='refinePrompt']").addEventListener("click", copyRefinement);
   $$('[data-refine]').forEach((button) => button.addEventListener("click", () => { state.refinement = button.dataset.refine; renderRefinement(); saveState(); }));
   $("#refineNote").addEventListener("input", (event) => { state.refinementNote = event.target.value; renderRefinement(); saveState(); });
+  $("#includeCurrentCode").addEventListener("change", (event) => { state.includeCurrentCode = event.target.checked; renderRefinement(); saveState(); });
   $$("[data-file]").forEach((button) => button.addEventListener("click", () => { state.file = button.dataset.file; renderEditor(); saveState(); }));
   $("#codeEditor").addEventListener("input", (event) => { state.files[state.file] = event.target.value; $("#saveNotice").textContent = "수정 저장됨"; saveState(); });
   $("#refreshPreview").addEventListener("click", () => { refreshPreview(); $("#saveNotice").textContent = "미리보기를 갱신했습니다"; });

@@ -24,7 +24,7 @@ $Checks = @(
     @{ Name = "Copyable AI prompt"; Value = $Html.Contains('data-copy="promptText"') -and $Js.Contains('function copyPrompt') -and $Js.Contains('manifest.webmanifest') },
     @{ Name = "Editable complete PWA files"; Value = $Html.Contains('data-file="index.html"') -and $Html.Contains('data-file="service-worker.js"') -and $Js.Contains('function starterFiles') -and $Js.Contains('function workerFile') },
     @{ Name = "Sandbox preview"; Value = $Html.Contains('sandbox="allow-scripts"') -and $Js.Contains('srcdoc') },
-    @{ Name = "Pinpoint refinement step supplies a complete-file prompt"; Value = $Html.Contains('id="refinePrompt"') -and $Html.Contains('data-refine="deadline"') -and $Js.Contains('function refinementPrompt') -and $Js.Contains('현재 index.html 전체 코드') -and $Js.Contains('Math.min(5') },
+    @{ Name = "Pinpoint refinement defaults to the same AI conversation"; Value = $Html.Contains('id="refinePrompt"') -and $Html.Contains('data-refine="deadline"') -and $Html.Contains('id="includeCurrentCode"') -and $Js.Contains('function refinementPrompt') -and $Js.Contains('includeCurrentCode: false') -and $Js.Contains('새 대화에서 작업하므로 현재 index.html 전체 코드') -and $Js.Contains('Math.min(5') },
     @{ Name = "Functional generated app"; Value = $Js.Contains('localStorage') -and $Js.Contains('목록에 추가') -and $Js.Contains('serviceWorker') },
     @{ Name = "Package download actions"; Value = $Html.Contains('id="downloadIndex"') -and $Html.Contains('id="downloadReadme"') -and $Js.Contains('function download') },
     @{ Name = "Manual runtime test checklist"; Value = $Html.Contains('data-test="input"') -and $Html.Contains('data-test="change"') -and $Html.Contains('data-test="reload"') },

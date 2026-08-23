@@ -28,6 +28,12 @@
 .refine-note { display: grid; gap: 7px; margin-top: 15px; color: #4d5263; font-size: .84rem; }
 .refine-note textarea { min-height: 82px; border: 1px solid #cfd0d4; border-radius: 12px; background: #fff; padding: 12px; color: #17192d; resize: vertical; }
 
+.code-toggle { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 15px 16px; border: 1px solid #deddd8; border-radius: 13px; background: #fff; color: #444a5c; cursor: pointer; }
+.code-toggle input { width: 18px; height: 18px; margin-top: 2px; accent-color: #ff705a; }
+.code-toggle b,.code-toggle small { display: block; }
+.code-toggle b { font-size: .86rem; }
+.code-toggle small { margin-top: 3px; color: #6c7181; font-size: .78rem; line-height: 1.5; }
+
 .refine-prompt { overflow: hidden; margin-top: 16px; border-radius: 16px; background: #161b30; }
 .refine-prompt pre { min-height: 285px; max-height: 480px; margin: 0; overflow: auto; padding: 22px; color: #e7ecfb; font-family: ui-monospace, Consolas, monospace; font-size: .78rem; line-height: 1.65; white-space: pre-wrap; }
 .refine-tip { display: grid; gap: 4px; margin-top: 16px; padding: 18px 20px; border-left: 4px solid #9bda34; border-radius: 0 14px 14px 0; background: #f1f8d8; }
