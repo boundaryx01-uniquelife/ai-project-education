@@ -4,6 +4,7 @@ $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 $Foundation = Join-Path $Root "portal\foundation"
 $Lesson = Join-Path $Root "curriculum\shared\AI_PROJECT_FOUNDATION_LESSON_01_20260823.md"
+
 $Html = Get-Content -LiteralPath (Join-Path $Foundation "index.html") -Raw
 $Css = Get-Content -LiteralPath (Join-Path $Foundation "foundation.css") -Raw
 $Js = Get-Content -LiteralPath (Join-Path $Foundation "foundation.js") -Raw
@@ -18,6 +19,8 @@ if (-not (Test-Path -LiteralPath $Lesson -PathType Leaf)) { $Failed += "Missing 
 
 $Checks = @(
     @{ Name = "Portal begins with foundation route"; Value = $Portal.Contains("./foundation/") },
+    @{ Name = "Deployed lesson source link exists"; Value = $Html -match 'github\.com/boundaryx01-uniquelife/ai-project-education/blob/feature/stage-03-level-1-portal/curriculum/shared/AI_PROJECT_FOUNDATION_LESSON_01_20260823\.md' },
+    @{ Name = "Portal source links avoid non-deployed files"; Value = -not ($Html -match '\.\./\.\./curriculum/') },
     @{ Name = "Foundation includes 20 and 40 minute lesson paths"; Value = $Html.Contains("20~40") -and $LessonText.Contains("20") -and $LessonText.Contains("40") },
     @{ Name = "AI capability progression is present"; Value = $Html.Contains("AI Workflow") -and $Html.Contains("AI Agent") -and $Html.Contains("Agentic AI") },
     @{ Name = "Chatbot and Agent comparison is present"; Value = $Html.Contains("CHATBOT") -and $Html.Contains("AGENT") },
